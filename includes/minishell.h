@@ -3,10 +3,6 @@
 
 # include "libft.h"
 # include <signal.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <string.h>
 
 typedef enum
 {

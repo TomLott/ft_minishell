@@ -6,13 +6,13 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:20:13 by itollett          #+#    #+#             */
-/*   Updated: 2020/12/02 21:45:57 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/02 10:56:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <strings.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>

@@ -39,18 +39,16 @@ char        *ft_com_parser(char *line, t_all *all)
   //  printf("%s - line\n", line);
     while(line[all->cmd_len] && line[all->cmd_len] != ' ')
     {
-        if (flag == 1 && (line[all->cmd_len] == '\"' || line[all->cmd_len] == '\'') && ++all->cmd_len)
-            flag = 0;
         if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
             temp[j++] = line[all->cmd_len++];
         else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
-            while (line[all->cmd_len] && line[all->cmd_len] != '\"' && (flag = 1))
+            while (line[all->cmd_len] && line[all->cmd_len] != '\")
             {
                 //printf("%c - char in quotes\n", line[all->cmd_len]);
                 temp[j++] = line[all->cmd_len++];
             }
         else if (line[all->cmd_len] == '\'' && ++all->cmd_len)
-            while (line[all->cmd_len] && line[all->cmd_len] != '\'' && (flag = 1))
+            while (line[all->cmd_len] && line[all->cmd_len] != '\'')
                 temp[j++] = line[all->cmd_len++];
         else if (ft_check_redir(line, all) && ++j)
         {

@@ -10,9 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-void ft_print_capt(int fd)
+void        refresh_all(t_all **all)
+{
+    (*all)->cmd = DEF;
+    (*all)->arg = NULL;
+}
+
+void        ft_print_capt(int fd)
 {
     char *caption;
 

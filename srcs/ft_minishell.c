@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 //int main(int ar, char **argv)
 //{
@@ -42,7 +42,6 @@ int get_flag(char *line, int *i, char c)
     int flag;
 
     flag = 1;
-    printf("get_flag\n");
     (*i)++;
     while (line[(*i)] != c && line[*i + 1])
     {
@@ -63,7 +62,6 @@ int ft_parse_line(char *line)
 
     while (line[i])
     {
-        printf("%s\n", line);
         if (line[i] == '\'' && (flag = 1))
             flag = get_flag(line, &i, '\'');
         else if (line[i] && line[i] == '\"' && (flag = 1))
@@ -77,38 +75,26 @@ int ft_parse_line(char *line)
     return (1);
 }
 
-t_cmd *get_command(char *s, int *i)
+char **parse_argument(char *arg)
 {
-    if (!ft_strncmp(s, "pwd ", 4))
-        return (ft_strdup("pwd"));
-    else if (!ft_strncmp(s, "cd", 2))
-        return (ft_strdup("cd"));
-    else if (!ft_strncmp(s, "echo ", 5))
-        return (ft_strdup("echo"));
-    else if (!ft_strncmp(s, "export ", 7))
-        return (ft_strdup("export "));
-    else if (!ft_strncmp(s, "unset", 5))
-        return (ft_strdup("unset"));
-    else if (!ft_strncmp(s, "env ", 4))
-        return (ft_strdup("env"));
-    else if (!ft_strncmp(s, "exit", 4))
-        return (ft_strdup("exit"));
-    else
-        return (NULL);
+    char **temp;
+
+	temp = 0x0;
+	return (temp);
+    /**тут нужно заменить все пробелы между ковычками*/
 }
 
-
-char *hook_command(char *com, t_all *all)
+void hook_command(char *com, t_all *all)
 {
-    char *argument;
     int i;
+    char **temp;
 
     i = 0;
-    if (!(all->cmd = get_command(com, &i)))
-        return (NULL);
-    argument = ft_strdup(com + ft_strlen(all->cmd));
-    printf("%s - command\n,%s - argument\n", all->cmd, argument);
-    return(argument);
+    get_command(com, &i, all);
+    if (i + 1 < ft_strlen(com))
+        all->arg = ft_strdup(com + i + 1);
+    temp = parse_argument(all->arg);
+    printf("%u - command\n%s - argument\n", all->cmd, all->arg);
 }
 
 int ft_parse_commands(t_all *all, char *line)
@@ -116,6 +102,7 @@ int ft_parse_commands(t_all *all, char *line)
     char **commands;
     int i;
     int flag;
+    char *temp;
 
     i = 0;
     if (ft_parse_line(all->line) == -1)
@@ -123,9 +110,11 @@ int ft_parse_commands(t_all *all, char *line)
     commands = ft_split(all->line, -1);
     while(commands[i])
     {
+        refresh_all(&all);
+        temp = commands[i];
         commands[i] = ft_strtrim(commands[i], " ");
-        all->arg = hook_command(commands[i], all);
-        free(commands[i]);
+        hook_command(commands[i], all);
+        free(temp);
         i++;
     }
     free(commands);
@@ -136,8 +125,8 @@ int ft_parse_commands(t_all *all, char *line)
 void get_data(t_all *all)
 {
 
-    //get_next_line(0, &all->line); 
-    all->line = ft_strdup("echo \"hello;world\""); /*use for test commands. Remove after*/
+    get_next_line(0, &all->line); 
+    //all->line = ft_strdup("echo \"hello;world\""); /*use for test commands. Remove after*/
     ft_parse_commands(all, all->line);
     //free(line);
 }

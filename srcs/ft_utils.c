@@ -16,6 +16,9 @@ void        refresh_all(t_all **all)
 {
     (*all)->cmd = DEF;
     (*all)->arg = NULL;
+    (*all)->redir = 0;
+    (*all)->cmd_len = 0;
+    (*all)->pipe = 0;
 }
 
 void        ft_print_capt(int fd)

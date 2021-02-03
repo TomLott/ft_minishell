@@ -21,17 +21,20 @@ typedef enum
 
 typedef struct s_all
 {
-    char **env;
-    char *line;
-    t_cmd cmd;
-    char *arg;
+    char    **env;
+    char    *line;
+    t_cmd   cmd;
+    char    *arg;
+    int     redir;
+    int     cmd_len;
+    int     pipe;
 }               t_all;
 
 int				get_next_line(int fd, char **line);
 void            ft_print_capt(int fd);
 void            refresh_all(t_all **all);
 void            get_command(char *s, int *i, t_all *all);
-char            *ft_com_parser(char *line);
+char            *ft_com_parser(char *line, t_all *all);
 void			parse_argument(char *com, t_all *all);
 int             t_parse_commands(t_all *all, char *line);
 int             ft_parse_line(char *line);

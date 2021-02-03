@@ -65,5 +65,5 @@ char			*ft_strtrim(const char *s1, const char *set);
 char			*ft_substr(const char *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-
+int				ft_strcmp(const char *s1, const char *s2);
 #endif

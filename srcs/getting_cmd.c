@@ -2,6 +2,7 @@
 
 int         ft_check_redir(char *line, t_all *all)
 {
+  //  printf("%c - char\n", line[all->cmd_len]);
     if (line[all->cmd_len] == '>')
     {
         if (line[all->cmd_len + 1] == '>')
@@ -17,7 +18,9 @@ int         ft_check_redir(char *line, t_all *all)
     }
     else if (line[all->cmd_len] == '|')
     {
-        all->line[all->cmd_len]
+        all->pipe = 1;
+        all->cmd_len++;
+        return (1);
     }
     return (all->redir);
 }
@@ -27,19 +30,27 @@ char        *ft_com_parser(char *line, t_all *all)
 {
     char *temp;
     int j;
+    int flag;
 
     j = 0;
+    flag = 0;
     temp = malloc(1000);
-    printf("%d\n", all->cmd_len);
+  //  printf("%d\n", all->cmd_len);
+  //  printf("%s - line\n", line);
     while(line[all->cmd_len] && line[all->cmd_len] != ' ')
     {
+        if (flag == 1 && (line[all->cmd_len] == '\"' || line[all->cmd_len] == '\'') && ++all->cmd_len)
+            flag = 0;
         if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
             temp[j++] = line[all->cmd_len++];
         else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
-            while (line[all->cmd_len] && line[all->cmd_len] != '\"')
+            while (line[all->cmd_len] && line[all->cmd_len] != '\"' && (flag = 1))
+            {
+                //printf("%c - char in quotes\n", line[all->cmd_len]);
                 temp[j++] = line[all->cmd_len++];
+            }
         else if (line[all->cmd_len] == '\'' && ++all->cmd_len)
-            while (line[all->cmd_len] && line[all->cmd_len] != '\'')
+            while (line[all->cmd_len] && line[all->cmd_len] != '\'' && (flag = 1))
                 temp[j++] = line[all->cmd_len++];
         else if (ft_check_redir(line, all) && ++j)
         {
@@ -48,13 +59,10 @@ char        *ft_com_parser(char *line, t_all *all)
         }
         else
             temp[j++] = line[all->cmd_len++];
-        // if (line[all->cmd_len] == '\'' || line[all->cmd_len] == '\"')
-        //     all->cmd_len++;
+        
+       // printf("end of cycle\n");
     }
-    printf("%s heheh\n", temp);
     temp[j] = '\0';
-    printf("%s hahah\n", temp);
-    printf("%d redir\n", all->redir);
     return (temp);
 }
 
@@ -64,7 +72,7 @@ void        get_command(char *s, int *i, t_all *all)
     char *temp;
 
     temp = ft_com_parser(s, all);
-    printf("finished com - |%s|\n", temp);
+   // printf("finished com - %s\npipi = %d\n", temp, all->pipe);
     if (!ft_strcmp(temp, "pwd") && (*i = 3))
         all->cmd = PWD;
     else if (!ft_strcmp(temp, "cd") && (*i = 2))

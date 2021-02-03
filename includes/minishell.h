@@ -14,7 +14,8 @@ typedef enum
     EXPORT,
     UNSET,
     ENV,
-    EXIT
+    EXIT,
+	SELF
 }               t_cmd;
 
 
@@ -31,7 +32,7 @@ void            ft_print_capt(int fd);
 void            refresh_all(t_all **all);
 void            get_command(char *s, int *i, t_all *all);
 char            *ft_com_parser(char *line);
-char            **parse_arguments(char *arg, t_all *all);
+void			parse_argument(char *com, t_all *all);
 int             t_parse_commands(t_all *all, char *line);
 int             ft_parse_line(char *line);
 

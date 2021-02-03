@@ -50,6 +50,8 @@ void        get_command(char *s, int *i, t_all *all)
         all->cmd = ENV;
     else if (!ft_strncmp(temp, "exit", 4) && (*i = 4))
         all->cmd = EXIT;
+    else if (!ft_strncmp(temp, "minishell", 9) && (*i = 9))
+        all->cmd = SELF;
     else
         all->cmd = DEF;
 }

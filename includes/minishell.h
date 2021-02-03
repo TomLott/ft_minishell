@@ -3,6 +3,7 @@
 
 # include "libft.h"
 # include <signal.h>
+# include <stdio.h>
 
 typedef enum
 {
@@ -33,4 +34,5 @@ char            *ft_com_parser(char *line);
 char            **parse_arguments(char *arg, t_all *all);
 int             t_parse_commands(t_all *all, char *line);
 int             ft_parse_line(char *line);
+
 #endif

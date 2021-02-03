@@ -42,7 +42,7 @@ char        *ft_com_parser(char *line, t_all *all)
         if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
             temp[j++] = line[all->cmd_len++];
         else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
-            while (line[all->cmd_len] && line[all->cmd_len] != '\")
+            while (line[all->cmd_len] && line[all->cmd_len] != '\"')
             {
                 //printf("%c - char in quotes\n", line[all->cmd_len]);
                 temp[j++] = line[all->cmd_len++];

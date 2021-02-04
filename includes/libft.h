@@ -6,7 +6,7 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:12:53 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/03 12:44:48 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/04 19:36:15 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ size_t			ft_strlcat(char *dest, const char *src, size_t n);
 size_t			ft_strlcpy(char *dest, char *src, size_t n);
 size_t			ft_strlen(const char *s);
 char			*ft_strmapi(const char *s, char (*f)(unsigned int, char));
+int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *big, const char *ltl, size_t len);
 char			*ft_strrchr(const char *s, int c);

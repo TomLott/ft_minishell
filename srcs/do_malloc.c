@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:04:17 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 15:08:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/04 20:01:34 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	ft_addnewptr(t_all *all, void *p)
 	toadd->next = 0x0;
 	toadd->content = p;
 	if (!(all->grbg))
+	{
 		all->grbg = toadd;
+	}
 	else
 	{
 		toadd->next = all->grbg;
@@ -31,7 +33,12 @@ void	ft_addnewptr(t_all *all, void *p)
 
 void	do_malloc(t_all *all, void **p, t_cmd type)
 {
-	if (type == ENV)
+	if (type == ALL)
+	{
+		*p = malloc(sizeof(t_all));
+		all = *p;
+	}
+	else if (type == ENV)
 		*p = malloc(sizeof(t_envlst));
 	if (!(*p))
 		do_error(all);

@@ -136,7 +136,7 @@ int main(int argc, char **argv, char **env)
 {
 	t_all *all;
 
-	all = (t_all *)malloc(sizeof(t_all));
+	do_malloc(all, (void **)(&all), ALL);
 	ft_init_env(env, all);
 	while(1)
 	{

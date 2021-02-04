@@ -10,7 +10,7 @@
 //	printf("fork() return %d\n", pid);
 //
 //}
-
+/*
 void ft_init_env(char **env, t_all *all)
 {
 	int i;
@@ -27,7 +27,7 @@ void ft_init_env(char **env, t_all *all)
 	}
 	all->env[i] = NULL;
 }
-
+*/
 void myint(int sig) {
 	if (sig == SIGINT)
 	{

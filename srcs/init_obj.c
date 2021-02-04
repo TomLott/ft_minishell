@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   init_obj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 20:01:24 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 15:04:04 by jmogo            ###   ########.fr       */
+/*   Created: 2021/02/04 12:45:16 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/04 13:30:15 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+void	init_env(t_envlst **p)
 {
-	unsigned int	i;
+	(*p)->key = 0x0;
+	(*p)->value = 0x0;
+	(*p)->next = 0x0;
+}
 
-	i = 0;
-	while (*(s + i))
-	{
-		if (*(s + i) == c)
-			return ((char *)(s + i));
-		i++;
-	}
-	if (*(s + i) == c)
-		return ((char *)(s + i));
-	return (0x0);
+void	init_obj(void **p, t_cmd type)
+{
+	if (type == ENV)
+		init_env((t_envlst **)p);
 }

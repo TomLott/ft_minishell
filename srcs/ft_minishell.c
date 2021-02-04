@@ -90,9 +90,9 @@ void hook_command(char *com, t_all *all)
 
 	i = 0;
 	get_command(com, &i, all);
-	if (i + 1 < ft_strlen(com))
+	if (all->cmd_len + 1 < ft_strlen(com))
 	{
-		all->arg = ft_strdup(com + i + 1);
+		all->arg = ft_strdup(com + all->cmd_len);
 		parse_argument(com, all);
 	}
 	printf("%u - command\n%s - argument\n", all->cmd, all->arg);

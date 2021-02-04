@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 15:19:44 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/04 19:13:39 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ typedef struct		s_all
 	char			*line;
 	t_cmd			cmd;
 	char			*arg;
+    int				redir;
+    int				cmd_len;
+    int				pipe;
 	t_list			*grbg;
 }					t_all;
 

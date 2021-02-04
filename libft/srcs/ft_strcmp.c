@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/02 10:10:31 by jmogo            ###   ########.fr       */
+/*   Created: 2020/12/02 21:45:08 by itollett          #+#    #+#             */
+/*   Updated: 2020/12/02 21:46:24 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void        refresh_all(t_all **all)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    (*all)->cmd = DEF;
-    (*all)->arg = NULL;
-    (*all)->redir = 0;
-    (*all)->cmd_len = 0;
-    (*all)->pipe = 0;
-}
+	size_t i;
 
-void        ft_print_capt(int fd)
-{
-    char *caption;
-
-    caption = "minishell:";
-    ft_putstr_fd(caption, fd);
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }

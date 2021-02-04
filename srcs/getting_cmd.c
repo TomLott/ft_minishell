@@ -30,10 +30,8 @@ char        *ft_com_parser(char *line, t_all *all)
 {
     char *temp;
     int j;
-    int flag;
 
     j = 0;
-    flag = 0;
     temp = malloc(1000);
   //  printf("%d\n", all->cmd_len);
   //  printf("%s - line\n", line);
@@ -42,14 +40,20 @@ char        *ft_com_parser(char *line, t_all *all)
         if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
             temp[j++] = line[all->cmd_len++];
         else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
+        {
             while (line[all->cmd_len] && line[all->cmd_len] != '\"')
             {
                 //printf("%c - char in quotes\n", line[all->cmd_len]);
                 temp[j++] = line[all->cmd_len++];
             }
+            (line[all->cmd_len] == '\"') ? all->cmd_len++ : 1;
+        }
         else if (line[all->cmd_len] == '\'' && ++all->cmd_len)
+        {
             while (line[all->cmd_len] && line[all->cmd_len] != '\'')
                 temp[j++] = line[all->cmd_len++];
+            (line[all->cmd_len] == '\'') ? all->cmd_len++ : 1;
+        }
         else if (ft_check_redir(line, all) && ++j)
         {
             (all->redir == 2) ? j++ : 1;

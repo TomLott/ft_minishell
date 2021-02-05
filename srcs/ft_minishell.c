@@ -148,6 +148,7 @@ void hook_command(char *com, t_all *all)
 	int i;
 	char **temp;
 	int j;
+	char *point;
 
 	i = 0;
 	j = 0;
@@ -164,12 +165,16 @@ void hook_command(char *com, t_all *all)
 	temp = ft_split(com, -1);
 	while(temp[j])
     {
+	    point = temp[j];
+	    temp[j] = ft_strtrim(temp[j], " ");
+	    free(point);
         refresh_all(&all);
 		ft_change_redir(&temp[j]);
 		printf("%s in cycle\n", temp[j]);
+		printf("%d\n", all->cmd);
 		get_command(temp[j], &i, all);
-		//if (all->cmd_len + 1 < ft_strlen(com))
-		//	all->arg = ft_strdup(com + all->cmd_len);
+		if (all->cmd_len + 1 < ft_strlen(temp[j]))
+		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		printf("j is = %d; command is = %u; argument is = %s\n", j, all->cmd, all->arg);
 		j++;
 	}

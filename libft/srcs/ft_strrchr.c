@@ -19,6 +19,8 @@ char	*ft_strrchr(const char *s, int c)
 
 	i = 0;
 	ans = 0x0;
+	if (!s)
+        return (NULL);
 	while (*(s + i))
 	{
 		if (*(s + i) == c)

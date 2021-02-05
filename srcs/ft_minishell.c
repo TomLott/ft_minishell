@@ -115,27 +115,27 @@ char ft_change_redir(char **line)
 	i = 0;
 	flag = 0;
 
-	while (*(line + i))
+	while (i < ft_strlen(*line))
 	{
-		if (*(line + i) == '\'' && (flag = 1))
+		if (*(*line + i) == '\'' && (flag = 1))
 			flag = get_flag(*line, &i, '\'');
-		else if (*(line + i) && *(line + i) == '\"' && (flag = 1))
+		else if (*(*line + i) && *(*line + i) == '\"' && (flag = 1))
 			flag = get_flag(*line, &i, '\"');
-		if ((*(line + i) && *(line + i) == '\0') && flag == 1)
+		if ((*(*line + i) && *(*line + i) == '\0') && flag == 1)
 			return (-1); /** syntax error*/
-		if (*(line + i) == '>')
+		if (*(*line + i) == '>')
         {
-		    if (*(line + i + 1) && *(line + i + 1) == '>')
+		    if (*(*line + i + 1) && *(*line + i + 1) == '>')
 			{
-				*(line + i) = -3;
-				*(line + i + 1) = -3;
+                *(*line + i) = -3;
+                *(*line + i + 1) = -3;
 				i++;
 			}
 			else
-				*(line + i) = -1;
+                *(*line + i) = -1;
 		}
-		if (*(line + i) == '<')
-			*(line + i) = -2;
+		if (*(*line + i) == '<')
+            *(*line + i) = -2;
 		i++;
 		//printf("%c on the end if cycle\n", *line[i]);
 	}
@@ -149,9 +149,11 @@ void hook_command(char *com, t_all *all)
 	char **temp;
 	int j;
 	char *point;
+	t_args *args;
 
 	i = 0;
 	j = 0;
+	args = malloc(sizeof(t_args));
 	/**get_command(com, &i, all);
 	if (all->cmd_len + 1 < ft_strlen(com))
 	{
@@ -170,12 +172,17 @@ void hook_command(char *com, t_all *all)
 	    free(point);
         refresh_all(&all);
 		ft_change_redir(&temp[j]);
-		printf("%s in cycle\n", temp[j]);
-		printf("%d\n", all->cmd);
 		get_command(temp[j], &i, all);
 		if (all->cmd_len + 1 < ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
+		ft_parse_argiment(all->arg, all, args);
 		printf("j is = %d; command is = %u; argument is = %s\n", j, all->cmd, all->arg);
+		printf("args->dst = %s, args->src = %s\n", args->dst, args->src);
+		if (args->args)
+		    while(args->args){
+		        printf("%s args\n", args->args->content);
+		        args->args = args->args->next;
+		    }
 		j++;
 	}
 }

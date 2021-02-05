@@ -38,6 +38,16 @@ typedef struct		s_envlst
 	struct s_envlst	*next;
 }					t_envlst;
 
+typedef struct      s_args
+{
+    t_cmd           cmd;
+    int             redir;
+    char            *src;
+    char            *dst;
+    t_list          *args;
+    void            *next;
+}                   t_args;
+
 typedef struct		s_all
 {
 	t_envlst		*env;
@@ -63,5 +73,6 @@ void				parse_argument(char *com, t_all *all);
 void				parse_env(char *env, char **key, char **value);
 void				refresh_all(t_all **all);
 int					t_parse_commands(t_all *all, char *line);
-
+int                 ft_parse_argiment(char *line, t_all *all, t_args *args);
+int                 get_flag(char *line, int *i, char c);
 #endif

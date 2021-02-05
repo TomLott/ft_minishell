@@ -1,3 +1,6 @@
 *.o
 *.swp
 a.out
+.*
+CMakeLists.txt
+cmake-b*

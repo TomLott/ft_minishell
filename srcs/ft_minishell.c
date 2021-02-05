@@ -41,6 +41,7 @@ int get_flag(char *line, int *i, char c)
 {
 	int flag;
 
+	printf("we are here = %s\n", line);
 	flag = 1;
 	(*i)++;
 	while (line[(*i)] != c && line[*i + 1])
@@ -83,19 +84,105 @@ void	parse_argument(char *com, t_all *all)
 	/**тут нужно заменить все пробелы между ковычками*/
 }
 
+int ft_change_pipes(t_all *all, char *line)
+{
+	int i;
+	int flag;
+
+	i = 0;
+	flag = 0;
+
+	while (line[i])
+	{
+		if (line[i] == '\'' && (flag = 1))
+			flag = get_flag(line, &i, '\'');
+		else if (line[i] && line[i] == '\"' && (flag = 1))
+			flag = get_flag(line, &i, '\"');
+		if ((line[i] && line[i] == '\0' ) || flag == 1)
+			return (-1); /** syntax error*/
+		if (line[i] == '|')
+			line[i] =  -1;
+		i++;
+	}
+	return (1);
+}
+
+char ft_change_redir(char **line)
+{
+	int i;
+	int flag;
+
+	i = 0;
+	flag = 0;
+
+	printf("%s here is line\n", *(line));
+	while (*(line + i) != '\0')
+	{
+		printf("line[i] = %c\n", *line[i]);
+		if (*line[i] == '\'' && (flag = 1))
+		{
+			printf("hoho\n");
+			flag = get_flag(*line, &i, '\'');
+		}
+		else if (*line[i] && *line[i] == '\"' && (flag = 1))
+		{
+			printf("hoho1\n");
+			flag = get_flag(*line, &i, '\"');
+		}
+		
+		if ((*line[i] && *line[i] == '\0' ) || flag == 1)
+		{
+			printf("hoho2\n");
+			return (-1); /** syntax error*/
+		}
+		if (*line[i] == '>')
+		{
+			printf("hoho3\n");
+			if (*line[i + 1] && *line[i + 1] == '>')
+			{
+				*line[i] = -3;
+				*line[i + 1] = -3;
+				i++;
+			}
+			else
+				*line[i] = -1;
+		}
+		if (*line[i] == '<')
+			*line[i] = -2;
+		printf("hehahaesdifhpaso\n");
+		i++;
+		//printf("%c on the end if cycle\n", *line[i]);
+	}
+	
+	return (1);
+}
+
 void hook_command(char *com, t_all *all)
 {
 	int i;
 	char **temp;
 
 	i = 0;
-	get_command(com, &i, all);
+	/**get_command(com, &i, all);
 	if (all->cmd_len + 1 < ft_strlen(com))
 	{
 		all->arg = ft_strdup(com + all->cmd_len);
+		ft_change_pipes(all, all->arg);
+		temp = ft_split(all->arg, -1);
 		parse_argument(com, all);
+	}*/
+	ft_change_pipes(all, com);
+	temp = ft_split(com, -1);
+	while(temp[i])
+	{
+		
+		ft_change_redir(&temp[i]);
+		printf("%s in cycle\n", temp[i]);
+		get_command(com, &i, all);
+		if (all->cmd_len + 1 < ft_strlen(com))
+			all->arg = ft_strdup(com + all->cmd_len);
+		printf("i is %d; command if %u; argument is %s\n", i, all->cmd, all->arg);
 	}
-	printf("%u - command\n%s - argument\n", all->cmd, all->arg);
 }
 
 int ft_parse_commands(t_all *all, char *line)

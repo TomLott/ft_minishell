@@ -3,10 +3,8 @@
 void        ft_redirect_parse(t_args *args, char *line)
 {
     int i;
-    t_args *tmp;
     char *terminat;
 
-    tmp = args;
     terminat = line;
     i = 0;
     while(*line && (*line != -1 && *line != -2 && *line != -3))
@@ -137,27 +135,27 @@ char        *ft_com_parser(char *line, t_all *all)
     return (flag == -1 ) ? NULL : temp;
 }
 
-void        get_command(char *s, int *i, t_all *all)
+void        get_command(char *s, t_all *all)
 {
     char *temp;
 
     temp = ft_com_parser(s, all);
    // printf("finished com - %s\npipi = %d\n", temp, all->pipe);
-    if (!ft_strcmp(temp, "pwd") && (*i = 3))
+    if (!ft_strcmp(temp, "pwd"))
         all->cmd = PWD;
-    else if (!ft_strcmp(temp, "cd") && (*i = 2))
+    else if (!ft_strcmp(temp, "cd"))
         all->cmd = CD;
-    else if (!ft_strcmp(temp, "echo") && (*i = 4))
+    else if (!ft_strcmp(temp, "echo"))
         all->cmd = ECHO;
-    else if (!ft_strcmp(temp, "export") && (*i = 6))
+    else if (!ft_strcmp(temp, "export"))
         all->cmd = EXPORT;
-    else if (!ft_strcmp(temp, "unset") && (*i = 5))
+    else if (!ft_strcmp(temp, "unset"))
         all->cmd = UNSET;
-    else if (!ft_strcmp(temp, "env") && (*i = 3))
+    else if (!ft_strcmp(temp, "env"))
         all->cmd = ENV;
-    else if (!ft_strcmp(temp, "exit") && (*i = 4))
+    else if (!ft_strcmp(temp, "exit"))
         all->cmd = EXIT;
-    else if (!ft_strcmp(temp, "minishell") && (*i = 9))
+    else if (!ft_strcmp(temp, "minishell"))
         all->cmd = SELF;
     else
         all->cmd = DEF;

@@ -73,7 +73,7 @@ char				*ft_com_parser(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
 int					ft_parse_line(char *line);
 void				ft_print_capt(int fd);
-void				get_command(char *s, int *i, t_all *all);
+void				get_command(char *s, t_all *all);
 int					get_next_line(int fd, char **line);
 void				init_obj(void **p, t_cmd type);
 void				parse_argument(char *com, t_all *all);

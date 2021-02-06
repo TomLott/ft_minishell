@@ -145,13 +145,11 @@ char ft_change_redir(char **line)
 
 void hook_command(char *com, t_all *all)
 {
-	int i;
 	char **temp;
 	int j;
 	char *point;
 	t_args *args;
 
-	i = 0;
 	j = 0;
 	args = malloc(sizeof(t_args));
 	/**get_command(com, &i, all);
@@ -172,11 +170,12 @@ void hook_command(char *com, t_all *all)
 	    free(point);
         refresh_all(&all);
 		ft_change_redir(&temp[j]);
-		get_command(temp[j], &i, all);
+		get_command(temp[j], all);
 		if (all->cmd_len + 1 < ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, args);
-		printf("j is = %d; command is = %u; argument is = %s\n", j, all->cmd, all->arg);
+		printf("%i def, %i pwd , %i echo\n", DEF, PWD, ECHO);
+		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", args->dst, args->src);
 		if (args->args)
 		    while(args->args){

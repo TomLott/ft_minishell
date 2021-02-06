@@ -31,6 +31,12 @@ typedef enum
 	ALL
 }	t_cmd;
 
+typedef enum
+{
+    E_MALLOC,
+    E_NO_LINE
+}   t_err;
+
 typedef struct		s_envlst
 {
 	char			*key;
@@ -58,6 +64,7 @@ typedef struct		s_all
     int				cmd_len;
     int				pipe;
 	t_list			*grbg;
+	t_err           err;
 }					t_all;
 
 void				do_error(t_all *all);
@@ -73,6 +80,6 @@ void				parse_argument(char *com, t_all *all);
 void				parse_env(char *env, char **key, char **value);
 void				refresh_all(t_all **all);
 int					t_parse_commands(t_all *all, char *line);
-int                 ft_parse_argiment(char *line, t_all *all, t_args *args);
+int                 ft_parse_argument(char *line, t_all *all, t_args *args);
 int                 get_flag(char *line, int *i, char c);
 #endif

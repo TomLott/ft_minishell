@@ -43,7 +43,7 @@ void        ft_do_list(char **line, t_args *args)
     }
 }
 
-int         ft_parse_argiment(char *line, t_all *all, t_args *args)
+int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {
     int i;
     int flag;
@@ -51,6 +51,8 @@ int         ft_parse_argiment(char *line, t_all *all, t_args *args)
 
     i = 0;
     flag = 0;
+    if (!line)
+        return (1);
     if (ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
         ft_redirect_parse(args, line);
     else

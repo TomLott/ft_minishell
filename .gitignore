@@ -4,3 +4,4 @@ a.out
 CMakeLists.txt
 cmake-b*
 .DS_Store
+.*

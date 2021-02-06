@@ -175,7 +175,7 @@ void hook_command(char *com, t_all *all)
 		get_command(temp[j], &i, all);
 		if (all->cmd_len + 1 < ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
-		ft_parse_argiment(all->arg, all, args);
+		ft_parse_argument(all->arg, all, args);
 		printf("j is = %d; command is = %u; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", args->dst, args->src);
 		if (args->args)

@@ -1,6 +1,6 @@
 *.o
 *.swp
+.DS_Store
 a.out
-.*
 CMakeLists.txt
 cmake-b*

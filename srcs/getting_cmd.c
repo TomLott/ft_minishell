@@ -1,17 +1,28 @@
 #include "minishell.h"
 
-void        ft_redirect_parse(t_args *args, char *line)
+void        ft_redirect_parse(t_args *args, char *line, t_all *all)
 {
     int i;
     char *terminat;
 
+    args->dst = NULL;
+    args->src = NULL;
+    if (all->redir != 0)
+    {
+        args->dst = ft_strdup(line);
+        printf("here is dest %s\n", args->dst);
+        return ;
+    }
     terminat = line;
     i = 0;
     while(*line && (*line != -1 && *line != -2 && *line != -3))
         line++;
-    if (*line == -3)
-        line++;
     *line = '\0';
+    if (*line == -3)
+    {
+        line++;
+        *line = '\0';
+    }
     line++;
     args->src = (ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'"));
     args->dst = (ft_strtrim(ft_strtrim(ft_strdup(line), "\""), "\'"));
@@ -51,8 +62,8 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
     flag = 0;
     if (!line)
         return (1);
-    if (ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
-        ft_redirect_parse(args, line);
+    if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
+        ft_redirect_parse(args, line, all);
     else
     {
         while (line[i]) {
@@ -61,7 +72,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
             else if (line[i] && line[i] == '\"' && (flag = 1))
                 flag = get_flag(line, &i, '\"');
             if ((line[i] && line[i] == '\0') || flag == 1)
-                return (-1); /** syntax error*/
+                return (1); /** syntax error*/
             if (line[i] == ' ')
                 line[i] = -1;
             i++;
@@ -69,24 +80,29 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
         temp = ft_split(line, -1);
         ft_do_list(temp, args);
     }
-    return (1);
+    return (0);
 }
 
 
 int         ft_check_redir(char *line, t_all *all)
 {
   //  printf("%c - char\n", line[all->cmd_len]);
-    if (line[all->cmd_len] == '>')
+    if (line[all->cmd_len] == -3)
     {
-        if (line[all->cmd_len + 1] == '>')
+        if (line[all->cmd_len + 1] == -3)
+        {
             all->redir = 2;
-        else
-            all->redir = 1;
-        all->cmd_len += all->redir;
+            all->cmd_len += 2;
+        }
     }
-    else if (line[all->cmd_len] == '<')
+    else if (line[all->cmd_len] == -1)
     {
-        all->redir = -1;
+        all->redir = 1;
+        all->cmd_len++;
+    }
+    else if (line[all->cmd_len] == -2)
+    {
+        all->redir = 3;
         all->cmd_len++;
     }
     else if (line[all->cmd_len] == '|')

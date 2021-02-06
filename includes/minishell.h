@@ -34,7 +34,8 @@ typedef enum
 typedef enum
 {
     E_MALLOC,
-    E_NO_LINE
+    E_NO_LINE,
+    E_SYNERR
 }   t_err;
 
 typedef struct		s_envlst
@@ -47,7 +48,7 @@ typedef struct		s_envlst
 typedef struct      s_args
 {
     t_cmd           cmd;
-    int             redir;
+    int             redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
     char            *src;
     char            *dst;
     t_list          *args;

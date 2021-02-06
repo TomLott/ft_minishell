@@ -148,7 +148,7 @@ char        *ft_com_parser(char *line, t_all *all)
             temp[j++] = line[all->cmd_len++];
     }
     temp[j] = '\0';
-    return (flag == -1 ) ? NULL : temp;
+    return (flag == -1 ) ? "a" : temp;
 }
 
 void        get_command(char *s, t_all *all)
@@ -156,23 +156,22 @@ void        get_command(char *s, t_all *all)
     char *temp;
 
     temp = ft_com_parser(s, all);
-   // printf("finished com - %s\npipi = %d\n", temp, all->pipe);
-    if (!ft_strcmp(temp, "pwd"))
+	if (ft_strcmp(temp, "pwd"))
         all->cmd = PWD;
-    else if (!ft_strcmp(temp, "cd"))
+    else if (ft_strcmp(temp, "cd"))
         all->cmd = CD;
-    else if (!ft_strcmp(temp, "echo"))
+    else if (ft_strcmp(temp, "echo"))
         all->cmd = ECHO;
-    else if (!ft_strcmp(temp, "export"))
+    else if (ft_strcmp(temp, "export"))
         all->cmd = EXPORT;
-    else if (!ft_strcmp(temp, "unset"))
+    else if (ft_strcmp(temp, "unset"))
         all->cmd = UNSET;
-    else if (!ft_strcmp(temp, "env"))
+    else if (ft_strcmp(temp, "env"))
         all->cmd = ENV;
-    else if (!ft_strcmp(temp, "exit"))
+    else if (ft_strcmp(temp, "exit"))
         all->cmd = EXIT;
-    else if (!ft_strcmp(temp, "minishell"))
+    else if (ft_strcmp(temp, "minishell"))
         all->cmd = SELF;
-    else
-        all->cmd = DEF;
+	else
+		all->cmd = DEF;
 }

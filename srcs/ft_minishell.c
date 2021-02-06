@@ -176,13 +176,16 @@ void hook_command(char *com, t_all *all)
 		ft_parse_argument(all->arg, all, args);
 		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", args->dst, args->src);
+		/*
 		if (args->args)
 		    while(args->args){
 		        printf("%s args\n", args->args->content);
 		        args->args = args->args->next;
 		    }
+		*/
 		j++;
 	}
+	all->args = args->args; /* don't forget to remove */
 }
 
 int ft_parse_commands(t_all *all, char *line)
@@ -230,6 +233,7 @@ int main(int argc, char **argv, char **env)
 		ft_print_capt(1);
 		signal(SIGINT, myint);
 		get_data(all);
+		manage_cmds(all);
 		break; /*remove*/
 	}
 

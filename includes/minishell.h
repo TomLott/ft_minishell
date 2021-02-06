@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 20:01:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/06 20:36:34 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,26 @@ typedef struct		s_all
     int				pipe;
 	t_list			*grbg;
 	t_err           err;
+	t_list			*args;
 }					t_all;
 
 void				do_error(t_all *all);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 char				*ft_com_parser(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
+int                 ft_parse_argument(char *line, t_all *all, t_args *args);
 int					ft_parse_line(char *line);
 void				ft_print_capt(int fd);
 void				get_command(char *s, t_all *all);
+int                 get_flag(char *line, int *i, char c);
 int					get_next_line(int fd, char **line);
 void				init_obj(void **p, t_cmd type);
+void				manage_cmds(t_all *all);
+void				ms_env(t_all *all);
+void				ms_unset(t_all *all);
 void				parse_argument(char *com, t_all *all);
 void				parse_env(char *env, char **key, char **value);
 void				refresh_all(t_all **all);
 int					t_parse_commands(t_all *all, char *line);
-int                 ft_parse_argument(char *line, t_all *all, t_args *args);
-int                 get_flag(char *line, int *i, char c);
+
 #endif

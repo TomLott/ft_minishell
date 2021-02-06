@@ -23,14 +23,15 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
         *line = '\0';
     }
     line++;
-    args->src = (ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'"));
-    args->dst = (ft_strtrim(ft_strtrim(ft_strdup(line), "\""), "\'"));
+    args->src = ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'")), " ");
+    args->dst = ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(line), "\""), "\'")), " ");
+	printf("dst = ======%s======\n", args->dst);
     while(args->dst[i] && args->dst[i] != ' ')
         i++;
     free(terminat);
     terminat = args->dst;
     args->dst[i] = '\0';
-    args->dst = ft_strdup(args->dst + i + 1);
+    args->dst = ft_strdup(args->dst);
     free(terminat);
 }
 

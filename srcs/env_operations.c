@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 20:01:32 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/06 19:24:12 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void		env_add_back(t_all *all, char *env)
 
 	parse_env(env, &key, &value);
 	new_env = env_create(all, key, value);
+	if (!(all->env))
+		all->env = new_env;
+	else
+	{
+		new_env->next = all->env;
+		all->env = new_env;
+	}
 }
 
 void		ft_init_env(char **env, t_all *all)
@@ -49,5 +56,5 @@ void		ft_init_env(char **env, t_all *all)
 
 	i = 0;
 	while (env[i++])
-		env_add_back(all, env[i-1]);
+		env_add_back(all, env[i - 1]);
 }

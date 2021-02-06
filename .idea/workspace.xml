@@ -31,7 +31,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b50cdeee-b4b2-4ef0-9bab-a509298d8f40" name="Default Changelist" comment="18:49 05.02">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/getting_cmd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/getting_cmd.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +84,7 @@
       <workItem from="1612537684090" duration="305000" />
       <workItem from="1612538747942" duration="8549000" />
       <workItem from="1612595734684" duration="1600000" />
-      <workItem from="1612604062676" duration="1527000" />
+      <workItem from="1612604062676" duration="2258000" />
     </task>
     <task id="LOCAL-00001" summary="18:49 05.02">
       <created>1612540217769</created>
@@ -132,30 +131,30 @@
       <screen x="0" y="23" width="2560" height="1345" />
     </state>
     <state x="1189" y="458" key="#xdebugger.XInspectDialog/0.23.2560.1345@0.23.2560.1345" timestamp="1612547726904" />
-    <state width="2503" height="373" key="GridCell.Tab.0.bottom" timestamp="1612605573629">
+    <state width="2503" height="373" key="GridCell.Tab.0.bottom" timestamp="1612605738927">
       <screen x="0" y="23" width="2880" height="1525" />
     </state>
     <state width="2838" height="472" key="GridCell.Tab.0.bottom/0.0.2880.1620@0.0.2880.1620" timestamp="1612597442302" />
     <state width="2503" height="374" key="GridCell.Tab.0.bottom/0.23.2560.1345@0.23.2560.1345" timestamp="1612550327146" />
-    <state width="2503" height="373" key="GridCell.Tab.0.bottom/0.23.2880.1525@0.23.2880.1525" timestamp="1612605573629" />
-    <state width="2503" height="373" key="GridCell.Tab.0.center" timestamp="1612605573629">
+    <state width="2503" height="373" key="GridCell.Tab.0.bottom/0.23.2880.1525@0.23.2880.1525" timestamp="1612605738927" />
+    <state width="2503" height="373" key="GridCell.Tab.0.center" timestamp="1612605738926">
       <screen x="0" y="23" width="2880" height="1525" />
     </state>
     <state width="2838" height="472" key="GridCell.Tab.0.center/0.0.2880.1620@0.0.2880.1620" timestamp="1612597442302" />
     <state width="2503" height="374" key="GridCell.Tab.0.center/0.23.2560.1345@0.23.2560.1345" timestamp="1612550327146" />
-    <state width="2503" height="373" key="GridCell.Tab.0.center/0.23.2880.1525@0.23.2880.1525" timestamp="1612605573629" />
-    <state width="2503" height="373" key="GridCell.Tab.0.left" timestamp="1612605573628">
+    <state width="2503" height="373" key="GridCell.Tab.0.center/0.23.2880.1525@0.23.2880.1525" timestamp="1612605738926" />
+    <state width="2503" height="373" key="GridCell.Tab.0.left" timestamp="1612605738926">
       <screen x="0" y="23" width="2880" height="1525" />
     </state>
     <state width="2838" height="472" key="GridCell.Tab.0.left/0.0.2880.1620@0.0.2880.1620" timestamp="1612597442301" />
     <state width="2503" height="374" key="GridCell.Tab.0.left/0.23.2560.1345@0.23.2560.1345" timestamp="1612550327145" />
-    <state width="2503" height="373" key="GridCell.Tab.0.left/0.23.2880.1525@0.23.2880.1525" timestamp="1612605573628" />
-    <state width="2503" height="373" key="GridCell.Tab.0.right" timestamp="1612605573629">
+    <state width="2503" height="373" key="GridCell.Tab.0.left/0.23.2880.1525@0.23.2880.1525" timestamp="1612605738926" />
+    <state width="2503" height="373" key="GridCell.Tab.0.right" timestamp="1612605738927">
       <screen x="0" y="23" width="2880" height="1525" />
     </state>
     <state width="2838" height="472" key="GridCell.Tab.0.right/0.0.2880.1620@0.0.2880.1620" timestamp="1612597442302" />
     <state width="2503" height="374" key="GridCell.Tab.0.right/0.23.2560.1345@0.23.2560.1345" timestamp="1612550327146" />
-    <state width="2503" height="373" key="GridCell.Tab.0.right/0.23.2880.1525@0.23.2880.1525" timestamp="1612605573629" />
+    <state width="2503" height="373" key="GridCell.Tab.0.right/0.23.2880.1525@0.23.2880.1525" timestamp="1612605738927" />
     <state width="2503" height="330" key="GridCell.Tab.1.bottom" timestamp="1612605495729">
       <screen x="0" y="23" width="2880" height="1525" />
     </state>
@@ -194,15 +193,6 @@
     <state x="950" y="334" width="670" height="676" key="search.everywhere.popup/0.23.2880.1525@0.23.2880.1525" timestamp="1612605583157" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/srcs/getting_cmd.c</url>
-          <line>124</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="(*line)" language="ObjectiveC" />

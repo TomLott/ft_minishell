@@ -5,11 +5,10 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     int i;
     char *terminat;
 
-    args->dst = NULL;
-    args->src = NULL;
+
     if (all->redir != 0)
     {
-        args->dst = ft_strdup(line);
+        args->dst = ft_strtrim(ft_strdup(line), " ");
         printf("here is dest %s\n", args->dst);
         return ;
     }
@@ -60,6 +59,8 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
 
     i = 0;
     flag = 0;
+    args->dst = NULL;
+    args->src = NULL;
     if (!line)
         return (1);
     if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
@@ -122,6 +123,7 @@ char        *ft_com_parser(char *line, t_all *all)
 
     j = 0;
     temp = malloc(1000);
+   // if (line[0] == '$')
     while(line[all->cmd_len] && line[all->cmd_len] != ' ')
     {
         if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)

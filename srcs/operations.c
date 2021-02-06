@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/06 21:05:11 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/06 21:58:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,18 @@ void	ms_env(t_all *all)
 	}
 }
 
-void	free_env(t_envlst **env)
+void	ms_pwd(void)
 {
-	free((*env)->key);
-	free((*env)->value);
-	free(*env);
-}
+	char	cwd[4096];
 
-int		check_head(t_all *all, t_list *tmp)
-{
-	t_envlst	*tmp_env;
-
-	if (ft_strcmp(all->env->key, tmp->content))
+	if (!(getcwd(cwd, 4096)))
+		ft_putstr_fd("Error while getting working directory\n", 1);
+	else
 	{
-		tmp_env = all->env->next;
-		free_env(&(all->env));
-		all->env = tmp_env;
-		return (1);
+		ft_putstr_fd(cwd, 1);
+		ft_putstr_fd("\n", 1);
 	}
-	return (0);
+
 }
 
 void	ms_unset(t_all *all)
@@ -58,7 +51,7 @@ void	ms_unset(t_all *all)
 	tmp = all->args;
 	while (tmp)
 	{
-		if (check_head(all, tmp))
+		if (check_head_env(all, tmp))
 			continue ;
 		tmp_env = all->env->next;
 		prev = all->env;

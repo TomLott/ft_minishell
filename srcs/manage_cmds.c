@@ -20,10 +20,10 @@ int	manage_cmds(t_all *all)
 		return (ms_unset(all));
 	else if (all->cmd == EXPORT)
 		return (ms_export(all));
-	else if (all->cmd == DOL_QUEST)
-		return (ms_dol_quest(all));
 	else if (all->cmd == PWD)
 		return (ms_pwd());
+	else if (all->cmd == CD)
+		return (ms_cd(all));
 	else if (all->cmd == EXIT)
 		return (0);
 	else

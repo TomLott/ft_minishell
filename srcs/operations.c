@@ -52,7 +52,7 @@ int	ms_unset(t_all *all)
 	t_envlst	*tmp_env;
 	t_envlst	*prev;
 
-	tmp = all->args;
+	tmp = all->args.args;
 	while (tmp)
 	{
 		if (check_head_env(all, tmp))
@@ -76,12 +76,9 @@ int	ms_unset(t_all *all)
 
 int	ms_def(t_all *all)
 {
-	t_list	*args;
-
-	args = all->args;
-	if (!args)
+	if (*(all->line) == 0)
 		return (0);
-	ft_putstr_fd(args->content, STDERR_FILENO);
+	ft_putstr_fd(all->line, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (-1);
 }
@@ -91,7 +88,7 @@ int	ms_export(t_all *all)
 	t_list	*args;
 	char	*tmp;
 
-	args = all->args;
+	args = all->args.args;
 	while (args)
 	{
 		if ((tmp = convert_env(args->content)))

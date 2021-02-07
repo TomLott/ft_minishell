@@ -11,23 +11,8 @@
 //
 //}
 /*
-void ft_init_env(char **env, t_all *all)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	all->env = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while(env[i])
-	{
-		//all->env[i] = ft_strdup(env[i]);
-		i++;
-	}
-	all->env[i] = NULL;
-}
-*/
+ *
+ */
 void myint(int sig) {
 	if (sig == SIGINT)
 	{
@@ -148,18 +133,8 @@ void hook_command(char *com, t_all *all)
 	char **temp;
 	int j;
 	char *point;
-	t_args *args;
 
 	j = 0;
-	args = malloc(sizeof(t_args));
-	/**get_command(com, &i, all);
-	if (all->cmd_len + 1 < ft_strlen(com))
-	{
-		all->arg = ft_strdup(com + all->cmd_len);
-		ft_change_pipes(all, all->arg);
-		temp = ft_split(all->arg, -1);
-		parse_argument(com, all);
-	}*/
 	ft_change_pipes(all, com);
 	printf("%s here is com\n", com);
 	temp = ft_split(com, -1);
@@ -173,26 +148,23 @@ void hook_command(char *com, t_all *all)
 		get_command(temp[j], all);
 		if (all->cmd_len + 1 < ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
-		ft_parse_argument(all->arg, all, args);
+		ft_parse_argument(all->arg, all, &(all->args));
 		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
-		printf("args->dst = %s, args->src = %s\n", args->dst, args->src);
-		/*
-		if (args->args)
-		    while(args->args){
-		        printf("%s args\n", args->args->content);
-		        args->args = args->args->next;
-		    }
-		*/
+		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
+		/*if (all->args.args)
+		    while(all->args.args){
+		        printf("%s args\n", all->args.args->content);
+		        all->args.args = all->args.args->next;
+		    }*/
 		j++;
 	}
-	all->args = args->args; /* don't forget to remove */
+	//all->args = *args; /* don't forget to remove */
 }
 
 int ft_parse_commands(t_all *all, char *line)
 {
 	char **commands;
 	int i;
-	int flag;
 	char *temp;
 
 	i = 0;

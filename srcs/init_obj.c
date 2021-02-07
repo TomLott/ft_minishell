@@ -18,12 +18,12 @@ void	init_all(t_all **all)
 	(*all)->line = 0x0;
 	(*all)->cmd = DEF;
 	(*all)->arg = 0x0;
-	(*all)->redir = -99;
-	(*all)->cmd_len = -99;
-	(*all)->pipe = -99;
+	(*all)->redir = 0;
+	(*all)->cmd_len = 0;
+	(*all)->pipe = 0;
 	(*all)->grbg = 0x0;
 	(*all)->err = E_DEF;
-	(*all)->args = 0x0;
+//	(*all)->args = 0x0;
 	(*all)->last_rv = 0;
 }
 

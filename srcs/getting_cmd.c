@@ -124,7 +124,6 @@ char        *ft_com_parser(char *line, t_all *all)
 
     j = 0;
     temp = malloc(1000);
-   // if (line[0] == '$')
     while(line[all->cmd_len] && line[all->cmd_len] != ' ')
     {
         if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
@@ -176,5 +175,9 @@ void        get_command(char *s, t_all *all)
     else if (ft_strcmp(temp, "minishell"))
         all->cmd = SELF;
 	else
-		all->cmd = DEF;
+	{
+        all->def_cmd = ft_strdup(temp);
+        all->cmd = DEF;
+    }
+	free(temp);
 }

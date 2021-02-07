@@ -30,7 +30,6 @@ typedef enum
 	ENV,
 	EXIT,
 	SELF,
-	DOL_QUEST,
 	ALL
 }	t_cmd;
 
@@ -70,8 +69,10 @@ typedef struct		s_all
     int				pipe;
 	t_list			*grbg;
 	t_err           err;
-	t_list			*args;
+	t_args			args;
 	int				last_rv;
+	int             dollar;
+	char            *def_cmd;
 }					t_all;
 
 int					check_head_env(t_all *all, t_list *tmp);
@@ -90,8 +91,8 @@ int                 get_flag(char *line, int *i, char c);
 int					get_next_line(int fd, char **line);
 void				init_obj(void **p, t_cmd type);
 int					manage_cmds(t_all *all);
+int                 ms_cd(t_all *all);
 int					ms_def(t_all *all);
-int					ms_dol_quest(t_all *all);
 int					ms_env(t_all *all);
 int					ms_export(t_all *all);
 int					ms_pwd(void);

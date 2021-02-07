@@ -12,9 +12,12 @@
 
 #include "minishell.h"
 
-int	ms_dol_quest(t_all *all)
+int	ms_cd(t_all *all)
 {
-	ft_putstr_fd(ft_itoa(all->last_rv), STDIN_FILENO);
-	ft_putstr_fd("\n", STDIN_FILENO);
+	printf("%s\n", all->line);
+	if (all->args.args->content && *((char *)all->args.args->content)) {
+		if ((chdir(all->args.args->content)))
+			ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	}
 	return (0);
 }

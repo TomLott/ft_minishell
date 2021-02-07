@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/06 21:52:15 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/07 10:11:15 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ t_envlst	*env_create(t_all *all, char *key, char *value)
 	ans->value = value;
 	ans->next = 0x0;
 	return (ans);
-}
-
-void	free_env(t_envlst **env)
-{
-	free((*env)->key);
-	free((*env)->value);
-	free(*env);
 }
 
 int		check_head_env(t_all *all, t_list *tmp)

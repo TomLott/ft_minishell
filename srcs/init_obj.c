@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:45:16 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 20:01:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/07 13:59:35 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	init_all(t_all **all)
 	(*all)->cmd_len = -99;
 	(*all)->pipe = -99;
 	(*all)->grbg = 0x0;
+	(*all)->err = E_DEF;
+	(*all)->args = 0x0;
+	(*all)->last_rv = 0;
 }
 
 void	init_env(t_envlst **p)

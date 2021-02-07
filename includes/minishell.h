@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/06 21:57:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/07 14:18:50 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <signal.h>
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 
 typedef enum
 {
@@ -28,11 +30,13 @@ typedef enum
 	ENV,
 	EXIT,
 	SELF,
+	DOL_QUEST,
 	ALL
 }	t_cmd;
 
 typedef enum
 {
+	E_DEF,
     E_MALLOC,
     E_NO_LINE,
     E_SYNERR
@@ -67,11 +71,14 @@ typedef struct		s_all
 	t_list			*grbg;
 	t_err           err;
 	t_list			*args;
+	int				last_rv;
 }					t_all;
 
 int					check_head_env(t_all *all, t_list *tmp);
-void				do_error(t_all *all);
+char				*convert_env(char *str);
+void				do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
+void				env_add_back(t_all *all, char *env);
 void				free_env(t_envlst **env);
 char				*ft_com_parser(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
@@ -82,10 +89,13 @@ void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);
 int					get_next_line(int fd, char **line);
 void				init_obj(void **p, t_cmd type);
-void				manage_cmds(t_all *all);
-void				ms_env(t_all *all);
-void				ms_pwd(void);
-void				ms_unset(t_all *all);
+int					manage_cmds(t_all *all);
+int					ms_def(t_all *all);
+int					ms_dol_quest(t_all *all);
+int					ms_env(t_all *all);
+int					ms_export(t_all *all);
+int					ms_pwd(void);
+int					ms_unset(t_all *all);
 void				parse_argument(char *com, t_all *all);
 void				parse_env(char *env, char **key, char **value);
 void				refresh_all(t_all **all);

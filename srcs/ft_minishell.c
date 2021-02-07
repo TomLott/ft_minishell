@@ -33,7 +33,7 @@ void myint(int sig) {
 	{
 		write(1, "\n", 1);
 		ft_print_capt(1);
-		signal(SIGINT, myint);
+		//signal(SIGINT, myint);
 	}
 }
 
@@ -197,7 +197,7 @@ int ft_parse_commands(t_all *all, char *line)
 
 	i = 0;
 	if (ft_parse_line(all->line) == -1)
-		printf("ERROR\n");
+		do_error(all, -1);
 	commands = ft_split(all->line, -1);
 	while(commands[i])
 	{
@@ -216,7 +216,8 @@ int ft_parse_commands(t_all *all, char *line)
 void get_data(t_all *all)
 {
 
-	get_next_line(0, &all->line); 
+	if ( 0 > get_next_line(STDIN_FILENO, &all->line))
+		do_error(all, -1);
 	//all->line = ft_strdup("echo \"hello;world\""); /*use for test commands. Remove after*/
 	ft_parse_commands(all, all->line);
 	//free(line);
@@ -233,7 +234,7 @@ int main(int argc, char **argv, char **env)
 		ft_print_capt(1);
 		signal(SIGINT, myint);
 		get_data(all);
-		manage_cmds(all);
+		all->last_rv = manage_cmds(all);
 		break; /*remove*/
 	}
 

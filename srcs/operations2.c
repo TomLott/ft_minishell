@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_error.c                                         :+:      :+:    :+:   */
+/*   operations2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/07 10:41:29 by jmogo            ###   ########.fr       */
+/*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/07 14:18:23 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_env(t_envlst **env)
+int	ms_dol_quest(t_all *all)
 {
-	free((*env)->key);
-	free((*env)->value);
-	free(*env);
-}
-
-void	do_error(t_all *all, int rv)
-{
-	t_list	*tmp;
-
-	if (!all || !(all->grbg))
-		exit(rv);
-	while (all->grbg)
-	{
-		tmp = all->grbg->next;
-		free(all->grbg->content);
-		free(all->grbg);
-		all->grbg = tmp;
-	}
-	exit(rv);
+	ft_putstr_fd(ft_itoa(all->last_rv), STDIN_FILENO);
+	ft_putstr_fd("\n", STDIN_FILENO);
+	return (0);
 }

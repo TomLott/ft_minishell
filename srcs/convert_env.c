@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_error.c                                         :+:      :+:    :+:   */
+/*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/07 10:41:29 by jmogo            ###   ########.fr       */
+/*   Created: 2021/02/07 13:24:54 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/07 13:45:59 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_env(t_envlst **env)
+char	*convert_env(char *str)
 {
-	free((*env)->key);
-	free((*env)->value);
-	free(*env);
-}
-
-void	do_error(t_all *all, int rv)
-{
-	t_list	*tmp;
-
-	if (!all || !(all->grbg))
-		exit(rv);
-	while (all->grbg)
-	{
-		tmp = all->grbg->next;
-		free(all->grbg->content);
-		free(all->grbg);
-		all->grbg = tmp;
-	}
-	exit(rv);
+	return (0x0);
 }

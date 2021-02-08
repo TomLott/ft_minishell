@@ -61,14 +61,6 @@ int ft_parse_line(char *line)
 	return (1);
 }
 
-void	parse_argument(char *com, t_all *all)
-{
-	char **temp;
-
-	temp = 0x0;
-	/**тут нужно заменить все пробелы между ковычками*/
-}
-
 int ft_change_pipes(t_all *all, char *line)
 {
 	int i;
@@ -207,7 +199,8 @@ int main(int argc, char **argv, char **env)
 		signal(SIGINT, myint);
 		get_data(all);
 		all->last_rv = manage_cmds(all);
-		break; /*remove*/
+	//	refresh_all(&all);
+	//	break; /*remove*/
 	}
 
 }

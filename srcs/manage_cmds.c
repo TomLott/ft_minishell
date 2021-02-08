@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 19:11:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/07 14:19:59 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/08 11:48:34 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	manage_cmds(t_all *all)
 	else if (all->cmd == CD)
 		return (ms_cd(all));
 	else if (all->cmd == EXIT)
-		return (0);
+		return (do_error(all, 0));
 	else
 		return (ms_def(all));
 }

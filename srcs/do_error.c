@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/07 10:41:29 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/08 11:49:07 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_env(t_envlst **env)
 	free(*env);
 }
 
-void	do_error(t_all *all, int rv)
+int		do_error(t_all *all, int rv)
 {
 	t_list	*tmp;
 
@@ -33,4 +33,5 @@ void	do_error(t_all *all, int rv)
 		all->grbg = tmp;
 	}
 	exit(rv);
+	return (0);
 }

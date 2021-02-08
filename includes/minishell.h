@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/07 14:18:50 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/08 13:44:45 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_all
 
 int					check_head_env(t_all *all, t_list *tmp);
 char				*convert_env(char *str);
-void				do_error(t_all *all, int rv);
+int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				env_add_back(t_all *all, char *env);
 void				free_env(t_envlst **env);
@@ -97,7 +97,6 @@ int					ms_env(t_all *all);
 int					ms_export(t_all *all);
 int					ms_pwd(void);
 int					ms_unset(t_all *all);
-void				parse_argument(char *com, t_all *all);
 void				parse_env(char *env, char **key, char **value);
 void				refresh_all(t_all **all);
 int					t_parse_commands(t_all *all, char *line);

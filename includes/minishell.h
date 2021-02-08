@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/08 13:44:45 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/08 15:42:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char				*convert_env(char *str);
 int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				env_add_back(t_all *all, char *env);
+char				*extract_env(t_envlst *env, char *key);
 void				free_env(t_envlst **env);
 char				*ft_com_parser(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);

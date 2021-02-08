@@ -185,19 +185,21 @@ int         ft_parse_dollar(t_all *all, char *line, int *i)
     k = j;
     while (ft_allowed_chars(line[(*i)]))
         (*i)++;
-    if (fl == 1 && line[(*i)] != '{')
+    if (fl == 1 && line[(*i)] != '}')
         return (1); /**error*/
     line[(*i)] = '\0';
-    temp = (char *)malloc(sizeof(char) * ((*i) - k));
+    temp = (char *)malloc(sizeof(char) * ((*i) - j));
     (*i)++;
     for_join = ft_strdup(line + (*i));
     k = 0;
     while (line[j])
         temp[k++] = line[j++];
     temp[k] = '\0';
-    doll = extract_echoenv(all->env, temp);
+    doll = extract_env(all->env, temp);
     for_free = all->line;
-    all->line = ft_strjoin(all->line, temp);
+	printf("%s here is temp, %s here is doll\n", temp, doll);
+    all->line = ft_strjoin(all->line, doll);
+	printf("%s after join\n", all->line);
     free(for_free);
     for_free = all->line;
     all->line = ft_strjoin(all->line, for_join);

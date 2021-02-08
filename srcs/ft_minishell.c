@@ -13,7 +13,7 @@
 /*
  *
  */
-void myint(int sig) {
+void        myint(int sig) {
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -22,7 +22,7 @@ void myint(int sig) {
 	}
 }
 
-int get_flag(char *line, int *i, char c)
+int         get_flag(char *line, int *i, char c)
 {
 	int flag;
 
@@ -38,7 +38,7 @@ int get_flag(char *line, int *i, char c)
 	return (1);
 }
 
-int ft_parse_line(char *line)
+int         ft_parse_line(char *line)
 {
 	int i;
 	int flag;
@@ -61,7 +61,7 @@ int ft_parse_line(char *line)
 	return (1);
 }
 
-int ft_change_pipes(t_all *all, char *line)
+int         ft_change_pipes(t_all *all, char *line)
 {
 	int i;
 	int flag;
@@ -84,7 +84,7 @@ int ft_change_pipes(t_all *all, char *line)
 	return (1);
 }
 
-char ft_change_redir(char **line)
+char        ft_change_redir(char **line)
 {
 	int i;
 	int flag;
@@ -120,7 +120,7 @@ char ft_change_redir(char **line)
 	return (1);
 }
 
-void hook_command(char *com, t_all *all)
+void        hook_command(char *com, t_all *all)
 {
 	char **temp;
 	int j;
@@ -153,6 +153,79 @@ void hook_command(char *com, t_all *all)
 	//all->args = *args; /* don't forget to remove */
 }
 
+int         ft_allowed_chars(char c)
+{
+    int ret;
+
+    ret = 0;
+    (c == '_') ? ret = 1 : 1;
+    ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)) ? ret = 1 : 1;
+    (c >= '0' && c <= '9') ? ret = 1 : 1;
+   // (c == '{' || c == '}') ? ret = 1 : 1;
+    return (ret);
+}
+
+
+int         ft_parse_dollar(t_all *all, char *line, int *i)
+{
+    int j;
+    int k;
+    int fl;
+    char *temp;
+    char *doll;
+    char *for_free;
+    char *for_join;
+
+    line[(*i)] = '\0';
+    (*i)++;
+    fl = 0;
+    if (line[(*i)] == '{' && ++(*i))
+        fl = 1;
+    j = (*i);
+    k = j;
+    while (ft_allowed_chars(line[(*i)]))
+        (*i)++;
+    if (fl == 1 && line[(*i)] != '{')
+        return (1); /**error*/
+    line[(*i)] = '\0';
+    temp = (char *)malloc(sizeof(char) * ((*i) - k));
+    (*i)++;
+    for_join = ft_strdup(line + (*i));
+    k = 0;
+    while (line[j])
+        temp[k++] = line[j++];
+    temp[k] = '\0';
+    doll = extract_echoenv(all->env, temp);
+    for_free = all->line;
+    all->line = ft_strjoin(all->line, temp);
+    free(for_free);
+    for_free = all->line;
+    all->line = ft_strjoin(all->line, for_join);
+    printf("%s we are here\n", all->line);
+    return (0);
+
+}
+
+int ft_dollar(t_all *all, char *line)
+{
+    int i;
+    int flag;
+
+    i = 0;
+    flag = 0;
+    while (line[i])
+    {
+        if (line[i] == '\'' && (flag = 1))
+            flag = get_flag(line, &i, '\'');
+        if ((line[i] && line[i] == '\0' ) || flag == 1)
+            return (1); /** syntax error*/
+        if (line[i] == '$')
+            ft_parse_dollar(all, line, &i);
+        i++;
+    }
+    return (0);
+}
+
 int ft_parse_commands(t_all *all, char *line)
 {
 	char **commands;
@@ -162,6 +235,7 @@ int ft_parse_commands(t_all *all, char *line)
 	i = 0;
 	if (ft_parse_line(all->line) == -1)
 		do_error(all, -1);
+	ft_dollar(all, all->line);
 	commands = ft_split(all->line, -1);
 	while(commands[i])
 	{

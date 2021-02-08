@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/08 15:42:06 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/08 16:20:45 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ms_cd(t_all *all)
 {
 	printf("%p\n", all->args.args);
 	if (all->args.args)
-		printf("%s\n", all->args.args->content);
+		printf("%s\n", (char *)all->args.args->content);
 	if (check_path(all))
 //	if (all->args.args->content && *((char *)all->args.args->content)) {
 		if (0 > (chdir(all->args.args->content)))

@@ -6,7 +6,7 @@
 #    By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 14:15:15 by jmogo             #+#    #+#              #
-#    Updated: 2020/12/06 10:49:16 by jmogo            ###   ########.fr        #
+#    Updated: 2021/02/09 19:05:06 by itollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS	= ft_atoi.c\
 		  ft_isascii.c\
 		  ft_isdigit.c\
 		  ft_isprint.c\
+		  ft_isspace.c\
 		  ft_itoa.c\
 		  ft_lstnew.c\
 		  ft_lstadd_front.c\

@@ -34,13 +34,15 @@ void		free_args(t_args *args)
 	}
 }
 
-void        refresh_all(t_all **all)
+void        refresh_all(t_all **all, t_args *args)
 {
     (*all)->cmd = DEF;
     (*all)->arg = NULL;
     (*all)->redir = 0;
     (*all)->cmd_len = 0;
     (*all)->pipe = 0;
+    args->dst = NULL;
+    args->src = NULL;
 	free_args(&((*all)->args));
 }
 

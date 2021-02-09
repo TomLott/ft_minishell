@@ -6,7 +6,7 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:46:15 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/09 18:04:40 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:04:29 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	process_tilda(t_all *all)
 	char	*head;
 
 	head = all->line;
-	while (tmp = ft_strchr(head, '~'))
+	while ((tmp = ft_strchr(head, '~')))
 	{
 		if (check_tilda_pos(head, tmp))
 		{

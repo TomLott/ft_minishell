@@ -1,15 +1,59 @@
 #include "minishell.h"
 
+void ft_redir_after_command(t_all *all, t_args *args, char *line)
+{
+    int     i;
+    char    *terminat;
+
+    i = 0;
+    terminat = line;
+    line = ft_strtrim(line, " ");
+    free(terminat);
+    while (line[i] && line[i] != ' ')
+        i++;
+    line[i] = '\0';
+    i++;
+    args->dst = ft_strdup(line);
+    all->arg = ft_strdup(line + i);
+}
+
+char *do_wise_trim(char *line)
+{
+    char *temp;
+    char *new_line;
+
+    temp = line;
+    new_line = ft_strdup(line);
+   //e free(temp);
+    temp = new_line;
+    new_line = ft_strtrim((new_line), "\"");
+    free(temp);
+    temp = new_line;
+    new_line = ft_strtrim((new_line), "\'");
+    free(temp);
+    temp = new_line;
+    new_line = ft_strtrim((new_line), " ");
+    free(temp);
+    //ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'")), " ");
+    return (new_line);
+}
+
 void        ft_redirect_parse(t_args *args, char *line, t_all *all)
 {
     int i;
     char *terminat;
 
+    /** If there is  redirect we put first argument before redirect to args->src,
+     * second argument (after redirect) to args->dst.
+     * Then we put rest of the arguments to massive all->arg to save them.
+     *
+     * If we already know that there is redirect symbol straight after command
+     * we use put first argument to the args->dst and rest of arguments to all->arg
+     */
 
     if (all->redir != 0)
     {
-        args->dst = ft_strtrim(ft_strdup(line), " ");
-        printf("here is dest %s\n", args->dst);
+        ft_redir_after_command(all, args, line);
         return ;
     }
     terminat = line;
@@ -17,20 +61,17 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     while(*line && (*line != -1 && *line != -2 && *line != -3))
         line++;
     *line = '\0';
-    if (*line == -3)
-    {
-        line++;
+    if (*line == -3 && ++line)
         *line = '\0';
-    }
     line++;
-    args->src = ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'")), " ");
-    args->dst = ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(line), "\""), "\'")), " ");
-	printf("dst = ======%s======\n", args->dst);
+    args->src = do_wise_trim(terminat);
+    args->dst = do_wise_trim(line);
     while(args->dst[i] && args->dst[i] != ' ')
         i++;
     free(terminat);
     terminat = args->dst;
-    args->dst[i] = '\0';
+    args->dst[i++] = '\0';
+    all->arg = ft_strdup(args->dst + i);
     args->dst = ft_strdup(args->dst);
     free(terminat);
 }
@@ -60,35 +101,31 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
 
     i = 0;
     flag = 0;
-    args->dst = NULL;
-    args->src = NULL;
     if (!line)
         return (1);
     if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
         ft_redirect_parse(args, line, all);
-    else
+    line = all->arg;
+    while (line[i])
     {
-        while (line[i]) {
-            if (line[i] == '\'' && (flag = 1))
-                flag = get_flag(line, &i, '\'');
-            else if (line[i] && line[i] == '\"' && (flag = 1))
-                flag = get_flag(line, &i, '\"');
-            if ((line[i] && line[i] == '\0') || flag == 1)
-                return (1); /** syntax error*/
-            if (line[i] == ' ')
-                line[i] = -1;
-            i++;
-        }
-        temp = ft_split(line, -1);
-        ft_do_list(temp, args);
+        if (line[i] == '\'' && (flag = 1))
+            flag = get_flag(line, &i, '\'');
+        else if (line[i] && line[i] == '\"' && (flag = 1))
+            flag = get_flag(line, &i, '\"');
+        if ((line[i] && line[i] == '\0') || flag == 1)
+            return (1); /** syntax error*/
+        if (line[i] == ' ')
+            line[i] = -2;
+        i++;
     }
+    temp = ft_split(line, -2);
+    ft_do_list(temp, args);
     return (0);
 }
 
 
 int         ft_check_redir(char *line, t_all *all)
 {
-  //  printf("%c - char\n", line[all->cmd_len]);
     if (line[all->cmd_len] == -3)
     {
         if (line[all->cmd_len + 1] == -3)
@@ -132,7 +169,6 @@ char        *ft_com_parser(char *line, t_all *all)
         {
             while (line[all->cmd_len] && line[all->cmd_len] != '\"')
                 temp[j++] = line[all->cmd_len++];
-
             (line[all->cmd_len] == '\"') ? all->cmd_len++ : (flag = -1);
         }
         else if (line[all->cmd_len] == '\'' && ++all->cmd_len)

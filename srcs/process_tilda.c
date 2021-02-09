@@ -6,7 +6,7 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:46:15 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/09 14:20:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/09 18:04:40 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ void	process_tilda(t_all *all)
 			head = tmp + 1;
 			continue ;
 		}
-		printf("CHANGE THE WORLD!\n");
+		if (*(tmp + 1) == '+')
+			all->line = str_swap(all->line, tmp, 2,
+								extract_env(all->env, "PWD"));
+		else
+			all->line = str_swap(all->line, tmp, 1,
+								extract_env(all->env, "HOME"));
 		head = tmp + 1;
 	}
 }

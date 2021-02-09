@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/08 15:42:02 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/09 12:38:40 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	ms_def(t_all *all)
 {
 	if (*(all->line) == 0)
 		return (0);
+
 	ft_putstr_fd(all->line, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (-1);

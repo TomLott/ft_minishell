@@ -259,6 +259,7 @@ void get_data(t_all *all)
 	if ( 0 > get_next_line(STDIN_FILENO, &all->line))
 		do_error(all, -1);
 	//all->line = ft_strdup("echo \"hello;world\""); /*use for test commands. Remove after*/
+	process_tilda(all);
 	ft_parse_commands(all, all->line);
 	//free(line);
 }

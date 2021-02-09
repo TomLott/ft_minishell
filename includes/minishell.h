@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/08 15:42:11 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/09 12:46:03 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int					ms_export(t_all *all);
 int					ms_pwd(void);
 int					ms_unset(t_all *all);
 void				parse_env(char *env, char **key, char **value);
+void				process_tilda(t_all *all);
 void				refresh_all(t_all **all);
 int					t_parse_commands(t_all *all, char *line);
 

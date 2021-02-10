@@ -29,12 +29,14 @@ int         get_flag(char *line, int *i, char c)
 	printf("we are here = %s\n", line);
 	flag = 1;
 	(*i)++;
-	while (line[(*i)] != c && line[*i + 1])
+	while (line[(*i)])
 	{
+		if (line[(*i)] == '\\' && line[(*i) + 1])
+			(*i) += 2;
+		else if (line[(*i)] == c)
+			return (0);
 		(*i)++;
 	}
-	if (line[(*i)] == c)
-		return (0);
 	return (1);
 }
 
@@ -52,12 +54,13 @@ int         ft_parse_line(char *line)
 			flag = get_flag(line, &i, '\'');
 		else if (line[i] && line[i] == '\"' && (flag = 1))
 			flag = get_flag(line, &i, '\"');
-		if ((line[i] && line[i] == '\0' ) || flag == 1)
+		if (line[i] == '\0' && flag == 1)
 			return (-1); /** syntax error*/
 		if (line[i] == ';')
 			line[i] = -1; /** we change semicolons to (-1) by ASCII to split commands by (-1) */
 		i++;
 	}
+	printf("%s parse line\n", line);
 	return (1);
 }
 
@@ -140,15 +143,14 @@ void        hook_command(char *com, t_all *all)
 		get_command(temp[j], all);
 		if (all->cmd_len + 1 < ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
-
 		ft_parse_argument(all->arg, all, &(all->args));
 		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
-		if (all->args.args)
+		/*if (all->args.args)
 		    while(all->args.args){
 		        printf("%s args\n", all->args.args->content);
 		        all->args.args = all->args.args->next;
-		    }
+		    }*/
 		j++;
 	}
 	//all->args = *args; /* don't forget to remove */
@@ -187,8 +189,10 @@ int         ft_parse_dollar(t_all *all, char *line, int *i)
         (*i)++;
     if (fl == 1 && line[(*i)] != '}')
         return (1); /**error*/
+	if ((*i) - j == 0)
+		(*i)--;
     line[(*i)] = '\0';
-    temp = (char *)malloc(sizeof(char) * ((*i) - j));
+    temp = (char *)malloc(sizeof(char) * ((*i) - j + 1));
     (*i)++;
     for_join = ft_strdup(line + (*i));
     k = 0;
@@ -197,13 +201,11 @@ int         ft_parse_dollar(t_all *all, char *line, int *i)
     temp[k] = '\0';
     doll = extract_env(all->env, temp);
     for_free = all->line;
-	printf("%s here is temp, %s here is doll\n", temp, doll);
-    all->line = ft_strjoin(all->line, doll);
-	printf("%s after join\n", all->line);
+    if (all->line && doll)
+		all->line = ft_strjoin(all->line, doll);
     free(for_free);
     for_free = all->line;
     all->line = ft_strjoin(all->line, for_join);
-    printf("%s we are here\n", all->line);
     return (0);
 
 }
@@ -223,7 +225,8 @@ int ft_dollar(t_all *all, char *line)
             return (1); /** syntax error*/
         if (line[i] == '$')
             ft_parse_dollar(all, line, &i);
-        i++;
+        if (line[i])
+			i++;
     }
     return (0);
 }
@@ -235,9 +238,9 @@ int ft_parse_commands(t_all *all, char *line)
 	char *temp;
 
 	i = 0;
+	ft_dollar(all, all->line);
 	if (ft_parse_line(all->line) == -1)
 		do_error(all, -1);
-	ft_dollar(all, all->line);
 	commands = ft_split(all->line, -1);
 	while(commands[i])
 	{

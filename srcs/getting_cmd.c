@@ -72,6 +72,7 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     terminat = args->dst;
     args->dst[i++] = '\0';
     all->arg = ft_strdup(args->dst + i);
+    printf("%s redir\n", all->arg);
     args->dst = ft_strdup(args->dst);
     free(terminat);
 }
@@ -105,7 +106,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
         return (1);
     if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
         ft_redirect_parse(args, line, all);
-    line = all->arg;
+    //line = all->arg;
     while (line[i])
     {
         if (line[i] == '\'' && (flag = 1))

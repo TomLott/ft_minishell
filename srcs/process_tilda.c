@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int		is_quote(char c)
 {
@@ -28,7 +28,12 @@ int		inside_quotes(char *str, char *end, char c)
 	tmp = str;
 	while (tmp < end)
 	{
-		if (*tmp == c)		
+		if (*tmp == '\\' && *(tmp + 1))
+		{
+			tmp += 2;
+			continue ;
+		}
+		else if (*tmp == c)		
 			num++;
 		tmp++;
 	}
@@ -40,7 +45,6 @@ int		inside_quotes(char *str, char *end, char c)
 int		check_tilda_pos(char *s, char *til)
 {
 	char	c;
-	char	*tmp;
 
 	if (til > s)
 	{
@@ -59,7 +63,6 @@ int		check_tilda_pos(char *s, char *til)
 
 void	process_tilda(t_all *all)
 {
-	char	*res;
 	char	*tmp;
 	char	*head;
 

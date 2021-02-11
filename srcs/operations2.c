@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 10:12:00 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 15:14:10 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		ms_cd(t_all *all)
 	if (check_path(all))
 		if (0 > (chdir(all->args.args->content)))
 			show_cd_err(all);
-	swap_env(all, "PWD");
+	set_old_pwd(all);
+	set_pwd(all);
 	return (0);
 }

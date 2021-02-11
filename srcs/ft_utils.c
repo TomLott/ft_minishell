@@ -6,11 +6,11 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/08 12:37:50 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 15:02:09 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void		free_and_null(char **str)
 {
@@ -29,7 +29,7 @@ void		free_args(t_args *args)
 		args->redir = 0;
 		free_and_null(&(args->src));
 		free_and_null(&(args->dst));
-		ft_lstclear(&(args->args), &free); /*structure of my dreams*/
+		//ft_lstclear(&(args->args), &free); /*structure of my dreams*/
 		args = args->next;
 	}
 }

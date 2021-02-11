@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 09:44:21 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 15:10:16 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void				parse_env(char *env, char **key, char **value);
 void				process_tilda(t_all *all);
 void				refresh_all(t_all **all, t_args *args);
 char				*str_swap(char *str, char *old, int len, char *new);
-void				swap_env(t_all *all, char *key);
+void				set_old_pwd(t_all *all);
+void				set_pwd(t_all *all);
 int					t_parse_commands(t_all *all, char *line);
 
 #endif

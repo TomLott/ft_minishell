@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 10:12:52 by jmogo             #+#    #+#             */
-/*   Updated: 2020/11/07 12:00:55 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 14:37:01 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_lstclear(t_list **lst, void (*f)(void *))
 
 	if (lst == 0x0 || f == 0x0)
 		return ;
+	printf("A GDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\n");
 	while (*lst)
 	{
 		next = (*lst)->next;

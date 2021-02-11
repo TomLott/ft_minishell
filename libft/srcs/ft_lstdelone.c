@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 21:14:20 by jmogo             #+#    #+#             */
-/*   Updated: 2020/11/06 21:17:01 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 14:36:27 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	del(lst->content);
+	if (lst->content)
+		del(lst->content);
 	free(lst);
 }

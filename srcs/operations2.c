@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/09 12:07:23 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 10:12:00 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int		check_path(t_all *all)
 		if (*((char *)all->args.args->content))
 			return (1);
 	}
-	else
-		cd_set_home(all);
+	cd_set_home(all);
 	return (0);
 }
 
@@ -48,5 +47,6 @@ int		ms_cd(t_all *all)
 	if (check_path(all))
 		if (0 > (chdir(all->args.args->content)))
 			show_cd_err(all);
+	swap_env(all, "PWD");
 	return (0);
 }

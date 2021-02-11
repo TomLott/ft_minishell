@@ -6,13 +6,13 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:46:15 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/09 19:04:29 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/11 16:29:30 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		is_quote(char c)
+int		is_any_quote(char c)
 {
 	if (c == 34 || c == 39 || c == 96) /* 34 = ", 39 = ',  96 = ` */
 		return (1);
@@ -33,7 +33,7 @@ int		inside_quotes(char *str, char *end, char c)
 			tmp += 2;
 			continue ;
 		}
-		else if (*tmp == c)		
+		else if (*tmp == c)
 			num++;
 		tmp++;
 	}
@@ -49,7 +49,7 @@ int		check_tilda_pos(char *s, char *til)
 	if (til > s)
 	{
 		c = *(til - 1);
-		if (is_quote(c))
+		if (is_any_quote(c))
 			return (1);
 		if (inside_quotes(s, til, 34) || inside_quotes(s, til, 39) ||
 			inside_quotes(s, til, 96))

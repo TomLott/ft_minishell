@@ -144,6 +144,8 @@ void        hook_command(char *com, t_all *all)
 		if (all->cmd_len + 1 < ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
+		all->args.src = ft_quotes_deleting(all->args.src, all);
+		all->args.dst = ft_quotes_deleting(all->args.dst, all);
 		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		/*if (all->args.args)
@@ -250,6 +252,7 @@ int ft_parse_commands(t_all *all, char *line)
 		hook_command(commands[i], all);
 		free(temp);
 		i++;
+		all->last_rv = manage_cmds(all);
 	}
 	free(commands);
 	return (1);
@@ -263,6 +266,7 @@ void get_data(t_all *all)
 		do_error(all, -1);
 	//all->line = ft_strdup("echo \"hello;world\""); /*use for test commands. Remove after*/
 	process_tilda(all);
+	//process_quotes(&all->line);
 	ft_parse_commands(all, all->line);
 	//free(line);
 }
@@ -278,7 +282,6 @@ int main(int argc, char **argv, char **env)
 		ft_print_capt(1);
 		signal(SIGINT, myint);
 		get_data(all);
-		all->last_rv = manage_cmds(all);
 	//	refresh_all(&all);
 	//	break; /*remove*/
 	}

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 15:10:16 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/11 19:03:51 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ void				ft_init_env(char **env, t_all *all);
 int                 ft_parse_argument(char *line, t_all *all, t_args *args);
 int					ft_parse_line(char *line);
 void				ft_print_capt(int fd);
+char				*ft_quotes_deleting(char *str, t_all *all);
 void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);
 int					get_next_line(int fd, char **line);
 void				init_obj(void **p, t_cmd type);
+int					inside_quotes(char *str, char *end, char c);
+int					is_any_quote(char c);
 int					manage_cmds(t_all *all);
 int                 ms_cd(t_all *all);
 int					ms_def(t_all *all);
@@ -100,8 +103,9 @@ int					ms_pwd(void);
 int					ms_unset(t_all *all);
 void				parse_env(char *env, char **key, char **value);
 void				process_tilda(t_all *all);
+int					process_quotes(char **str);
 void				refresh_all(t_all **all, t_args *args);
-char				*str_swap(char *str, char *old, int len, char *new);
+char				*str_swap(char *str, char *old, int len, char *new_str);
 void				set_old_pwd(t_all *all);
 void				set_pwd(t_all *all);
 int					t_parse_commands(t_all *all, char *line);

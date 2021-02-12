@@ -184,7 +184,7 @@ int         ft_parse_dollar(t_all *all, char *line, int *i)
     (*i)++;
     fl = 0;
 	if (line[*i] == '\?')
-		return (convert_dol_question(all, line, *i + 1));
+		return (convert_dol_question(all, line, i));
     if (line[(*i)] == '{' && ++(*i))
         fl = 1;
     j = (*i);

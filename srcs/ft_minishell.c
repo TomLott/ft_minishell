@@ -184,9 +184,7 @@ int         ft_parse_dollar(t_all *all, char *line, int *i)
     (*i)++;
     fl = 0;
 	if (line[*i] == '\?')
-	{
-		printf("SHLYAPA IS A HAT\n%s\n", line);
-	}
+		return (convert_dol_question(all, line, *i + 1));
     if (line[(*i)] == '{' && ++(*i))
         fl = 1;
     j = (*i);

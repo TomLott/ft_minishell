@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 19:03:51 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/12 10:37:30 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct		s_all
 
 int					check_head_env(t_all *all, t_list *tmp);
 char				*convert_env(char *str);
+int					convert_dol_question(t_all *all, char *line, int i);
 int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				env_add_back(t_all *all, char *env);

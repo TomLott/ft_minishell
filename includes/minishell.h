@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/12 11:25:51 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/12 12:08:54 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char				*ft_quotes_deleting(char *str, t_all *all);
 void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);
 int					get_next_line(int fd, char **line);
+char				*get_path(t_all *all, char *path, char *ex_name);
 void				init_obj(void **p, t_cmd type);
 int					inside_quotes(char *str, char *end, char c);
 int					is_any_quote(char c);

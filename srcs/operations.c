@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 20:36:42 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/12 12:08:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,12 @@ int	ms_def(t_all *all)
 	if (*(all->line) == 0)
 		return (0);
 	ft_putstr_fd(all->def_cmd, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	return (-1);
+	if (!(get_path(all, extract_env(all->env, "PATH"), all->def_cmd)))
+	{
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		return (-1);
+	}
+	return (0);
 }
 
 int	ms_export(t_all *all)

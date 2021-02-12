@@ -78,11 +78,11 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     args->dst = ft_strdup(args->dst);
     //free(terminat);
 }
-
+/*
 void        ft_do_list(char **line, t_args *args)
 {
     int     i;
-    t_list  *tmp;
+    char	*tmp;
 
     i = 1;
     args->args = malloc(sizeof(t_list));
@@ -95,7 +95,7 @@ void        ft_do_list(char **line, t_args *args)
         i++;
     }
 }
-
+*/
 int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {
     int i;
@@ -121,8 +121,9 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
             line[i] = -2;
         i++;
     }
-    temp = ft_split(line, -2);
-    ft_do_list(temp, args);
+//    temp = ft_split(line, -2);
+	all->args.args = ft_split(line, -2);
+    //ft_do_list(temp, args);
     return (0);
 }
 

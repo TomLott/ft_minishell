@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/12 12:08:56 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/12 19:37:19 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ int	ms_pwd(void)
 
 int	ms_unset(t_all *all)
 {
-	t_list		*tmp;
+	char		**tmp;
 	t_envlst	*tmp_env;
 	t_envlst	*prev;
 
 	tmp = all->args.args;
 	while (tmp)
 	{
-		if (check_head_env(all, tmp))
-			continue ;
+		//if (check_head_env(all, tmp))
+		//	continue ;
 		tmp_env = all->env->next;
 		prev = all->env;
 		while (tmp_env)
@@ -89,15 +89,13 @@ int	ms_def(t_all *all)
 
 int	ms_export(t_all *all)
 {
-	t_list	*args;
+	char	**args;
 	char	*tmp;
+	int		i;
 
+	i = 0;
 	args = all->args.args;
-	while (args)
-	{
-		if ((tmp = convert_env(args->content)))
-			env_add_back(all, tmp);
-		args = args->next;
-	}
+	while (args[i])
+		i++;
 	return (0);
 }

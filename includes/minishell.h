@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/12 12:08:54 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/12 19:36:35 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct      s_args
     int             redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
     char            *src;
     char            *dst;
-    t_list          *args;
+    char			**args;
     void            *next;
 }                   t_args;
 
@@ -75,7 +75,7 @@ typedef struct		s_all
 	char            *def_cmd;
 }					t_all;
 
-int					check_head_env(t_all *all, t_list *tmp);
+//int					check_head_env(t_all *all, t_list *tmp);
 char				*convert_env(char *str);
 int					convert_dol_question(t_all *all, char *line, int *i);
 int					do_error(t_all *all, int rv);

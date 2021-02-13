@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 11:02:53 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 15:32:59 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,13 @@ typedef struct		s_all
 }					t_all;
 
 int					convert_dol_question(t_all *all, char *line, int *i);
+char				**copy_env(char **env);
 int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				env_add_back(t_all *all, char *env);
 char				*extract_env(char **env, char *key);
 void				free_arr(void **arr, int size);
+void				free_double_char(char **arr);
 void				free_env(t_envlst **env);
 char				*ft_com_parser(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
@@ -104,6 +106,7 @@ int					ms_export(t_all *all);
 int					ms_pwd(void);
 int					ms_unset(t_all *all);
 void				parse_env(char *env, char **key, char **value);
+char				**pop_str(char **arr, char *key);
 void				process_tilda(t_all *all);
 int					process_quotes(char **str);
 void				refresh_all(t_all **all, t_args *args);

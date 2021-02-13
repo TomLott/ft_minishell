@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   free_double_char.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 10:12:52 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 13:20:20 by jmogo            ###   ########.fr       */
+/*   Created: 2021/02/13 15:12:38 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/13 15:47:22 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*f)(void *))
+void	free_double_char(char **arr)
 {
-	t_list	*next;
+	int		i;
 
-	if (lst == 0x0 || f == 0x0)
-		return ;
-	while (*lst)
-	{
-		next = (*lst)->next;
-		ft_lstdelone(*lst, f);
-		*lst = next;
-	}
+	i = 0;
+	while (arr && arr[i++])
+		free(arr[i - 1]);
+	free(arr);
 }

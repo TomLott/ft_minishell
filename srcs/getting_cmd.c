@@ -66,15 +66,12 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     line++;
     args->src = ft_strtrim(terminat, " ");
     args->dst = ft_strtrim(line, " ");
-	printf("term is %s\n", args->src);
-	printf("line is %s\n", args->dst);
     while(args->dst[i] && args->dst[i] != ' ')
         i++;
     free(terminat);
     terminat = args->dst;
     args->dst[i++] = '\0';
     all->arg = ft_strdup(args->dst + i);
-    printf("%s redir\n", all->arg);
     args->dst = ft_strdup(args->dst);
     //free(terminat);
 }
@@ -227,7 +224,6 @@ int			ft_strlen_for_arg(char *line)
 			j = 0;
 			break ;
 		}
-		printf("hehe\n");
     }
     return (j);
 }

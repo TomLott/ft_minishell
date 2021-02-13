@@ -26,7 +26,7 @@ char	*get_path(t_all *all, char *path, char *ex_name)
 	{
 		tmp = ft_strjoin(dirs[i - 1], ex_name);
 	}
-	printf("PATH IS:\n%s\nbin is:\n%s\narg[0] is: %s\n", path, ex_name, args[0]);
+	//printf("PATH IS:\n%s\nbin is:\n%s\narg[0] is: %s\n", path, ex_name, args[0]);
 	free(path);
 	return (0x0);
 }

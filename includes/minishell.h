@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 15:32:59 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 18:37:03 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct		s_all
 	char            *def_cmd;
 }					t_all;
 
+char				**arr_append(char **arr, char *to_add);
+int					arr_len(char **arr);
 int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
 int					do_error(t_all *all, int rv);

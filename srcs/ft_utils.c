@@ -6,11 +6,24 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/11 20:38:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 19:36:33 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			arr_len(char **arr)
+{
+	int	ans;
+
+	ans = 0;
+	while (arr && arr[ans])
+	{
+		printf("ARR IS %s\n", arr[ans]);
+		ans++;
+	}
+	return (ans);
+}
 
 void		free_and_null(char **str)
 {

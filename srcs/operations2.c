@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 15:46:55 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 18:55:59 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int		ms_cd(t_all *all)
 			show_cd_err(all);
 	set_old_pwd(all);
 	set_pwd(all);
+	printf("POSLE NEGO\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 11:02:32 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 11:03:29 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ms_env(t_all *all)
 	char	*str[2]; /* str[0] = key, str[1] = value */
 
 	tmp = all->env;
-	printf("env in all is: %s\n", *(all->env));
 	while (*tmp)
 	{
 		get_key_value(*tmp, &str[0], &str[1]);
@@ -30,7 +29,6 @@ int	ms_env(t_all *all)
 		tmp++;
 		free_arr((void **)&str, 2);
 	}
-	printf("env in all is: %s\n", *(all->env));
 	return (0);
 }
 

@@ -25,12 +25,10 @@ void	set_pwd(t_all *all)
 		if (ft_strcmp(str[0], "PWD"))
 		{
 			all->env = pop_str(all->env, "PWD");
-			/*
 			str[2] = getcwd(cwd, 4096);
 			printf("DO NEGO: %s\n", str[2]);
 			str[2] = ft_strjoin("PWD=", str[2]);
-			*/
-			//free_arr((void **)&str, 2);
+			all->env = arr_append(all->env, str[2]);
 			break ;
 		}
 		tmp_env++;

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/12 19:36:35 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 11:02:53 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct      s_args
 
 typedef struct		s_all
 {
-	t_envlst		*env;
+	char			**env;
 	char			*line;
 	t_cmd			cmd;
 	char			*arg;
@@ -75,13 +75,12 @@ typedef struct		s_all
 	char            *def_cmd;
 }					t_all;
 
-//int					check_head_env(t_all *all, t_list *tmp);
-char				*convert_env(char *str);
 int					convert_dol_question(t_all *all, char *line, int *i);
 int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				env_add_back(t_all *all, char *env);
-char				*extract_env(t_envlst *env, char *key);
+char				*extract_env(char **env, char *key);
+void				free_arr(void **arr, int size);
 void				free_env(t_envlst **env);
 char				*ft_com_parser(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
@@ -91,6 +90,7 @@ void				ft_print_capt(int fd);
 char				*ft_quotes_deleting(char *str, t_all *all);
 void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);
+int					get_key_value(char *str, char **key, char **value);
 int					get_next_line(int fd, char **line);
 char				*get_path(t_all *all, char *path, char *ex_name);
 void				init_obj(void **p, t_cmd type);

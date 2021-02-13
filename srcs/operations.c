@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/12 19:37:19 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 11:02:32 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 int	ms_env(t_all *all)
 {
-	t_envlst	*tmp;
+	char	**tmp;
+	char	*str[2]; /* str[0] = key, str[1] = value */
 
 	tmp = all->env;
-	while (tmp)
+	printf("env in all is: %s\n", *(all->env));
+	while (*tmp)
 	{
-		if (tmp->key)
-			ft_putstr_fd(tmp->key, STDIN_FILENO);
+		get_key_value(*tmp, &str[0], &str[1]);
+		if (str[0])
+			ft_putstr_fd(str[0], STDIN_FILENO);
 		ft_putstr_fd("=", STDIN_FILENO);
-		ft_putstr_fd(tmp->value, STDIN_FILENO);
+		ft_putstr_fd(str[1], STDIN_FILENO);
 		ft_putstr_fd("\n", STDIN_FILENO);
-		tmp = tmp->next;
+		tmp++;
+		free_arr((void **)&str, 2);
 	}
+	printf("env in all is: %s\n", *(all->env));
 	return (0);
 }
 
@@ -48,29 +53,26 @@ int	ms_pwd(void)
 
 int	ms_unset(t_all *all)
 {
+	/*
 	char		**tmp;
-	t_envlst	*tmp_env;
-	t_envlst	*prev;
+	char		**tmp_env;
+	int			i;
 
+	i = 0;
 	tmp = all->args.args;
 	while (tmp)
 	{
-		//if (check_head_env(all, tmp))
-		//	continue ;
 		tmp_env = all->env->next;
-		prev = all->env;
 		while (tmp_env)
 		{
 			if (ft_strcmp(tmp->content, tmp_env->key))
 			{
-				prev->next = tmp_env->next;
 				free_env(&tmp_env);
 			}
-			prev = tmp_env;
 			tmp_env = tmp_env->next;
 		}
 		tmp = tmp->next;
-	}
+	}*/
 	return (0);
 }
 

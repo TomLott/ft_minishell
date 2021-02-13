@@ -6,12 +6,12 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 09:39:03 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 15:14:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 10:27:43 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	set_pwd(t_all *all)
 {
 	t_envlst	*tmp_env;
@@ -43,4 +43,4 @@ void	set_old_pwd(t_all *all)
 		}
 		tmp_env = tmp_env->next;
 	}
-}
+}*/

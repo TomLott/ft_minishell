@@ -6,12 +6,12 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/07 10:11:15 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 10:37:24 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void		parse_env(char *env, char **key, char **value)
 {
 	char	*eq;
@@ -72,3 +72,4 @@ void		ft_init_env(char **env, t_all *all)
 	while (env[i++])
 		env_add_back(all, env[i - 1]);
 }
+*/

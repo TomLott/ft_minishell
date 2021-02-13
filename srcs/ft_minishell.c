@@ -278,7 +278,8 @@ int main(int argc, char **argv, char **env)
 	t_all *all;
 
 	do_malloc(all, (void **)(&all), ALL);
-	ft_init_env(env, all);
+	all->env = env;
+	//ft_init_env(env, all);
 	while(1)
 	{
 		ft_print_capt(1);

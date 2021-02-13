@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 17:26:34 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 20:39:20 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		do_error(t_all *all, int rv)
 		free(all->grbg);
 		all->grbg = tmp;
 	}
+	while (1)
+		;
 	exit(rv);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 19:38:19 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 20:32:03 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ char	**arr_append(char **arr, char *to_add)
 
 	i = 0;
 	len = arr_len(arr) + 1;
-	if (!(ans = malloc(sizeof(char *) * len)))
+	if (!(ans = malloc(sizeof(char *) * (len + 1))))
 		return (0x0);
 	ans[0] = ft_strdup(to_add);
 	while (i++ < len - 1)
 		ans[i] = ft_strdup(arr[i - 1]);
-	ans[i] = 0x0;
+	ans[len] = 0x0;
 	free_double_char(arr);
 	return (ans);
 }

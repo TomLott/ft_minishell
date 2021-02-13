@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/13 19:36:33 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 19:55:46 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int			arr_len(char **arr)
 
 	ans = 0;
 	while (arr && arr[ans])
-	{
-		printf("ARR IS %s\n", arr[ans]);
 		ans++;
-	}
 	return (ans);
 }
 

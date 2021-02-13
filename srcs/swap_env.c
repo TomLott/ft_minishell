@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 09:39:03 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 19:34:39 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/13 20:35:19 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	set_pwd(t_all *all)
 		{
 			all->env = pop_str(all->env, "PWD");
 			str[2] = getcwd(cwd, 4096);
-			printf("DO NEGO: %s\n", str[2]);
 			str[2] = ft_strjoin("PWD=", str[2]);
 			all->env = arr_append(all->env, str[2]);
 			break ;

@@ -75,24 +75,7 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     args->dst = ft_strdup(args->dst);
     //free(terminat);
 }
-/*
-void        ft_do_list(char **line, t_args *args)
-{
-    int     i;
-    char	*tmp;
 
-    i = 1;
-    args->args = malloc(sizeof(t_list));
-    tmp = args->args;
-    tmp->content = line[0];
-    tmp->next = NULL;
-    while(line[i])
-    {
-        ft_lstadd_back(&tmp,ft_lstnew(line[i]));
-        i++;
-    }
-}
-*/
 int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {
     int i;
@@ -104,7 +87,10 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
     if (!line)
         return (1);
     if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
+    {
         ft_redirect_parse(args, line, all);
+        line = all->arg;
+    }
     //line = all->arg;
     while (line[i])
     {
@@ -119,6 +105,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
         i++;
     }
 //    temp = ft_split(line, -2);
+    printf("here is line %s\n", line);
 	all->args.args = ft_split(line, -2);
     //ft_do_list(temp, args);
     return (0);

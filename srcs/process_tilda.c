@@ -6,15 +6,15 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:46:15 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 16:29:30 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 13:16:23 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int		is_any_quote(char c)
 {
-	if (c == 34 || c == 39 || c == 96) /* 34 = ", 39 = ',  96 = ` */
+	if (c == 34 || c == 39 || c == 96)
 		return (1);
 	return (0);
 }
@@ -38,7 +38,7 @@ int		inside_quotes(char *str, char *end, char c)
 		tmp++;
 	}
 	if (num % 2)
-		return (1); /* it means we are between quotes */
+		return (1);
 	return (0);
 }
 

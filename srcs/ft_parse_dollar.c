@@ -24,7 +24,7 @@ int			ft_parse_dollar(t_all *all, char *line, int *i)
 
 	fl = 0;
 	line[(*i)++] = '\0';
-	if ((k = 0) && line[*i] == '\?')
+	if (!(k = 0) && line[*i] == '\?')
 		return (convert_dol_question(all, line, i));
 	if (line[(*i)] == '{' && ++(*i))
 		fl = 1;

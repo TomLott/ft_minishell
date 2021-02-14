@@ -49,14 +49,13 @@ void        hook_command(char *com, t_all *all)
 		all->args.dst = ft_quotes_deleting(all->args.dst, all);
 		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
-		/*if (all->args.args)
-		    while(all->args.args){
-		        printf("%s args\n", all->args.args->content);
-		        all->args.args = all->args.args->next;
+		all->last_rv = manage_cmds(all);
+		/**if (all->args.args)
+		    while(*all->args.args){
+		        printf("%s args\n", *all->args.args++);
 		    }*/
 		j++;
 	}
-	//all->args = *args; /* don't forget to remove */
 }
 
 int ft_parse_commands(t_all *all, char *line)
@@ -78,9 +77,9 @@ int ft_parse_commands(t_all *all, char *line)
 		hook_command(commands[i], all);
 		free(temp);
 		i++;
-		all->last_rv = manage_cmds(all);
+//		all->last_rv = manage_cmds(all);
 	}
-	free(commands);
+	free_double_char(commands);
 	return (1);
 }
 
@@ -90,11 +89,10 @@ void get_data(t_all *all)
 
 	if ( 0 > get_next_line(STDIN_FILENO, &all->line))
 		do_error(all, -1);
-	//all->line = ft_strdup("echo \"hello;world\""); /*use for test commands. Remove after*/
 	process_tilda(all);
-	//process_quotes(&all->line);
 	ft_parse_commands(all, all->line);
-	//free(line);
+	if (all->line)
+		free(all->line);
 }
 
 int main(int argc, char **argv, char **env)

@@ -32,8 +32,6 @@ int		do_error(t_all *all, int rv)
 		free(all->grbg);
 		all->grbg = tmp;
 	}
-	while (1)
-		;
 	exit(rv);
 	return (0);
 }

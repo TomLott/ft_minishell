@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 10:33:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 19:21:28 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	ms_unset(t_all *all)
 int	ms_def(t_all *all)
 {
 	if (*(all->line) == 0)
+		return (0);
+	if (is_export(all))
 		return (0);
 	ft_putstr_fd(all->def_cmd, STDERR_FILENO);
 	if (!(get_path(all, extract_env(all->env, "PATH"), all->def_cmd)))

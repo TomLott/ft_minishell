@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:45:16 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/11 15:02:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 19:23:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_all(t_all **all)
 {
 	(*all)->env = 0x0;
+	(*all)->loc_env = 0x0;
 	(*all)->line = 0x0;
 	(*all)->cmd = DEF;
 	(*all)->arg = 0x0;
@@ -23,7 +24,7 @@ void	init_all(t_all **all)
 	(*all)->pipe = 0;
 	(*all)->grbg = 0x0;
 	(*all)->err = E_DEF;
-	//(*all)->args = 0x0;
+	(*all)->args.args = 0x0;
 	(*all)->last_rv = 0;
 }
 

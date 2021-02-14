@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 18:37:03 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 10:31:50 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct      s_args
 typedef struct		s_all
 {
 	char			**env;
+	char			**loc_env;
 	char			*line;
 	t_cmd			cmd;
 	char			*arg;
@@ -77,6 +78,7 @@ typedef struct		s_all
 
 char				**arr_append(char **arr, char *to_add);
 int					arr_len(char **arr);
+int					check_key(char **arr, char *key);
 int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
 int					do_error(t_all *all, int rv);

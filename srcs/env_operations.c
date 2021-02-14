@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 20:32:03 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 10:02:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**pop_str(char **arr, char *key)
 {
 	int		len_arr;
 	int		i;
-	char	**ans[2]; /* ans[0] - head of the array, ans[1] - array to iter */
+	char	**ans[2];
 
 	i = 0;
 	len_arr = arr_len(arr);

@@ -6,11 +6,22 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 10:02:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 10:29:33 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		check_key(char **arr, char *key)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i++])
+		if (!(ft_strncmp(arr[i - 1], key, ft_strlen(key))))
+			return (1);
+	return (0);
+}
 
 char	**copy_env(char **arr)
 {

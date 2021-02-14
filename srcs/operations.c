@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 11:03:29 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/14 10:33:05 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,15 @@ int	ms_pwd(void)
 
 int	ms_unset(t_all *all)
 {
-	/*
 	char		**tmp;
 	char		**tmp_env;
 	int			i;
 
 	i = 0;
 	tmp = all->args.args;
-	while (tmp)
-	{
-		tmp_env = all->env->next;
-		while (tmp_env)
-		{
-			if (ft_strcmp(tmp->content, tmp_env->key))
-			{
-				free_env(&tmp_env);
-			}
-			tmp_env = tmp_env->next;
-		}
-		tmp = tmp->next;
-	}*/
+	while (tmp[i++])
+		if (check_key(all->env, tmp[i - 1]))
+			all->env = pop_str(all->env, tmp[i - 1]);
 	return (0);
 }
 
@@ -95,7 +84,7 @@ int	ms_export(t_all *all)
 
 	i = 0;
 	args = all->args.args;
-	while (args[i])
-		i++;
+	while (args[i++])
+		printf("str is %s\n", args[i - 1]);
 	return (0);
 }

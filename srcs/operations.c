@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 18:03:40 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:39:09 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,21 @@ int	ms_def(t_all *all)
 int	ms_export(t_all *all)
 {
 	char	**args;
-	char	*tmp;
+	char	*str[2];
 	int		i;
 
-	i = 0;
+	if (!all->arg)
+		return (print_empty_export(all->env));
 	args = all->args.args;
+	i = 0;
 	while (args[i++])
-		printf("str is %s\n", args[i - 1]);
+	{
+		if (ft_strchr(args[i - 1], '='))
+		{
+			all->env = (all->env, args[i - 1]);
+			continue ;
+		}
+		get_key_value(all->env[i - 1], &str[0], &str[1]);
+	}
 	return (0);
 }

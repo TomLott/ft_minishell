@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 14:36:51 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:27:05 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int					ms_unset(t_all *all);
 void				myint(int sig);
 void				parse_env(char *env, char **key, char **value);
 char				**pop_str(char **arr, char *key);
+int					print_empty_export(char **env);
 void				process_tilda(t_all *all);
 int					process_quotes(char **str);
 void				refresh_all(t_all **all, t_args *args);

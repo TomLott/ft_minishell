@@ -80,7 +80,6 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {
     int i;
     int flag;
-    char **temp;
 
     i = 0;
     flag = 0;
@@ -105,7 +104,6 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
             line[i] = -5;
         i++;
     }
-//    temp = ft_split(line, -2);
     printf("here is line %s\n", line);
 	all->args.args = ft_split(line, -5);
     //ft_do_list(temp, args);

@@ -14,7 +14,7 @@
 
 int		is_export(t_all *all)
 {
-	char	**args;
+	//char	**args;
 	char	*str[2];
 	int		i;
 

@@ -31,7 +31,7 @@ void        hook_command(char *com, t_all *all)
 	char *point;
 
 	j = 0;
-	ft_change_pipes(all, com);
+	ft_change_pipes(com);
 	printf("%s here is com\n", com);
 	temp = ft_split(com, -1);
 	while(temp[j])
@@ -42,7 +42,7 @@ void        hook_command(char *com, t_all *all)
         refresh_all(&all, &all->args);
 		ft_change_redir(&temp[j]);
 		get_command(temp[j], all);
-		if (all->cmd_len + 1 < ft_strlen(temp[j]))
+		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
 		all->args.src = ft_quotes_deleting(all->args.src, all);
@@ -51,7 +51,7 @@ void        hook_command(char *com, t_all *all)
 		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		all->last_rv = manage_cmds(all);
 		printf("A LINE IS %s\n", all->arg);
-	if (all->args.args)
+		if (all->args.args)
 		    while(*all->args.args){
 		        printf("%s args\n", *all->args.args++);
 		    }
@@ -59,7 +59,7 @@ void        hook_command(char *com, t_all *all)
 	}
 }
 
-int ft_parse_commands(t_all *all, char *line)
+int ft_parse_commands(t_all *all)
 {
 	char **commands;
 	int i;
@@ -91,7 +91,7 @@ void get_data(t_all *all)
 	if ( 0 > get_next_line(STDIN_FILENO, &all->line))
 		do_error(all, -1);
 	process_tilda(all);
-	ft_parse_commands(all, all->line);
+	ft_parse_commands(all);
 	if (all->line)
 		free(all->line);
 }
@@ -100,6 +100,9 @@ int main(int argc, char **argv, char **env)
 {
 	t_all *all;
 
+	all = 0x0;
+	(void)argc;
+	(void)argv;
 	do_malloc(all, (void **)(&all), ALL);
 	all->env = copy_env(env);
 	//ft_init_env(env, all);

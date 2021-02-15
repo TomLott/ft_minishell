@@ -51,7 +51,7 @@ int	ms_pwd(void)
 int	ms_unset(t_all *all)
 {
 	char		**tmp;
-	char		**tmp_env;
+	//char		**tmp_env;
 	int			i;
 
 	i = 0;

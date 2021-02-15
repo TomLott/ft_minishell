@@ -29,7 +29,7 @@ int         get_flag(char *line, int *i, char c)
 	return (1);
 }
 
-int         ft_change_pipes(t_all *all, char *line)
+int         ft_change_pipes(char *line)
 {
 	int i;
 	int flag;
@@ -58,7 +58,7 @@ char        ft_change_redir(char **line)
 
 	i = -1;
 	flag = 0;
-	while (++i < ft_strlen(*line))
+	while (++i < (int)ft_strlen(*line))
 	{
 		if (*(*line + i) == '\'' && (flag = 1))
 			flag = get_flag(*line, &i, '\'');

@@ -92,7 +92,7 @@ void				free_env(t_envlst **env);
 int					ft_allowed_chars(char c);
 int					ft_dollar(t_all *all, char *line);
 char				*ft_com_parser(char *line, t_all *all);
-int					ft_change_pipes(t_all *all, char *line);
+int					ft_change_pipes(char *line);
 char				ft_change_redir(char **line);
 void				ft_init_env(char **env, t_all *all);
 int                 ft_parse_argument(char *line, t_all *all, t_args *args);

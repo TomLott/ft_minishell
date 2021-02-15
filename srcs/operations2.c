@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 19:38:54 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 14:41:34 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,40 @@
 int		is_export(t_all *all)
 {
 	char	**args;
+	char	*str[2];
 	int		i;
 
 	if (!ft_strchr(all->def_cmd, '='))
 		return (0);
-	check_and_add(all->loc_env, all->def_cmd);
-	if (all->args.args)
-		args = all->args.args;
+	get_key_value(all->def_cmd, &str[0], &str[1]);
+	if (check_key(all->env, str[0]))
+		check_and_add(&(all->env), all->def_cmd);
+		/*
+	{
+		all->env = pop_str(all->env, str[0]);
+		all->env = arr_append(all->env, all->def_cmd);
+	}*/
+	else
+		check_and_add(&(all->loc_env), all->def_cmd);
+	/*
+	{
+		if (check_key(all->loc_env, str[0]))
+			all->loc_env = pop_str(all->loc_env, str[0]);
+		all->loc_env = arr_append(all->loc_env, all->def_cmd);
+	}*/
+	free_arr((void **)&str, 2);
+	i = 0;
+	if (all->arg)
+		while (all->args.args[i++])
+			printf("STR IS %s\n", all->args.args[i - 1]);
+	/*
 	i = 0;
 	while (args[i++])
 	{
 		if (!ft_strchr(all->def_cmd, '='))
 			return (0);
 		check_and_add(all->loc_env, args[i - 1]);
-	}
+	}*/
 	return (1);
 }
 

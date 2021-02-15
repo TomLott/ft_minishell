@@ -6,23 +6,21 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 10:19:45 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 19:25:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 14:41:36 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_and_add(char **env, char *to_add)
+void	check_and_add(char ***env, char *to_add)
 {
 	char	*str[2];
 
-	if (!get_key_value(to_add, &str[0], &str[1]))
-	{
-		if (check_key(env, str[0]))
-			env = pop_str(env, str[0]);
-		env = arr_append(env, to_add);
-		free_arr((void **)str, 2);
-	}
+	get_key_value(to_add, &str[0], &str[1]);
+	if (check_key(*env, str[0]))
+		*env = pop_str(*env, str[0]);
+	*env = arr_append(*env, to_add);
+	free_arr((void **)str, 2);
 }
 
 int		get_key_value(char *str, char **key, char **value)

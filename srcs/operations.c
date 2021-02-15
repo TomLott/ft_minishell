@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 19:21:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 13:49:00 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 int	ms_env(t_all *all)
 {
-	char	**tmp;
 	char	*str[2]; /* str[0] = key, str[1] = value */
+	int		i;
 
-	tmp = all->env;
-	while (*tmp)
+	i = 0;
+	while (all->env[i++])
 	{
-		get_key_value(*tmp, &str[0], &str[1]);
+		get_key_value(all->env[i - 1], &str[0], &str[1]);
 		if (str[0])
 			ft_putstr_fd(str[0], STDIN_FILENO);
 		ft_putstr_fd("=", STDIN_FILENO);
 		ft_putstr_fd(str[1], STDIN_FILENO);
 		ft_putstr_fd("\n", STDIN_FILENO);
-		tmp++;
 		free_arr((void **)&str, 2);
 	}
 	return (0);
@@ -58,8 +57,15 @@ int	ms_unset(t_all *all)
 	i = 0;
 	tmp = all->args.args;
 	while (tmp[i++])
+	{
 		if (check_key(all->env, tmp[i - 1]))
+		{
 			all->env = pop_str(all->env, tmp[i - 1]);
+			continue ;
+		}
+		if (check_key(all->loc_env, tmp[i - 1]))
+			all->loc_env = pop_str(all->loc_env, tmp[i - 1]);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 09:39:03 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/13 20:35:19 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 13:09:13 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_pwd(t_all *all)
 {
 	char	cwd[4096];
 	char	**tmp_env;
-	char	*str[3];	/* str[0] = key, str[1] = value, str[3] - temp pwd */
+	char	*str[3];
 
 	tmp_env = all->env;
 	while (*tmp_env)
@@ -37,7 +37,7 @@ void	set_pwd(t_all *all)
 void	set_old_pwd(t_all *all)
 {
 	char	**tmp_env;
-	char	*str[2];	/* str[0] = key, str[1] = value */
+	char	*str[2];
 	char	*pwd;
 
 	tmp_env = all->env;

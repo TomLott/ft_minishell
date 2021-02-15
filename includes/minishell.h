@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 16:16:39 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 14:36:51 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct		s_all
 
 char				**arr_append(char **arr, char *to_add);
 int					arr_len(char **arr);
-void				check_and_add(char	**env, char *to_add);
+void				check_and_add(char	***env, char *to_add);
 int					check_key(char **arr, char *key);
 int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);

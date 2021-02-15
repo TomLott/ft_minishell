@@ -50,10 +50,11 @@ void        hook_command(char *com, t_all *all)
 		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		all->last_rv = manage_cmds(all);
-		/**if (all->args.args)
+		printf("A LINE IS %s\n", all->arg);
+	if (all->args.args)
 		    while(*all->args.args){
 		        printf("%s args\n", *all->args.args++);
-		    }*/
+		    }
 		j++;
 	}
 }

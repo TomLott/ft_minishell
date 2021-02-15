@@ -90,6 +90,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
     {
         ft_redirect_parse(args, line, all);
         line = all->arg;
+		printf("line is %s\n", line);
     }
     //line = all->arg;
     while (line[i])
@@ -101,12 +102,12 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
         if ((line[i] && line[i] == '\0') || flag == 1)
             return (1); /** syntax error*/
         if (line[i] == ' ')
-            line[i] = -2;
+            line[i] = -5;
         i++;
     }
 //    temp = ft_split(line, -2);
     printf("here is line %s\n", line);
-	all->args.args = ft_split(line, -2);
+	all->args.args = ft_split(line, -5);
     //ft_do_list(temp, args);
     return (0);
 }

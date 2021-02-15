@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 19:39:09 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/15 20:08:10 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ms_export(t_all *all)
 	{
 		if (ft_strchr(args[i - 1], '='))
 		{
-			all->env = (all->env, args[i - 1]);
+			all->env = arr_append(all->env, args[i - 1]);
 			continue ;
 		}
 		get_key_value(all->env[i - 1], &str[0], &str[1]);

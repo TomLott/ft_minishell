@@ -58,6 +58,13 @@ typedef struct      s_args
     void            *next;
 }                   t_args;
 
+typedef struct		s_redir
+{
+	int				redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
+	char			*cont;
+	struct s_redir	*next;
+}					t_redir;
+
 typedef struct		s_all
 {
 	char			**env;
@@ -71,6 +78,7 @@ typedef struct		s_all
 	t_list			*grbg;
 	t_err           err;
 	t_args			args;
+	t_redir			l_red;
 	int				last_rv;
 	int             dollar;
 	char            *def_cmd;

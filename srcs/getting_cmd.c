@@ -43,14 +43,6 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     int i;
     char *terminat;
 
-    /** If there is  redirect we put first argument before redirect to args->src,
-     * second argument (after redirect) to args->dst.
-     * Then we put rest of the arguments to massive all->arg to save them.
-     *
-     * If we already know that there is redirect symbol straight after command
-     * we use put first argument to the args->dst and rest of arguments to all->arg
-     */
-
     if (all->redir != 0)
     {
         ft_redir_after_command(all, args, line);
@@ -75,6 +67,67 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     args->dst = ft_strdup(args->dst);
     //free(terminat);
 }
+
+t_redir	*ft_lstnew_r(void *content, int redir)
+{
+	t_redir	*ans;
+
+	if (0x0 == (ans = malloc(sizeof(t_redir))))
+		return (0x0);
+    ans->redir = redir;
+	ans->next = 0x0;
+	ans->cont = content;
+	return (ans);
+}
+
+void	ft_lstadd_back_r(t_redir **lst, t_redir *new)
+{
+	t_redir	*prev;
+
+	if (*lst == 0x0)
+	{
+		*lst = new;
+		return ;
+	}
+	prev = *lst;
+	while (prev->next)
+		prev = prev->next;
+	prev->next = new;
+}
+
+/*
+void        ft_redirect_parse(t_args *args, char *line, t_all *all)
+{
+    int i;
+    char *terminat;
+
+    printf("here we are now %s\n", line);
+
+    if (all->redir != 0)
+        ft_lstadd_back_r(&all->l_red, ft_lstnew_r(NULL, all->redir));
+    while (1)
+    {
+        terminat = line;
+        i = 0;
+        while(*line && (*line != -1 && *line != -2 && *line != -3))
+            line++;
+        if (*line)
+    }
+    *line = '\0';
+    if (*line == -3 && ++line)
+        *line = '\0';
+    line++;
+    args->src = ft_strtrim(terminat, " ");
+    args->dst = ft_strtrim(line, " ");
+    while(args->dst[i] && args->dst[i] != ' ')
+        i++;
+    free(terminat);
+    terminat = args->dst;
+    args->dst[i++] = '\0';
+    all->arg = ft_strdup(args->dst + i);
+    args->dst = ft_strdup(args->dst);
+    //free(terminat);
+}*/
 
 int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 20:08:10 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 10:19:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ms_env(t_all *all)
 {
-	char	*str[2]; /* str[0] = key, str[1] = value */
+	char	*str[2];
 	int		i;
 
 	i = 0;
@@ -51,7 +51,6 @@ int	ms_pwd(void)
 int	ms_unset(t_all *all)
 {
 	char		**tmp;
-	//char		**tmp_env;
 	int			i;
 
 	i = 0;
@@ -87,7 +86,7 @@ int	ms_def(t_all *all)
 int	ms_export(t_all *all)
 {
 	char	**args;
-	char	*str[2];
+	char	*str[3];
 	int		i;
 
 	if (!all->arg)
@@ -101,7 +100,14 @@ int	ms_export(t_all *all)
 			all->env = arr_append(all->env, args[i - 1]);
 			continue ;
 		}
-		get_key_value(all->env[i - 1], &str[0], &str[1]);
+		if (check_key(all->loc_env, args[i - 1]))
+		{
+			str[0] = extract_env(all->loc_env, args[i - 1]);
+			str[1] = ft_strjoin(args[i - 1], "=");
+			str[2] = ft_strjoin(str[1], str[0]);
+			all->env = arr_append(all->env, str[2]);
+			free_arr((void **)&str, 3);
+		}
 	}
 	return (0);
 }

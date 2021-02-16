@@ -1,25 +1,25 @@
-char *ft_realloc(char *str, char c)
+char	*ft_realloc(char *str, char c)
 {
- char *temp;
- size_t size;
+	 char *temp;
+	 size_t size;
 
- if (!str[0])
- {
-  temp = malloc(3);
-	temp[0] = c;
-	temp[1] = '\0';
+	 if (!str[0])
+	{
+		 temp = malloc(3);
+		 temp[0] = c;
+		 temp[1] = '\0';
+		 return (temp);
+	}
+	size = ft_strlen(str); /**ft_strlen*/
+	temp = malloc(size + 1);
+	temp = ft_strcpy(temp, str); /**ft_strcopy*/
+	temp[size] = c;
+	temp[size + 1] = '\0';
+	free(str);
 	return (temp);
- }
- size = ft_strlen(str); /**ft_strlen*/
- temp = malloc(size + 1);
- temp = ft_strcpy(temp, str); /**ft_strcopy*/
- temp[size] = c;
- temp[size + 1] = '\0';
- free(str);
- return (temp);
 }
 
-char *ft_redir_make(char *line, char c)
+char	*ft_redir_make(char *line, char c)
 {
 	int size;
 	char *temp;
@@ -43,7 +43,7 @@ char *ft_redir_make(char *line, char c)
 	return (temp);
 }
 
-char *line_cleaner(char *line)
+char	*line_cleaner(char *line)
 {
 	int i;
 	int j;

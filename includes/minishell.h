@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 19:27:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 16:02:29 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include <errno.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <string.h>
-# include <errno.h>
 
 typedef enum
 {
@@ -94,6 +95,7 @@ int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				env_add_back(t_all *all, char *env);
 char				*extract_env(char **env, char *key);
+int					file_exists(char *file_path);
 void				free_arr(void **arr, int size);
 void				free_double_char(char **arr);
 void				free_env(t_envlst **env);
@@ -112,7 +114,7 @@ void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);
 int					get_key_value(char *str, char **key, char **value);
 int					get_next_line(int fd, char **line);
-char				*get_path(t_all *all, char *path, char *ex_name);
+int					get_path(t_all *all, char *path, char *ex_name);
 void				init_obj(void **p, t_cmd type);
 int					inside_quotes(char *str, char *end, char c);
 int					is_any_quote(char c);

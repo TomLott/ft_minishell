@@ -157,7 +157,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
             line[i] = -5;
         i++;
     }
-    printf("here is line %s\n", line);
+ //   printf("here is line %s\n", line);
 	all->args.args = ft_split(line, -5);
     //ft_do_list(temp, args);
     return (0);

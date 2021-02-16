@@ -6,7 +6,7 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:01:24 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/04 15:04:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 14:57:19 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strchr(const char *s, int c)
 
 	i = 0;
 	if (!s)
-        return (NULL);
+		return (NULL);
 	while (*(s + i))
 	{
 		if (*(s + i) == c)

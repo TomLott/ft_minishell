@@ -20,7 +20,7 @@ int         ft_parse_line(char *line)
 			line[i] = -1; /** we change semicolons to (-1) by ASCII to split commands by (-1) */
 		i++;
 	}
-	printf("%s parse line\n", line);
+//	printf("%s parse line\n", line);
 	return (1);
 }
 
@@ -32,7 +32,7 @@ void        hook_command(char *com, t_all *all)
 
 	j = 0;
 	ft_change_pipes(com);
-	printf("%s here is com\n", com);
+	//printf("%s here is com\n", com);
 	temp = ft_split(com, -1);
 	while(temp[j])
     {
@@ -47,13 +47,15 @@ void        hook_command(char *com, t_all *all)
 		ft_parse_argument(all->arg, all, &(all->args));
 		all->args.src = ft_quotes_deleting(all->args.src, all);
 		all->args.dst = ft_quotes_deleting(all->args.dst, all);
-		printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
-		printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
+		//printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
+		//printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		all->last_rv = manage_cmds(all);
+		/*
 		if (all->args.args)
 		    while(*all->args.args){
 		        printf("%s args\n", *all->args.args++);
 		    }
+			*/
 		j++;
 	}
 }

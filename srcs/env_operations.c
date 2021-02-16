@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 16:16:31 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 16:55:03 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	**arr_append(char **arr, char *to_add)
 	while (i++ < len - 1)
 		ans[i] = ft_strdup(arr[i - 1]);
 	ans[len] = 0x0;
-	free_double_char(arr);
+	if (arr)
+		free_double_char(arr);
 	return (ans);
 }
 

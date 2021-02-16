@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 10:19:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 16:45:29 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	ms_env(t_all *all)
 		if (str[0])
 			ft_putstr_fd(str[0], STDIN_FILENO);
 		ft_putstr_fd("=", STDIN_FILENO);
-		ft_putstr_fd(str[1], STDIN_FILENO);
-		ft_putstr_fd("\n", STDIN_FILENO);
+		ft_putstrn_fd(str[1], STDIN_FILENO);
 		free_arr((void **)&str, 2);
 	}
 	return (0);
@@ -41,10 +40,7 @@ int	ms_pwd(void)
 		return (-1);
 	}
 	else
-	{
-		ft_putstr_fd(cwd, STDIN_FILENO);
-		ft_putstr_fd("\n", STDIN_FILENO);
-	}
+		ft_putstrn_fd(cwd, STDIN_FILENO);
 	return (0);
 }
 

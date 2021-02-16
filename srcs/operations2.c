@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 19:39:18 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 16:45:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void	show_cd_err(t_all *all)
 	ft_putstr_fd("cd: ", STDERR_FILENO);
 	ft_putstr_fd(all->args.args[0], STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	ft_putstrn_fd(strerror(errno), STDERR_FILENO);
 }
 
 void	cd_set_home(t_all *all)

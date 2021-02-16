@@ -6,27 +6,66 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/12 12:08:52 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/16 18:47:15 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_path(t_all *all, char *path, char *ex_name)
+char	*concat_path_exec(char *dir, char *exec)
+{
+	char	*str[2];
+
+	str[0] = ft_strjoin(dir, "/");
+	str[1] = ft_strjoin(str[0], exec);
+	free(str[0]);
+	return (str[1]);
+}
+
+int		manage_execve(t_all *all, char *bin, char **args)
+{
+	size_t	pid;
+
+	if (file_exists(bin))
+	{
+		pid = fork();
+		if (pid != 0)
+		{
+			wait(&(all->last_rv));
+			return (1);
+		}
+		else
+		{
+			if (0 > execve(bin, args, all->env))
+				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+int		get_path(t_all *all, char *path, char *ex_name)
 {
 	char	**dirs;
 	char	**args;
 	char	*tmp;
 	int		i;
 
-	if (!(dirs = ft_split(path, ':')) || !(args = ft_split(all->arg, -2)))
+	if (!(dirs = ft_split(path, ':')))
 		return (0);
+	if (all->arg)
+		args = copy_env(all->args.args);
+	else
+		args = 0x0;
+	args = arr_append(args, ex_name);
 	i = 0;
 	while (dirs[i++])
 	{
-		tmp = ft_strjoin(dirs[i - 1], ex_name);
+		tmp = concat_path_exec(dirs[i - 1], ex_name);
+		if (manage_execve(all, tmp, args))
+			return (1);
 	}
-	//printf("PATH IS:\n%s\nbin is:\n%s\narg[0] is: %s\n", path, ex_name, args[0]);
+	free_double_char(dirs);
 	free(path);
-	return (0x0);
+	return (0);
 }

@@ -142,9 +142,9 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
     {
         ft_redirect_parse(args, line, all);
         line = all->arg;
-		printf("line is %s\n", line);
+	//	printf("line is %s\n", line);
     }
-    //line = all->arg;
+    line = char	*line_cleaner(all->arg);
     while (line[i])
     {
         if (line[i] == '\'' && (flag = 1))
@@ -158,6 +158,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
         i++;
     }
  //   printf("here is line %s\n", line);
+ //   printf("here is line GOSHA ! WHAT IS HERE?! %s\n", line);
 	all->args.args = ft_split(line, -5);
     //ft_do_list(temp, args);
     return (0);

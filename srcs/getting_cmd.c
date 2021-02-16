@@ -144,7 +144,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
         line = all->arg;
 	//	printf("line is %s\n", line);
     }
-    line = char	*line_cleaner(all->arg);
+ //   line = char	*line_cleaner(all->arg);
     while (line[i])
     {
         if (line[i] == '\'' && (flag = 1))

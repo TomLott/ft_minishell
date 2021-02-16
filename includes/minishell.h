@@ -84,6 +84,7 @@ typedef struct		s_all
 	char            *def_cmd;
 }					t_all;
 
+
 char				**arr_append(char **arr, char *to_add);
 int					arr_len(char **arr);
 void				check_and_add(char	***env, char *to_add);
@@ -113,6 +114,7 @@ int                 get_flag(char *line, int *i, char c);
 int					get_key_value(char *str, char **key, char **value);
 int					get_next_line(int fd, char **line);
 char				*get_path(t_all *all, char *path, char *ex_name);
+char				*line_cleaner(char *line);
 void				init_obj(void **p, t_cmd type);
 int					inside_quotes(char *str, char *end, char c);
 int					is_any_quote(char c);

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 18:52:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/17 12:01:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int					is_export(t_all *all);
 int					manage_cmds(t_all *all);
 int                 ms_cd(t_all *all);
 int					ms_def(t_all *all);
+int					ms_echo(t_all *all);
 int					ms_env(t_all *all);
 int					ms_export(t_all *all);
 int					ms_pwd(void);

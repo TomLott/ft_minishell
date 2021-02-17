@@ -1,29 +1,9 @@
-/*
-char	*ft_realloc(char *str, char c)
-{
-	 char *temp;
-	 size_t size;
-
-	 if (!str[0])
-	{
-		 temp = malloc(3);
-		 temp[0] = c;
-		 temp[1] = '\0';
-		 return (temp);
-	}
-	size = ft_strlen(str); 
-	temp = malloc(size + 1);
-	temp = ft_strcpy(temp, str);
-	temp[size] = c;
-	temp[size + 1] = '\0';
-	free(str);
-	return (temp);
-}
+#include "minishell.h"
 
 char	*ft_redir_make(char *line, char c)
 {
-	int size;
-	char *temp;
+	size_t	size;
+	char	*temp;
 
 	if (!line[0])
 	{
@@ -35,7 +15,7 @@ char	*ft_redir_make(char *line, char c)
 	}
 	size = ft_strlen(line);
 	temp = malloc(size + 3);
-	temp = ft_strcpy(temp, line);
+	ft_strlcpy(temp, line, size);
 	temp[size] = ' ';
 	temp[size + 1] = c;
 	temp[size + 2] = ' ';
@@ -83,4 +63,3 @@ char	*line_cleaner(char *line)
 	}
 	return (temp);
 }
-*/

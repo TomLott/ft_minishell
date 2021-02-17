@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 16:45:56 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:47:47 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		is_export(t_all *all)
 {
-	//char	**args;
 	char	*str[2];
 	int		i;
 
@@ -60,7 +59,7 @@ void	cd_set_home(t_all *all)
 
 int		check_path(t_all *all)
 {
-	if (all->arg) //&& all->args.args && all->args.args[0])
+	if (all->arg)
 		return (1);
 	cd_set_home(all);
 	return (0);
@@ -72,7 +71,6 @@ int		ms_cd(t_all *all)
 		if (0 > (chdir(all->args.args[0])))
 			show_cd_err(all);
 	set_old_pwd(all);
-	printf("HERE\n");
 	set_pwd(all);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 18:47:15 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/17 10:22:18 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		get_path(t_all *all, char *path, char *ex_name)
 	char	*tmp;
 	int		i;
 
-	if (!(dirs = ft_split(path, ':')))
+	if (!ex_name || !(dirs = ft_split(path, ':')))
 		return (0);
 	if (all->arg)
 		args = copy_env(all->args.args);

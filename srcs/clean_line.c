@@ -13,7 +13,7 @@ char *ft_realloc_r(char *str, char c)
 		return (temp);
 	}
 	size = ft_strlen(str); /**ft_strlen*/
-	temp = malloc(size + 1);
+	temp = malloc(size + 2);
 	ft_strcpy(temp, str); /**ft_strcopy*/
 	temp[size] = c;
 	temp[size + 1] = '\0';

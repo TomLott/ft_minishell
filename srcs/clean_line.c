@@ -14,7 +14,7 @@ char *ft_realloc_r(char *str, char c)
 	}
 	size = ft_strlen(str); /**ft_strlen*/
 	temp = malloc(size + 1);
-	temp = strcpy(temp, str); /**ft_strcopy*/
+	ft_strcpy(temp, str); /**ft_strcopy*/
 	temp[size] = c;
 	temp[size + 1] = '\0';
 	free(str);
@@ -36,7 +36,7 @@ char *ft_redir_make(char *line, char c)
 	}
 	size = ft_strlen(line);
 	temp = malloc(size + 3);
-	temp = strcpy(temp, line);
+	ft_strcpy(temp, line);
 	temp[size] = -5;
 	temp[size + 1] = c;
 	temp[size + 2] = ' ';

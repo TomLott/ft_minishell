@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:44:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 16:39:26 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/17 17:53:59 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	ft_putstrn_fd(char *s, int fd)
 		return ;
 	while (*s++)
 		write(fd, s - 1, 1);
-	ft_putstr_fd("\n", fd);
+	write(fd, "\n", 1);
 }

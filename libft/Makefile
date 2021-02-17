@@ -6,7 +6,7 @@
 #    By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 14:15:15 by jmogo             #+#    #+#              #
-#    Updated: 2021/02/16 16:36:52 by jmogo            ###   ########.fr        #
+#    Updated: 2021/02/17 17:54:27 by jmogo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ SRCS	= ft_atoi.c\
 		  ft_putendl_fd.c\
 		  ft_putnbr_fd.c\
 		  ft_putstr_fd.c\
-		  ft_putstrn_fd.c\
 		  ft_realloc.c\
 		  ft_split.c\
 		  ft_strchr.c\

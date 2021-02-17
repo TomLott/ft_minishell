@@ -53,8 +53,8 @@ typedef struct      s_args
 {
     t_cmd           cmd;
     int             redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
-    char            *src;
-    char            *dst;
+ //   char            *src;
+ //   char            *dst;
     char			**args;
     void            *next;
 }                   t_args;
@@ -83,6 +83,8 @@ typedef struct		s_all
 	int				last_rv;
 	int             dollar;
 	char            *def_cmd;
+	int				fd1;
+	int				fd0;
 }					t_all;
 
 
@@ -110,6 +112,7 @@ int                 ft_parse_argument(char *line, t_all *all, t_args *args);
 int					ft_parse_dollar(t_all *all, char *line, int *i);
 int					ft_parse_line(char *line);
 void				ft_print_capt(int fd);
+char				*ft_realloc_r(char *str, char c);
 char				*ft_quotes_deleting(char *str, t_all *all);
 void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);

@@ -45,8 +45,8 @@ void        hook_command(char *com, t_all *all)
 		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
-		all->args.src = ft_quotes_deleting(all->args.src, all);
-		all->args.dst = ft_quotes_deleting(all->args.dst, all);
+		//all->args.src = ft_quotes_deleting(all->args.src, all);
+		//all->args.dst = ft_quotes_deleting(all->args.dst, all);
 		//printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		//printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		all->last_rv = manage_cmds(all);

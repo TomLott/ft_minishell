@@ -39,7 +39,7 @@ char *ft_redir_make(char *line, char c)
 	ft_strcpy(temp, line);
 	temp[size] = -5;
 	temp[size + 1] = c;
-	temp[size + 2] = ' ';
+	temp[size + 2] = -5;
 	temp[size + 3] = '\0';
 	free(line);
 	return (temp);

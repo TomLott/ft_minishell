@@ -37,8 +37,8 @@ void		free_args(t_args *args)
 	{
 		args->cmd = DEF;
 		args->redir = 0;
-		free_and_null(&(args->src));
-		free_and_null(&(args->dst));
+		//free_and_null(&(args->src));
+		//free_and_null(&(args->dst));
 		//if (args->args)
 		//	free_double_char(args->args);
 		args = args->next;
@@ -52,8 +52,9 @@ void        refresh_all(t_all **all, t_args *args)
     (*all)->redir = 0;
     (*all)->cmd_len = 0;
     (*all)->pipe = 0;
-    args->dst = NULL;
-    args->src = NULL;
+	(void)args;
+    //args->dst = NULL;
+    //args->src = NULL;
 	if ((*all)->def_cmd)
 		free_and_null(&((*all)->def_cmd));
 	free_args(&((*all)->args));

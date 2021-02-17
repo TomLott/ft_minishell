@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 void ft_redir_after_command(t_all *all, t_args *args, char *line)
 {
     int     i;
@@ -15,7 +15,7 @@ void ft_redir_after_command(t_all *all, t_args *args, char *line)
     i++;
     args->dst = ft_strdup(line);
     all->arg = ft_strdup(line + i);
-}
+}*/
 
 char *do_wise_trim(char *line)
 {
@@ -37,7 +37,7 @@ char *do_wise_trim(char *line)
     //ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'")), " ");
     return (new_line);
 }
-
+/*
 void        ft_redirect_parse(t_args *args, char *line, t_all *all)
 {
     int i;
@@ -66,7 +66,7 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     all->arg = ft_strdup(args->dst + i);
     args->dst = ft_strdup(args->dst);
     //free(terminat);
-}
+}*/
 
 t_redir	*ft_lstnew_r(void *content, int redir)
 {
@@ -80,54 +80,55 @@ t_redir	*ft_lstnew_r(void *content, int redir)
 	return (ans);
 }
 
-void	ft_lstadd_back_r(t_redir **lst, t_redir *new)
+void	ft_lstadd_back_r(t_redir *lst, t_redir *new)
 {
 	t_redir	*prev;
 
-	if (*lst == 0x0)
+	if (lst == 0x0)
 	{
-		*lst = new;
+		lst = new;
 		return ;
 	}
-	prev = *lst;
+	prev = lst;
 	while (prev->next)
 		prev = prev->next;
 	prev->next = new;
 }
 
-/*
-void        ft_redirect_parse(t_args *args, char *line, t_all *all)
+int       func_do_trick(char **args, t_all *all)
 {
-    int i;
-    char *terminat;
+	t_redir *red;
+	int     i;
+	int		j;
+	char	*temp;
+    char    *res;
 
-    printf("here we are now %s\n", line);
-
-    if (all->redir != 0)
-        ft_lstadd_back_r(&all->l_red, ft_lstnew_r(NULL, all->redir));
-    while (1)
-    {
-        terminat = line;
-        i = 0;
-        while(*line && (*line != -1 && *line != -2 && *line != -3))
-            line++;
-        if (*line)
-    }
-    *line = '\0';
-    if (*line == -3 && ++line)
-        *line = '\0';
-    line++;
-    args->src = ft_strtrim(terminat, " ");
-    args->dst = ft_strtrim(line, " ");
-    while(args->dst[i] && args->dst[i] != ' ')
-        i++;
-    free(terminat);
-    terminat = args->dst;
-    args->dst[i++] = '\0';
-    all->arg = ft_strdup(args->dst + i);
-    args->dst = ft_strdup(args->dst);
-    //free(terminat);
-}*/
+    red = &all->l_red;
+	i = 0;
+	j = 0;
+    res = ft_strdup("");
+	while (args[i])
+	{
+        printf("%s\n", args[i]);
+		if (args[i][0] == -1 || args[i][0] == -2 || args[i][0] == -3)
+		{
+            printf("args %s\n", args[i]);
+			temp = args[i++];
+			if (!args[i])
+                return (1);
+            printf("%s\n", args[i]);
+			ft_lstadd_back_r(&all->l_red, ft_lstnew_r(args[i++], temp[0]));
+            if (!args[i++])
+                break;
+			red = red->next;
+		}
+		else
+            res = ft_realloc_r(res, -5);
+			res = ft_strjoin(res, args[i++]);
+	}
+	printf("%s here is source\n", res);
+	return (0);
+}   
 
 int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {
@@ -146,21 +147,9 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
 	//	printf("line is %s\n", line);
     }*/
     line = line_cleaner(all->arg);
-    while (line[i])
-    {
-        if (line[i] == '\'' && (flag = 1))
-            flag = get_flag(line, &i, '\'');
-        else if (line[i] && line[i] == '\"' && (flag = 1))
-            flag = get_flag(line, &i, '\"');
-        if ((line[i] && line[i] == '\0') || flag == 1)
-            return (1); /** syntax error*/
-        if (line[i] == ' ')
-            line[i] = -5;
-        i++;
-    }
-    printf("here is line %s\n", line);
- //   printf("here is line GOSHA ! WHAT IS HERE?! %s\n", line);
+    printf("here is clean line%s\n", line);
 	all->args.args = ft_split(line, -5);
+    //func_do_trick(all->args.args, all);
     //ft_do_list(temp, args);
     return (0);
 }

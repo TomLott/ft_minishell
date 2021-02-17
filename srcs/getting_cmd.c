@@ -134,16 +134,17 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
     int i;
     int flag;
 
+	(void)args;
     i = 0;
     flag = 0;
     if (!line)
         return (1);
-    if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
+   /* if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
     {
         ft_redirect_parse(args, line, all);
         line = all->arg;
 	//	printf("line is %s\n", line);
-    }
+    }*/
     line = line_cleaner(all->arg);
     while (line[i])
     {
@@ -157,7 +158,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
             line[i] = -5;
         i++;
     }
- //   printf("here is line %s\n", line);
+    printf("here is line %s\n", line);
  //   printf("here is line GOSHA ! WHAT IS HERE?! %s\n", line);
 	all->args.args = ft_split(line, -5);
     //ft_do_list(temp, args);

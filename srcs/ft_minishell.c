@@ -24,6 +24,11 @@ int         ft_parse_line(char *line)
 	return (1);
 }
 
+void		ft_fd(t_all *all)
+{
+	
+}
+
 void        hook_command(char *com, t_all *all)
 {
 	char **temp;
@@ -31,7 +36,8 @@ void        hook_command(char *com, t_all *all)
 	char *point;
 
 	j = 0;
-	ft_change_pipes(com);
+	if (ft_change_pipes(com) == -1)
+		do_error(all, 5);
 	//printf("%s here is com\n", com);
 	temp = ft_split(com, -1);
 	while(temp[j])
@@ -40,7 +46,8 @@ void        hook_command(char *com, t_all *all)
 	    temp[j] = ft_strtrim(temp[j], " ");
 	    free(point);
         refresh_all(&all, &all->args);
-		ft_change_redir(&temp[j]);
+		if (ft_change_redir(&temp[j]) == -1)
+			do_error(all, 5); /**syntax error*/
 		get_command(temp[j], all);
 		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
@@ -50,6 +57,7 @@ void        hook_command(char *com, t_all *all)
 		//printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
 		//printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		all->last_rv = manage_cmds(all);
+		ft_fd(all);
 		/*
 		if (all->args.args)
 		    while(*all->args.args){
@@ -67,9 +75,10 @@ int ft_parse_commands(t_all *all)
 	char *temp;
 
 	i = 0;
-	ft_dollar(all, all->line);
+	if (ft_dollar(all, all->line) == 1)
+		do_error(all, 5);	
 	if (ft_parse_line(all->line) == -1)
-		do_error(all, -1);
+		do_error(all, 5);
 	commands = ft_split(all->line, -1);
 	while(commands[i])
 	{

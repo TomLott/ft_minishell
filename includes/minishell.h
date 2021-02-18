@@ -79,7 +79,7 @@ typedef struct		s_all
 	t_list			*grbg;
 	t_err           err;
 	t_args			args;
-	t_redir			l_red;
+	t_redir			*l_red;
 	int				last_rv;
 	int             dollar;
 	char            *def_cmd;

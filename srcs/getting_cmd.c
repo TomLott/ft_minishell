@@ -80,16 +80,16 @@ t_redir	*ft_lstnew_r(void *content, int redir)
 	return (ans);
 }
 
-void	ft_lstadd_back_r(t_redir *lst, t_redir *new)
+void	ft_lstadd_back_r(t_redir **lst, t_redir *new)
 {
 	t_redir	*prev;
 
-	if (lst == 0x0)
+	if (*lst == 0x0)
 	{
-		lst = new;
+		*lst = new;
 		return ;
 	}
-	prev = lst;
+	prev = *lst;
 	while (prev->next)
 		prev = prev->next;
 	prev->next = new;
@@ -97,39 +97,34 @@ void	ft_lstadd_back_r(t_redir *lst, t_redir *new)
 
 int       func_do_trick(char **args, t_all *all)
 {
-	t_redir *red;
 	int     i;
-	int		j;
 	char	*temp;
 	char    *res;
 
-	red = &all->l_red;
-	i = 0;
-	j = 0;
+	i = -1;
+    all->l_red = NULL;
 	res = ft_strdup("");
-	while (args[i])
+	while (args[++i])
 	{
-		printf("%s\n", args[i]);
 		if (args[i][0] == -1 || args[i][0] == -2 || args[i][0] == -3)
 		{
-			printf("args %s\n", args[i]);
 			temp = args[i++];
 			if (!args[i])
 				return (1);
-			printf("%s\n", args[i]);
-			ft_lstadd_back_r(&all->l_red, ft_lstnew_r(args[i++], temp[0]));
-			if (!args[i++])
-				break;
+			ft_lstadd_back_r(&all->l_red, ft_lstnew_r(args[i], temp[0]));
 		}
 		else
 		{
 			res = ft_realloc_r(res, -5);
-			res = ft_strjoin(res, args[i++]);
+            temp = res;
+			res = ft_strjoin(res, args[i]);
+            free(temp);
 		}
 	}
-	printf("%s here is src\n", res);
+   // printf("here we are %s\n", all->l_red->cont);
+    all->arg = res;
 	return (0);
-}   
+}
 
 int         ft_parse_argument(char *line, t_all *all, t_args *args)
 {
@@ -150,7 +145,7 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
     line = line_cleaner(all->arg);
     printf("here is clean line%s\n", line);
 	all->args.args = ft_split(line, -5);
-    //func_do_trick(all->args.args, all);
+    func_do_trick(all->args.args, all);
     //ft_do_list(temp, args);
     return (0);
 }
@@ -159,30 +154,20 @@ int         ft_parse_argument(char *line, t_all *all, t_args *args)
 int         ft_check_redir(char *line, t_all *all)
 {
     if (line[all->cmd_len] == -3)
-    {
-        if (line[all->cmd_len + 1] == -3)
-        {
-            all->redir = 2;
-            all->cmd_len += 2;
-        }
-    }
-    else if (line[all->cmd_len] == -1)
-    {
-        all->redir = 1;
-        all->cmd_len++;
-    }
-    else if (line[all->cmd_len] == -2)
-    {
-        all->redir = 3;
-        all->cmd_len++;
-    }
-    else if (line[all->cmd_len] == '|')
-    {
-        all->pipe = 1;
-        all->cmd_len++;
-        return (1);
-    }
-    return (all->redir);
+	{
+		if (line[all->cmd_len + 1] == -3)
+			all->redir = 2;
+	}
+	else if (line[all->cmd_len] == -1)
+		all->redir = 1;
+	else if (line[all->cmd_len] == -2)
+		all->redir = 3;
+	else if (line[all->cmd_len] == '|')
+	{
+		all->pipe = 1;
+		return (1);
+	}
+	return (all->redir);
 }
 
 char        *ft_com_parser(char *line, t_all *all)
@@ -209,21 +194,18 @@ char        *ft_com_parser(char *line, t_all *all)
                 temp[j++] = line[all->cmd_len++];
             (line[all->cmd_len] == '\'') ? all->cmd_len++ : (flag = -1);
         }
-        else if (ft_check_redir(line, all) && ++j)
-        {
-            (all->redir == 2) ? j++ : 1;
-            break;
-        }
+		else if (ft_check_redir(line, all) && ++j)
+			break;
         else
             temp[j++] = line[all->cmd_len++];
     }
     temp[j] = '\0';
-    return (flag == -1 ) ? "a" : temp;
+    return (flag == -1 ) ? "ERROR" : temp;
 }
 
 int			ft_strlen_for_arg(char *line)
 {
-    int		j;
+	int		j;
 	int		i;
     int		flag;
 
@@ -258,7 +240,7 @@ int			ft_strlen_for_arg(char *line)
     }
     return (j);
 }
-
+/*
 char        *ft_quotes_deleting(char *line, t_all *all)
 {
     char	*temp;
@@ -295,13 +277,14 @@ char        *ft_quotes_deleting(char *line, t_all *all)
     }
     temp[j] = '\0';
     return (flag == -1 ) ? "z" : temp;
-}
+}*/
 
 void        get_command(char *s, t_all *all)
 {
     char *temp;
 
     temp = ft_com_parser(s, all);
+	printf("%s temp\n", temp);
 	if (ft_strcmp(temp, "pwd"))
         all->cmd = PWD;
     else if (ft_strcmp(temp, "cd"))

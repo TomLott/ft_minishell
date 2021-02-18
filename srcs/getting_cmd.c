@@ -101,30 +101,31 @@ int       func_do_trick(char **args, t_all *all)
 	int     i;
 	int		j;
 	char	*temp;
-    char    *res;
+	char    *res;
 
-    red = &all->l_red;
+	red = &all->l_red;
 	i = 0;
 	j = 0;
-    res = ft_strdup("");
+	res = ft_strdup("");
 	while (args[i])
 	{
-        printf("%s\n", args[i]);
+		printf("%s\n", args[i]);
 		if (args[i][0] == -1 || args[i][0] == -2 || args[i][0] == -3)
 		{
-            printf("args %s\n", args[i]);
+			printf("args %s\n", args[i]);
 			temp = args[i++];
 			if (!args[i])
-                return (1);
-            printf("%s\n", args[i]);
+				return (1);
+			printf("%s\n", args[i]);
 			ft_lstadd_back_r(&all->l_red, ft_lstnew_r(args[i++], temp[0]));
-            if (!args[i++])
-                break;
-			red = red->next;
+			if (!args[i++])
+				break;
 		}
 		else
-            res = ft_realloc_r(res, -5);
+		{
+			res = ft_realloc_r(res, -5);
 			res = ft_strjoin(res, args[i++]);
+		}
 	}
 	printf("%s here is src\n", res);
 	return (0);

@@ -5,6 +5,8 @@ char *ft_realloc_r(char *str, char c)
 	char *temp;
 	size_t size;
 
+	if (c == ' ')
+		c = -5;
 	if (!str[0])
 	{
 		temp = malloc(2);
@@ -45,16 +47,19 @@ char *ft_redir_make(char *line, char c)
 	return (temp);
 }
 
-static int check_flag_r(char c, int flag, int *i)
+static int check_flag_r(char *c, int flag, int *i)
 {
-	if (c == -3)
+	if (c[(*i) - 1] == -5 && c[(*i)] == ' ')
+		while (c[*i] == ' ')
+			(*i)++;
+	if (c[*i] == -3)
 		(*i)++;
-	if (c == '\'' && flag == 2)
+	if (c[*i] == '\'' && flag == 2)
 	{
 		flag = 0;
 		(*i)++;
 	}
-	if (c == '\"' && flag == 1)
+	if (c[*i] == '\"' && flag == 1)
 	{
 		flag = 0;
 		(*i)++;
@@ -83,11 +88,9 @@ char	*line_cleaner(char *line)
 		else if (line[i] == '\'' && (flag = 2))
 			while(line[++i] && line[i] != '\'')
 				temp = ft_realloc_r(temp, line[i]);
-		else if (line[i] == ' ' && ++i)
-				temp = ft_realloc_r(temp, -5);
 		else
 			temp = ft_realloc_r(temp, line[i++]);
-		if ((flag = check_flag_r(line[i], flag, &i)))
+		if ((flag = check_flag_r(line, flag, &i)))
 			return ("Error: qoutes");
 	}
 	return (temp);

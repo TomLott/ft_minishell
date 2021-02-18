@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:51:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/18 10:15:16 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/18 10:25:00 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ms_pwd(void)
 	if (!(getcwd(cwd, 4096)))
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
-		return (-1);
+		return (errno);
 	}
 	else
 		ft_putstrn_fd(cwd, STDIN_FILENO);
@@ -74,7 +74,7 @@ int	ms_def(t_all *all)
 	{
 		ft_putstr_fd(all->def_cmd, STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		return (-1);
+		return (errno);
 	}
 	return (0);
 }

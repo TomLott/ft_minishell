@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/17 10:22:18 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/18 10:21:21 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 		{
 			if (0 > execve(bin, args, all->env))
 				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
-			return (1);
+			return (errno);
 		}
 	}
 	return (0);

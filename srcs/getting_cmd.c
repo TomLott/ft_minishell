@@ -126,7 +126,7 @@ int       func_do_trick(char **args, t_all *all)
             res = ft_realloc_r(res, -5);
 			res = ft_strjoin(res, args[i++]);
 	}
-	printf("%s here is source\n", res);
+	printf("%s here is src\n", res);
 	return (0);
 }   
 

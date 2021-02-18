@@ -33,7 +33,7 @@ int		ft_do_right_r(t_all *all, t_redir *red)
 		if (!(all->fd1 = open(red->cont, O_CREAT | O_WRONLY, 0755)))
 			return (1);
 	}
-	if (red->redir == -3)
+	else if (red->redir == -3)
 	{
 		if (!(all->fd1 = open(red->cont, O_CREAT | O_APPEND | O_WRONLY, 0755)))
 			return (1);
@@ -43,8 +43,12 @@ int		ft_do_right_r(t_all *all, t_redir *red)
 
 int		ft_do_left_r(t_all *all, t_redir *red)
 {
-	if (!(all->fd0 = open(red->cont, O_RDONLY)))
+	printf("ft_do_left_r\n");
+	if (!(all->fd0 = open(red->cont, O_RDONLY, 0755)))
+	{
+		printf("fd0 error\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -57,12 +61,15 @@ void		ft_fd(t_all *all)
 	all->fd0 = 0;
 	while(redir)
 	{
-		if (all->l_red->redir == -1 || all->l_red->redir == -3)
-			ft_do_right_r(all, redir);
-		else if (all->l_red->redir == -2)
+		printf("args: %d %s\n", redir->redir, redir->cont);
+		if (redir->redir == -2)
 			ft_do_left_r(all, redir);
+		if (redir->redir == -1 || redir->redir == -3)
+			ft_do_right_r(all, redir);
+		
 		redir = redir->next;
 	}
+	printf("%d %d fd\n", all->fd1, all->fd0);
 }
 
 void        hook_command(char *com, t_all *all)

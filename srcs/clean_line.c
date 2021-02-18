@@ -15,6 +15,8 @@ char *ft_realloc_r(char *str, char c)
 		return (temp);
 	}
 	size = ft_strlen(str); /**ft_strlen*/
+	if (str[size - 1] == -5 && c == -5)
+		return (str);
 	temp = malloc(size + 2);
 	ft_strcpy(temp, str); /**ft_strcopy*/
 	temp[size] = c;
@@ -39,10 +41,19 @@ char *ft_redir_make(char *line, char c)
 	size = ft_strlen(line);
 	temp = malloc(size + 3);
 	ft_strcpy(temp, line);
-	temp[size] = -5;
-	temp[size + 1] = c;
-	temp[size + 2] = -5;
-	temp[size + 3] = '\0';
+	if (temp[size - 1] != -5)
+	{
+		temp[size] = -5;
+		temp[size + 1] = c;
+		temp[size + 2] = -5;
+		temp[size + 3] = '\0';
+	}
+	else
+	{
+		temp[size] = c;
+		temp[size + 1] = -5;
+		temp[size + 2] = '\0';
+	}
 	free(line);
 	return (temp);
 }

@@ -122,8 +122,9 @@ int       func_do_trick(char **args, t_all *all)
             free(temp);
 		}
 	}
-   printf("here we are %s\n", res);
+    printf("here we are %s\n", res);
     all->arg = res;
+    all->args.args = ft_split(all->arg, -5);
 	return (0);
 }
 

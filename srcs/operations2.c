@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 14:09:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/17 11:47:47 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/18 10:11:01 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int		check_path(t_all *all)
 
 int		ms_cd(t_all *all)
 {
+	errno = 0;
 	if (check_path(all))
 		if (0 > (chdir(all->args.args[0])))
 			show_cd_err(all);
 	set_old_pwd(all);
 	set_pwd(all);
-	return (0);
+	return (errno);
 }

@@ -115,13 +115,14 @@ int       func_do_trick(char **args, t_all *all)
 		}
 		else
 		{
-			res = ft_realloc_r(res, -5);
+			if (i)
+                res = ft_realloc_r(res, -5);
             temp = res;
 			res = ft_strjoin(res, args[i]);
             free(temp);
 		}
 	}
-   // printf("here we are %s\n", all->l_red->cont);
+   printf("here we are %s\n", res);
     all->arg = res;
 	return (0);
 }
@@ -284,7 +285,6 @@ void        get_command(char *s, t_all *all)
     char *temp;
 
     temp = ft_com_parser(s, all);
-	printf("%s temp\n", temp);
 	if (ft_strcmp(temp, "pwd"))
         all->cmd = PWD;
     else if (ft_strcmp(temp, "cd"))

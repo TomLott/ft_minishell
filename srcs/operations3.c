@@ -14,9 +14,10 @@
 
 int	ms_echo(t_all *all)
 {
+	printf("hahahahahahahahahahaha %s\n", all->arg);
 	if (all->arg)
-		ft_putstrn_fd(all->args.args[0], STDIN_FILENO);
+		ft_putstrn_fd(all->arg, all->fd1);
 	else
-		ft_putstrn_fd("", STDIN_FILENO);
+		ft_putstrn_fd("", all->fd1);
 	return (0);
 }

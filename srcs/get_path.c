@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/18 10:21:21 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/18 19:56:45 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		manage_execve(t_all *all, char *bin, char **args)
 {
 	size_t	pid;
 
+	dup2(all->fd1, 1);
+	dup2(all->fd0, 0);
 	if (file_exists(bin))
 	{
 		pid = fork();
@@ -44,6 +46,13 @@ int		manage_execve(t_all *all, char *bin, char **args)
 	return (0);
 }
 
+int		check_no_path(t_all *all, char **args)
+{
+	if (manage_execve(all, all->def_cmd, args))
+		return (1);
+	return (0);
+}
+
 int		get_path(t_all *all, char *path, char *ex_name)
 {
 	char	**dirs;
@@ -51,15 +60,18 @@ int		get_path(t_all *all, char *path, char *ex_name)
 	char	*tmp;
 	int		i;
 
-	if (!ex_name || !(dirs = ft_split(path, ':')))
+	if (!ex_name)
 		return (0);
 	if (all->arg)
 		args = copy_env(all->args.args);
 	else
 		args = 0x0;
 	args = arr_append(args, ex_name);
+	dirs = ft_split(path, ':');
+	if (check_no_path(all, args))
+		return (1);
 	i = 0;
-	while (dirs[i++])
+	while (dirs && dirs[i++])
 	{
 		tmp = concat_path_exec(dirs[i - 1], ex_name);
 		if (manage_execve(all, tmp, args))

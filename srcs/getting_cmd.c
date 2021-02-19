@@ -15,7 +15,7 @@ void ft_redir_after_command(t_all *all, t_args *args, char *line)
     i++;
     args->dst = ft_strdup(line);
     all->arg = ft_strdup(line + i);
-}*/
+}
 
 char *do_wise_trim(char *line)
 {
@@ -37,7 +37,7 @@ char *do_wise_trim(char *line)
     //ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'")), " ");
     return (new_line);
 }
-/*
+
 void        ft_redirect_parse(t_args *args, char *line, t_all *all)
 {
     int i;
@@ -68,19 +68,19 @@ void        ft_redirect_parse(t_args *args, char *line, t_all *all)
     //free(terminat);
 }*/
 
-t_redir	*ft_lstnew_r(void *content, int redir)
+t_redir		*ft_lstnew_r(void *content, int redir)
 {
 	t_redir	*ans;
 
 	if (0x0 == (ans = malloc(sizeof(t_redir))))
 		return (0x0);
-    ans->redir = redir;
+	ans->redir = redir;
 	ans->next = 0x0;
 	ans->cont = content;
 	return (ans);
 }
 
-void	ft_lstadd_back_r(t_redir **lst, t_redir *new)
+void		ft_lstadd_back_r(t_redir **lst, t_redir *new)
 {
 	t_redir	*prev;
 
@@ -95,15 +95,13 @@ void	ft_lstadd_back_r(t_redir **lst, t_redir *new)
 	prev->next = new;
 }
 
-int       func_do_trick(char **args, t_all *all)
+int			func_do_trick(char **args, t_all *all)
 {
-	int     i;
+	int		i;
 	char	*temp;
-	char    *res;
+	char	*res;
 
 	i = -1;
-    all->l_red = NULL;
-	res = ft_strdup("");
 	while (args[++i])
 	{
 		if (args[i][0] == -1 || args[i][0] == -2 || args[i][0] == -3)
@@ -115,11 +113,10 @@ int       func_do_trick(char **args, t_all *all)
 		}
 		else
 		{
-			if (i)
-                res = ft_realloc_r(res, -5);
-            temp = res;
+			res = (i) ? ft_realloc_r(res, -5) : ft_strdup("");
+			temp = res;
 			res = ft_strjoin(res, args[i]);
-            free(temp);
+			free(temp);
 		}
 	}
     printf("here we are %s\n", res);
@@ -128,28 +125,28 @@ int       func_do_trick(char **args, t_all *all)
 	return (0);
 }
 
-int         ft_parse_argument(char *line, t_all *all, t_args *args)
+int			ft_parse_argument(char *line, t_all *all, t_args *args)
 {
-    int i;
-    int flag;
+	int i;
+	int flag;
 
 	(void)args;
-    i = 0;
-    flag = 0;
-    if (!line)
-        return (1);
+	i = 0;
+	flag = 0;
+	if (!line)
+		return (1);
    /* if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
     {
         ft_redirect_parse(args, line, all);
         line = all->arg;
 	//	printf("line is %s\n", line);
     }*/
-    line = line_cleaner(all->arg);
-    printf("here is clean line%s\n", line);
+	line = line_cleaner(all->arg);
+	printf("here is clean line%s\n", line);
 	all->args.args = ft_split(line, -5);
-    func_do_trick(all->args.args, all);
-    //ft_do_list(temp, args);
-    return (0);
+	func_do_trick(all->args.args, all);
+	//ft_do_list(temp, args);
+	return (0);
 }
 
 

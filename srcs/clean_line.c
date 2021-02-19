@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char *ft_realloc_r(char *str, char c)
+char		*ft_realloc_r(char *str, char c)
 {
 	char *temp;
 	size_t size;
@@ -14,18 +14,30 @@ char *ft_realloc_r(char *str, char c)
 		temp[1] = '\0';
 		return (temp);
 	}
-	size = ft_strlen(str); /**ft_strlen*/
+	size = ft_strlen(str);
 	if (str[size - 1] == -5 && c == -5)
 		return (str);
 	temp = malloc(size + 2);
-	ft_strcpy(temp, str); /**ft_strcopy*/
+	ft_strcpy(temp, str);
 	temp[size] = c;
 	temp[size + 1] = '\0';
 	free(str);
 	return (temp);
 }
+/*
+static char		*ft_not_line(char c)
+{
+	char *temp;
 
-char *ft_redir_make(char *line, char c)
+	temp = malloc(4);
+	temp[0] = -5;
+	temp[1] = c;
+	temp[2] = -5;
+	temp[3] = '\0';
+	return (temp);
+}
+*/
+char		*ft_redir_make(char *line, char c)
 {
 	int size;
 	char *temp;
@@ -58,7 +70,7 @@ char *ft_redir_make(char *line, char c)
 	return (temp);
 }
 
-static int check_flag_r(char *c, int flag, int *i)
+static int	check_flag_r(char *c, int flag, int *i)
 {
 	if (c[(*i) - 1] == -5 && c[(*i)] == ' ')
 		while (c[*i] == ' ')
@@ -78,7 +90,7 @@ static int check_flag_r(char *c, int flag, int *i)
 	return (flag);
 }
 
-char	*line_cleaner(char *line)
+char		*line_cleaner(char *line)
 {
 	int i;
 	int flag;

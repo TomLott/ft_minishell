@@ -53,6 +53,7 @@ void        refresh_all(t_all **all, t_args *args)
     (*all)->cmd_len = 0;
     (*all)->pipe = 0;
 	(void)args;
+	(*all)->l_red = NULL;
     //args->dst = NULL;
     //args->src = NULL;
 	if ((*all)->def_cmd)

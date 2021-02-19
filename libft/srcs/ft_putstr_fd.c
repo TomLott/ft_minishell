@@ -17,7 +17,12 @@ void	ft_putstr_fd(char *s, int fd)
 	if (s == 0x0)
 		return ;
 	while (*s++)
-		write(fd, s - 1, 1);
+	{
+		if (*(s - 1) == -5)
+			write(fd, " ", 1);
+		else
+			write(fd, s - 1, 1);
+	}
 }
 
 void	ft_putstrn_fd(char *s, int fd)
@@ -25,6 +30,11 @@ void	ft_putstrn_fd(char *s, int fd)
 	if (s == 0x0)
 		return ;
 	while (*s++)
-		write(fd, s - 1, 1);
+	{
+		if (*(s - 1) == -5)
+			write(fd, " ", 1);
+		else
+			write(fd, s - 1, 1);
+	}
 	write(fd, "\n", 1);
 }

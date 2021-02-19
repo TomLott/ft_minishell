@@ -14,7 +14,6 @@
 
 int	ms_echo(t_all *all)
 {
-	printf("hahahahahahahahahahaha %s\n", all->arg);
 	if (all->arg)
 		ft_putstrn_fd(all->arg, all->fd1);
 	else

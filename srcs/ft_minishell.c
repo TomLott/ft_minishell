@@ -115,7 +115,6 @@ void        hook_command(char *com, t_all *all)
 	printf("=====%s======\n", all->stor);
 	if (ft_change_pipes(com) == -1)
 		do_error(all, 5);
-	//temp = ft_split(com, -10);
 	temp = all->stor;
 	all->stor = ft_strdup(com);
 	free(temp);
@@ -150,7 +149,7 @@ void        hook_command(char *com, t_all *all)
 		else
 		{
 			printf("last else\n");
-			dup2(1, 0);
+			dup2(all->fd1, 0);
 		}
 		if (all->stor)
 			hook_command(all->stor, all);

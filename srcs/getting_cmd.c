@@ -174,37 +174,37 @@ int         ft_check_redir(char *line, t_all *all)
 
 char        *ft_com_parser(char *line, t_all *all)
 {
-    char *temp;
-    int j;
-    int flag;
+	char *temp;
+	int j;
+	int flag;
 
-    j = 0;
-    temp = malloc(4096);
-    while(line[all->cmd_len] && line[all->cmd_len] != ' ')
-    {
-        if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
-            temp[j++] = line[all->cmd_len++];
-        else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
+	j = 0;
+	temp = malloc(4096);
+	while(line[all->cmd_len] && line[all->cmd_len] != ' ')
+	{
+		if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
+			temp[j++] = line[all->cmd_len++];
+		else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
         {
-            while (line[all->cmd_len] && line[all->cmd_len] != '\"')
-                temp[j++] = line[all->cmd_len++];
-            (line[all->cmd_len] == '\"') ? all->cmd_len++ : (flag = -1);
+			while (line[all->cmd_len] && line[all->cmd_len] != '\"')
+				temp[j++] = line[all->cmd_len++];
+			(line[all->cmd_len] == '\"') ? all->cmd_len++ : (flag = -1);
         }
-        else if (line[all->cmd_len] == '\'' && ++all->cmd_len)
-        {
-            while (line[all->cmd_len] && line[all->cmd_len] != '\'')
-                temp[j++] = line[all->cmd_len++];
-            (line[all->cmd_len] == '\'') ? all->cmd_len++ : (flag = -1);
-        }
+		else if (line[all->cmd_len] == '\'' && ++all->cmd_len)
+		{
+			while (line[all->cmd_len] && line[all->cmd_len] != '\'')
+				temp[j++] = line[all->cmd_len++];
+			(line[all->cmd_len] == '\'') ? all->cmd_len++ : (flag = -1);
+		}
 		else if (ft_check_redir(line, all) && ++j)
 			break;
-        else
-            temp[j++] = line[all->cmd_len++];
+		else
+			temp[j++] = line[all->cmd_len++];
     }
-    temp[j] = '\0';
-    return (flag == -1 ) ? "ERROR" : temp;
+	temp[j] = '\0';
+	return (flag == -1 ) ? "ERROR" : temp;
 }
-
+/*
 int			ft_strlen_for_arg(char *line)
 {
 	int		j;
@@ -239,10 +239,10 @@ int			ft_strlen_for_arg(char *line)
 			j = 0;
 			break ;
 		}
-    }
-    return (j);
+	}
+	return (j);
 }
-/*
+
 char        *ft_quotes_deleting(char *line, t_all *all)
 {
     char	*temp;
@@ -281,31 +281,31 @@ char        *ft_quotes_deleting(char *line, t_all *all)
     return (flag == -1 ) ? "z" : temp;
 }*/
 
-void        get_command(char *s, t_all *all)
+void		get_command(char *s, t_all *all)
 {
-    char *temp;
+	char *temp;
 
-    temp = ft_com_parser(s, all);
+	temp = ft_com_parser(s, all);
 	if (ft_strcmp(temp, "pwd"))
-        all->cmd = PWD;
-    else if (ft_strcmp(temp, "cd"))
-        all->cmd = CD;
-    else if (ft_strcmp(temp, "echo"))
-        all->cmd = ECHO;
-    else if (ft_strcmp(temp, "export"))
-        all->cmd = EXPORT;
-    else if (ft_strcmp(temp, "unset"))
-        all->cmd = UNSET;
-    else if (ft_strcmp(temp, "env"))
-        all->cmd = ENV;
-    else if (ft_strcmp(temp, "exit"))
-        all->cmd = EXIT;
-    else if (ft_strcmp(temp, "minishell"))
-        all->cmd = SELF;
+		all->cmd = PWD;
+	else if (ft_strcmp(temp, "cd"))
+		all->cmd = CD;
+	else if (ft_strcmp(temp, "echo"))
+		all->cmd = ECHO;
+	else if (ft_strcmp(temp, "export"))
+		all->cmd = EXPORT;
+	else if (ft_strcmp(temp, "unset"))
+		all->cmd = UNSET;
+	else if (ft_strcmp(temp, "env"))
+		all->cmd = ENV;
+	else if (ft_strcmp(temp, "exit"))
+		all->cmd = EXIT;
+	else if (ft_strcmp(temp, "minishell"))
+		all->cmd = SELF;
 	else
 	{
-        all->def_cmd = ft_strdup(temp);
-        all->cmd = DEF;
-    }
+		all->def_cmd = ft_strdup(temp);
+		all->cmd = DEF;
+	}
 	free(temp);
 }

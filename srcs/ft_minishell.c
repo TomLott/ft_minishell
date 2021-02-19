@@ -57,8 +57,6 @@ void		ft_fd(t_all *all)
 	t_redir *redir;
 
 	redir = all->l_red;
-	all->fd1 = 1;
-	all->fd0 = 0;
 	while(redir)
 	{
 		printf("args: %d %s\n", redir->redir, redir->cont);
@@ -85,6 +83,8 @@ void        hook_command(char *com, t_all *all)
 	temp = ft_split(com, -1);
 	while(temp[j])
     {
+		all->fd1 = 1;  /******   need to move this line somewhere else*/
+		all->fd0 = 0;
 	    point = temp[j];
 	    temp[j] = ft_strtrim(temp[j], " ");
 	    free(point);

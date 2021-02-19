@@ -24,48 +24,50 @@ int         ft_parse_line(char *line)
 	return (1);
 }
 
-int		ft_do_right_r(t_all *all, t_redir *red)
+int		ft_do_right_r(t_all *all, t_redir *red, int temp)
 {
-	if (all->fd1 != 1)
-		close(all->fd1);
+	if (temp != 1)
+		close(temp);
 	if (red->redir == -1)
 	{
 		if (!(all->fd1 = open(red->cont, O_CREAT | O_WRONLY, 0755)))
-			return (1);
+			return (-1);
 	}
 	else if (red->redir == -3)
 	{
 		if (!(all->fd1 = open(red->cont, O_CREAT | O_APPEND | O_WRONLY, 0755)))
-			return (1);
+			return (-1);
 	}
-	return (0);
+	return (all->fd1);
 }
 
-int		ft_do_left_r(t_all *all, t_redir *red)
+int		ft_do_left_r(t_all *all, t_redir *red, int temp)
 {
 	printf("ft_do_left_r\n");
-	if (all->fd0 != 0)
-		close(all->fd0);
+	if (temp != 0)
+		close(temp);
 	if (!(all->fd0 = open(red->cont, O_RDONLY, 0755)))
 	{
 		printf("fd0 error\n");
-		return (1);
+		return (-1);
 	}
-	return (0);
+	return (all->fd0);
 }
 
 void		ft_fd(t_all *all)
 {
 	t_redir *redir;
+	int temp;
 
 	redir = all->l_red;
+	temp = 0;
 	while(redir)
 	{
 		printf("args: %d %s\n", redir->redir, redir->cont);
 		if (redir->redir == -2)
-			ft_do_left_r(all, redir);
+			temp = ft_do_left_r(all, redir, temp);
 		if (redir->redir == -1 || redir->redir == -3)
-			ft_do_right_r(all, redir);
+			temp = ft_do_right_r(all, redir, temp);
 		redir = redir->next;
 	}
 	if (all->fd0 >= 0 && all->fd1 >= 1)
@@ -78,40 +80,69 @@ void		ft_fd(t_all *all)
 	printf("%d %d fd\n", all->fd1, all->fd0);
 }
 
+char		*ft_get_line(char **s)
+{
+	int		i;
+	char	*temp;
+	char	*ret;
+
+	i = 0;
+	while (*(*s + i) && *(*s + i) != -10)
+		i++;
+	*(*s + i) = '\0';
+	temp = *s;
+	if (!(ret = ft_strdup(*s)))
+		return (NULL);
+	if (*(*s + i + 1))
+	{
+		if (!(*s = ft_strdup((*s + i + 1))))
+			return (NULL);
+		free(temp);
+	}
+	else
+		*s = NULL;
+	temp = NULL;
+	return (ret);
+}
+
 void        hook_command(char *com, t_all *all)
 {
-	char **temp;
+	char *temp;
 	int j;
 	char *point;
 
 	j = 0;
+	printf("=====%s======\n", all->stor);
 	if (ft_change_pipes(com) == -1)
 		do_error(all, 5);
-	//printf("%s here is com\n", com);
-	temp = ft_split(com, -1);
-	all->fd0_def = dup(0);
-	all->fd1_def = dup(1);
-	all->fd1 = 1;  /******   need to move this line somewhere else*/
-	all->fd0 = 0;
-	while(temp[j])
+	//temp = ft_split(com, -10);
+	temp = all->stor;
+	all->stor = ft_strdup(com);
+	free(temp);
+	temp = ft_get_line(&all->stor);
+	com = all->stor;
+	printf("%s here is com\n", all->stor);
+	printf("%s here is temp\n", temp);
+	if (temp)
     {
-	    point = temp[j];
-	    temp[j] = ft_strtrim(temp[j], " ");
+	    point = temp;
+	    temp = ft_strtrim(temp, " ");
 	    free(point);
         refresh_all(&all, &all->args);
-		if (ft_change_redir(&temp[j]) == -1)
+		printf("before change_redir\n");
+		if (ft_change_redir(&temp) == -1)
 			do_error(all, 5); /**syntax error*/
-		get_command(temp[j], all);
-		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
-		    all->arg = ft_strdup(temp[j] + all->cmd_len);
+		get_command(temp, all);
+		if (all->cmd_len + 1 < (int)ft_strlen(temp))
+		    all->arg = ft_strdup(temp + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
 		ft_fd(all);
 		all->last_rv = manage_cmds(all);
-		if (all->fd1 != 1)
+		/*if (all->fd1 != 1)
 			close(all->fd1);
 		if (all->fd0 != 0)
-			close(all->fd0);
-		if (!temp[++j])
+			close(all->fd0);*/
+		if (!all->stor)
 		{
 			dup2(all->fd1_def, 1);
 			dup2(all->fd0_def, 0);
@@ -121,6 +152,8 @@ void        hook_command(char *com, t_all *all)
 			printf("last else\n");
 			dup2(1, 0);
 		}
+		if (all->stor)
+			hook_command(all->stor, all);
 	}
 }
 
@@ -131,16 +164,23 @@ int ft_parse_commands(t_all *all)
 	char *temp;
 
 	i = 0;
+	printf("before ft_dollar\n");
 	if (ft_dollar(all, all->line) == 1)
-		do_error(all, 5);	
+		do_error(all, 5);
+	printf("before ft_parse_line\n");
 	if (ft_parse_line(all->line) == -1)
 		do_error(all, 5);
 	commands = ft_split(all->line, -1);
 	while(commands[i])
 	{
+		all->fd1 = 1;  /******   need to move this line somewhere else*/
+		all->fd0 = 0;
+		all->fd0_def = dup(0);
+		all->fd1_def = dup(1);
 		refresh_all(&all, &(all->args));
 		temp = commands[i];
 		commands[i] = ft_strtrim(commands[i], " ");
+		all->stor = ft_strdup(commands[i]);
 		hook_command(commands[i], all);
 		free(temp);
 		i++;

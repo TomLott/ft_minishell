@@ -20,7 +20,7 @@ int         get_flag(char *line, int *i, char c)
 	(*i)++;
 	while (line[(*i)])
 	{
-		if (line[(*i)] == '\\' && line[(*i) + 1])
+		if (line[(*i)] == '\\' && line[(*i) + 1] && line[(*i) + 1] != '\'')
 			(*i) += 2;
 		else if (line[(*i)] == c)
 			return (0);
@@ -45,7 +45,7 @@ int         ft_change_pipes(char *line)
 		if ((line[i] && line[i] == '\0' ) || flag == 1)
 			return (-1); /** syntax error*/
 		if (line[i] == '|')
-			line[i] =  -1;
+			line[i] =  -10;
 		i++;
 	}
 	return (1);

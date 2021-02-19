@@ -87,7 +87,8 @@ typedef struct		s_all
 	int				fd1;
 	int				fd0;
 	int				fd1_def;
-	int				fd0_def;	
+	int				fd0_def;
+	char			*stor;
 }					t_all;
 
 

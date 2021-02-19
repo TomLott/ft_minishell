@@ -105,7 +105,7 @@ void				free_double_char(char **arr);
 void				free_env(t_envlst **env);
 int					ft_allowed_chars(char c);
 int					ft_dollar(t_all *all, char *line);
-char				*ft_com_parser(char *line, t_all *all);
+char				*ft_com_parser(char *line, t_all *all, char *temp);
 int					ft_change_pipes(char *line);
 char				ft_change_redir(char **line);
 void				ft_init_env(char **env, t_all *all);

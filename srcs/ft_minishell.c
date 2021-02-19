@@ -89,12 +89,12 @@ void        hook_command(char *com, t_all *all)
 		do_error(all, 5);
 	//printf("%s here is com\n", com);
 	temp = ft_split(com, -1);
+	all->fd0_def = dup(0);
+	all->fd1_def = dup(1);
+	all->fd1 = 1;  /******   need to move this line somewhere else*/
+	all->fd0 = 0;
 	while(temp[j])
     {
-		all->fd0_def = dup(0);
-		all->fd1_def = dup(1);
-		all->fd1 = 1;  /******   need to move this line somewhere else*/
-		all->fd0 = 0;
 	    point = temp[j];
 	    temp[j] = ft_strtrim(temp[j], " ");
 	    free(point);
@@ -107,11 +107,21 @@ void        hook_command(char *com, t_all *all)
 		ft_parse_argument(all->arg, all, &(all->args));
 		ft_fd(all);
 		all->last_rv = manage_cmds(all);
-		dup2(all->fd1_def, 1);
-		dup2(all->fd0_def, 0);
-		j++;
+		if (all->fd1 != 1)
+			close(all->fd1);
+		if (all->fd0 != 0)
+			close(all->fd0);
+		if (!temp[++j])
+		{
+			dup2(all->fd1_def, 1);
+			dup2(all->fd0_def, 0);
+		}
+		else
+		{
+			printf("last else\n");
+			dup2(1, 0);
+		}
 	}
-
 }
 
 int ft_parse_commands(t_all *all)

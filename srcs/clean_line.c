@@ -24,7 +24,7 @@ char		*ft_realloc_r(char *str, char c)
 	free(str);
 	return (temp);
 }
-/*
+
 static char		*ft_not_line(char c)
 {
 	char *temp;
@@ -36,20 +36,14 @@ static char		*ft_not_line(char c)
 	temp[3] = '\0';
 	return (temp);
 }
-*/
+
 char		*ft_redir_make(char *line, char c)
 {
 	int size;
 	char *temp;
 
 	if (!line[0])
-	{
-		temp = malloc(4);
-		temp[0] = -5;
-		temp[1] = c;
-		temp[2] = -5;
-		temp[3] = '\0';
-	}
+		ft_not_line(c);
 	size = ft_strlen(line);
 	temp = malloc(size + 3);
 	ft_strcpy(temp, line);

@@ -98,37 +98,37 @@ void		ft_lstadd_back_r(t_redir **lst, t_redir *new)
 int			func_do_trick(char **args, t_all *all)
 {
 	int		i;
-	char	*temp;
-	char	*res;
+	char	*res[2];
 
 	i = -1;
+	res[0] = ft_strdup("");
 	while (args[++i])
 	{
 		if (args[i][0] == -1 || args[i][0] == -2 || args[i][0] == -3)
 		{
-			temp = args[i++];
+			res[1] = args[i++];
 			if (!args[i])
 				return (1);
-			ft_lstadd_back_r(&all->l_red, ft_lstnew_r(args[i], temp[0]));
+			ft_lstadd_back_r(&all->l_red, ft_lstnew_r(args[i], res[1][0]));
 		}
 		else
 		{
-			res = (i) ? ft_realloc_r(res, -5) : ft_strdup("");
-			temp = res;
-			res = ft_strjoin(res, args[i]);
-			free(temp);
+			(i) ? (res[0] = ft_realloc_r(res[0], -5)) : NULL;
+			res[1] = res[0];
+			res[0] = ft_strjoin(res[0], args[i]);
+			free(res[1]);
 		}
 	}
-    printf("here we are %s\n", res);
-    all->arg = res;
-    all->args.args = ft_split(all->arg, -5);
+	printf("here we are %s\n", res[0]);
+	all->arg = res[0];
+	all->args.args = ft_split(all->arg, -5);
 	return (0);
 }
 
 int			ft_parse_argument(char *line, t_all *all, t_args *args)
 {
-	int i;
-	int flag;
+	int	i;
+	int	flag;
 
 	(void)args;
 	i = 0;
@@ -297,10 +297,7 @@ void		get_command(char *s, t_all *all)
 		all->cmd = EXIT;
 	else if (ft_strcmp(temp, "minishell"))
 		all->cmd = SELF;
-	else
-	{
-		all->def_cmd = ft_strdup(temp);
+	else if ((all->def_cmd = ft_strdup(temp)))
 		all->cmd = DEF;
-	}
 	free(temp);
 }

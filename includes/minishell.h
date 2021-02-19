@@ -86,6 +86,8 @@ typedef struct		s_all
 	char            *def_cmd;
 	int				fd1;
 	int				fd0;
+	int				fd1_def;
+	int				fd0_def;	
 }					t_all;
 
 

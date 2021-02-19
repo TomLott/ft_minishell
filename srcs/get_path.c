@@ -26,13 +26,11 @@ int		manage_execve(t_all *all, char *bin, char **args)
 {
 	size_t	pid;
 
-	dup2(all->fd1, 1);
-	dup2(all->fd0, 0);
 	if (file_exists(bin))
 	{
 		pid = fork();
 		if (pid != 0)
-		{
+		{	
 			wait(&(all->last_rv));
 			return (1);
 		}

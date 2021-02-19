@@ -44,6 +44,8 @@ int		ft_do_right_r(t_all *all, t_redir *red)
 int		ft_do_left_r(t_all *all, t_redir *red)
 {
 	printf("ft_do_left_r\n");
+	if (all->fd0 != 0)
+		close(all->fd0);
 	if (!(all->fd0 = open(red->cont, O_RDONLY, 0755)))
 	{
 		printf("fd0 error\n");
@@ -64,9 +66,15 @@ void		ft_fd(t_all *all)
 			ft_do_left_r(all, redir);
 		if (redir->redir == -1 || redir->redir == -3)
 			ft_do_right_r(all, redir);
-		
 		redir = redir->next;
 	}
+	if (all->fd0 >= 0 && all->fd1 >= 1)
+	{
+		all->fd0 = dup2(all->fd0, 0);
+		all->fd1 = dup2(all->fd1, 1);
+	}
+	else
+		printf("ERROR in ft_fd\n");
 	printf("%d %d fd\n", all->fd1, all->fd0);
 }
 
@@ -83,6 +91,8 @@ void        hook_command(char *com, t_all *all)
 	temp = ft_split(com, -1);
 	while(temp[j])
     {
+		all->fd0_def = dup(0);
+		all->fd1_def = dup(1);
 		all->fd1 = 1;  /******   need to move this line somewhere else*/
 		all->fd0 = 0;
 	    point = temp[j];
@@ -95,21 +105,13 @@ void        hook_command(char *com, t_all *all)
 		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
 		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
-		//all->args.src = ft_quotes_deleting(all->args.src, all);
-		//all->args.dst = ft_quotes_deleting(all->args.dst, all);
-		//printf("j is = %d; command is = %i; argument is = %s\n", j, all->cmd, all->arg);
-		//printf("args->dst = %s, args->src = %s\n", all->args.dst, all->args.src);
 		ft_fd(all);
 		all->last_rv = manage_cmds(all);
-		
-		/*
-		if (all->args.args)
-		    while(*all->args.args){
-		        printf("%s args\n", *all->args.args++);
-		    }
-			*/
+		dup2(all->fd1_def, 1);
+		dup2(all->fd0_def, 0);
 		j++;
 	}
+
 }
 
 int ft_parse_commands(t_all *all)
@@ -166,7 +168,7 @@ int main(int argc, char **argv, char **env)
 		signal(SIGINT, myint);
 		get_data(all);
 	//	refresh_all(&all);
-	//	break; /*remove*/
+	//	break; /*remove*/g
 	}
 
 }

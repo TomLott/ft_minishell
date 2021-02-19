@@ -145,7 +145,6 @@ int			ft_parse_argument(char *line, t_all *all, t_args *args)
 	printf("here is clean line%s\n", line);
 	all->args.args = ft_split(line, -5);
 	func_do_trick(all->args.args, all);
-	//ft_do_list(temp, args);
 	return (0);
 }
 

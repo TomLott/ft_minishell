@@ -57,17 +57,19 @@ int		ft_do_left_r(t_all *all, t_redir *red, int temp)
 void		ft_fd(t_all *all)
 {
 	t_redir *redir;
-	int temp;
+	int temp_in;
+	int temp_out;
 
 	redir = all->l_red;
-	temp = 0;
+	temp_in = 0;
+	temp_out = 1;
 	while(redir)
 	{
 		printf("args: %d %s\n", redir->redir, redir->cont);
 		if (redir->redir == -2)
-			temp = ft_do_left_r(all, redir, temp);
+			temp_in = ft_do_left_r(all, redir, temp_in);
 		if (redir->redir == -1 || redir->redir == -3)
-			temp = ft_do_right_r(all, redir, temp);
+			temp_out = ft_do_right_r(all, redir, temp_out);
 		redir = redir->next;
 	}
 	if (all->fd0 >= 0 && all->fd1 >= 1)
@@ -80,19 +82,30 @@ void		ft_fd(t_all *all)
 	printf("%d %d fd\n", all->fd1, all->fd0);
 }
 
+char		*wrap_null(char *ans, char **str)
+{
+	free(*str);
+	*str = 0x0;
+	return (ans);
+}
+
 char		*ft_get_line(char **s)
 {
 	int		i;
+	int		len;
 	char	*temp;
 	char	*ret;
 
 	i = 0;
 	while (*(*s + i) && *(*s + i) != -10)
 		i++;
+	len = ft_strlen(*s);
 	*(*s + i) = '\0';
 	temp = *s;
 	if (!(ret = ft_strdup(*s)))
 		return (NULL);
+	if (i == len)
+		return (wrap_null(ret, s));
 	if (*(*s + i + 1))
 	{
 		if (!(*s = ft_strdup((*s + i + 1))))

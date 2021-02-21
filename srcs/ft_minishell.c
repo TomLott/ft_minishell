@@ -121,7 +121,7 @@ char		*ft_get_line(char **s)
 void        hook_command(char *com, t_all *all)
 {
 	char *temp;
-	int j;
+	int		j;
 	char *point;
 
 	j = 0;
@@ -131,17 +131,22 @@ void        hook_command(char *com, t_all *all)
 	temp = all->stor;
 	all->stor = ft_strdup(com);
 	free(temp);
-	temp = ft_get_line(&all->stor);
-	com = all->stor;
-	printf("%s here is com\n", all->stor);
+	temp = ft_strtrim(ft_get_line(&all->stor), " ");
+	com = ft_strtrim(all->stor, " ");
+		if (com)
+		{
+			do_pipe(all, temp, com);
+			exit(1) ;
+		}
+	printf("%s here is stor\n", all->stor);
 	printf("%s here is temp\n", temp);
-	if (temp)
+	if (temp && *temp)
     {
 	    point = temp;
 	    temp = ft_strtrim(temp, " ");
 	    free(point);
         refresh_all(&all, &all->args);
-		printf("before change_redir\n");
+		//printf("before change_redir\n");
 		if (ft_change_redir(&temp) == -1)
 			do_error(all, 5); /**syntax error*/
 		get_command(temp, all);
@@ -150,10 +155,6 @@ void        hook_command(char *com, t_all *all)
 		ft_parse_argument(all->arg, all, &(all->args));
 		ft_fd(all);
 		all->last_rv = manage_cmds(all);
-		/*if (all->fd1 != 1)
-			close(all->fd1);
-		if (all->fd0 != 0)
-			close(all->fd0);*/
 		if (!all->stor)
 		{
 			dup2(all->fd1_def, 1);
@@ -162,10 +163,13 @@ void        hook_command(char *com, t_all *all)
 		else
 		{
 			printf("last else\n");
-			dup2(all->fd1, 0);
+			dup2(all->fd0, 0);
 		}
+		/*
 		if (all->stor)
+		{
 			hook_command(all->stor, all);
+		}*/
 	}
 }
 
@@ -176,10 +180,10 @@ int ft_parse_commands(t_all *all)
 	char *temp;
 
 	i = 0;
-	printf("before ft_dollar\n");
+	//printf("before ft_dollar\n");
 	if (ft_dollar(all, all->line) == 1)
 		do_error(all, 5);
-	printf("before ft_parse_line\n");
+	//printf("before ft_parse_line\n");
 	if (ft_parse_line(all->line) == -1)
 		do_error(all, 5);
 	commands = ft_split(all->line, -1);

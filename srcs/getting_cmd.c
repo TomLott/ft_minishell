@@ -279,7 +279,7 @@ void		get_command(char *s, t_all *all)
 	char *temp;
 
 	temp = malloc(4096);
-	printf("get_command\n");
+	//printf("get_command\n");
 	temp = ft_com_parser(s, all, temp);
 	if (ft_strcmp(temp, "pwd"))
 		all->cmd = PWD;

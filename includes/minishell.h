@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/17 12:01:11 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:08:37 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
 int					do_error(t_all *all, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
+void				do_pipe(t_all *all, char *left, char *right);
 void				env_add_back(t_all *all, char *env);
 char				*extract_env(char **env, char *key);
 int					file_exists(char *file_path);

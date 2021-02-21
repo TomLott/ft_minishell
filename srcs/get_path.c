@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/18 19:56:45 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/21 13:02:06 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 	{
 		pid = fork();
 		if (pid != 0)
-		{	
+		{
 			wait(&(all->last_rv));
 			return (1);
 		}

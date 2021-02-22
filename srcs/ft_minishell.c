@@ -175,8 +175,8 @@ void        hook_command(char *com, t_all *all)
 	}
 	if (j < 2)
 		all->last_rv = manage_cmds(all);
-	//else
-		//do_pipe(all, pp);
+	else
+		do_pipe(all, pp);
 
 }
 

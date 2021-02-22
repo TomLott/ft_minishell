@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 18:25:30 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 19:56:47 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,14 @@ void	fill_pipes(t_all *all, t_pipi *pipi)
 	{
 		pipe(pp);
 		if (pipi->fd1 == 1)
-			dup2(pipi->fd1, pp[1]);
+			dup2(pp[1], pipi->fd1);
+		else
+			dup2(pp[1], all->fd1_def);
 		if (!pipi->fd0)
-			dup2(pipi->next->fd0, pp[0]);
+			dup2(pp[0], pipi->next->fd0);
+		else
+			dup2(pp[0], all->fd0_def);
+		printf("fd0===%d\nfd1===%d\n", pipi->fd0, pipi->fd1);
 		close(pp[0]);
 		close(pp[1]);
 		pipi = pipi->next;
@@ -52,22 +57,20 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 	i = 0;
 	fill_pipes(all, pipi);
 	temp = pipi;
-	while (i++ < all->pipe)
+	while (i++ <= all->pipe)
 	{
+		printf("fd0: %d\tfd1: %d\n", pipi->fd0, pipi->fd1);
 		f = fork();
-		dup2(pipi->fd1, 1);
-		dup2(pipi->fd0, 0);
 		if (!f)
 		{
-			//if (temp)
-			//	close(temp->fd1);//dup2(pipi->fd1, 1);
+			dup2(pipi->fd1, 1);
+			dup2(pipi->fd0, 0);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
 			if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
 				printf(">%s<\terrr 0\n%s\n", pipi->cmd, strerror(errno));
-			//close(pipi->fd0);
 		}
-		else
-			pipi = pipi->next;
+		wait(0x0);
+		pipi = pipi->next;
 	}
 	i = 0;
 	pipi = temp;

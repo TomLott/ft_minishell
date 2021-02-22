@@ -33,9 +33,9 @@ void	fill_pipes(t_all *all, t_pipi *pipi)
 	while (i++ < all->pipe)
 	{
 		pipe(pp);
-		if (pipi->fd1 == 1)
+		//if (pipi->fd1 == 1)
 			pipi->fd1 = dup(pp[1]);
-		if (pipi->fd0 == 0)
+		//if (pipi->fd0 == 0)
 			pipi->next->fd0 = dup(pp[0]);
 		close(pp[0]);
 		close(pp[1]);
@@ -70,12 +70,12 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 				printf(">%s<\terrr 0\n%s\n", pipi->cmd, strerror(errno));
 		}
 		close(pipi->fd0);
-		close(pipi->fd1);
+		//close(pipi->fd1);
 		//temp_fd = pipi->fd1;
 		pipi = pipi->next;
 		
 	}
-	wait(NULL);
+	sleep(1);
 	close(temp_fd);
 	i = 0;
 	pipi = temp;

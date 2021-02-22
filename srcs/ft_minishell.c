@@ -120,41 +120,44 @@ char		*ft_get_line(char **s)
 
 void        hook_command(char *com, t_all *all)
 {
-	char *temp;
+	char **temp;
 	int		j;
 	char *point;
+	t_pipi *pp;
 
-	j = 0;
+	j = -1;
 	printf("=====%s======\n", all->stor);
 	if (ft_change_pipes(com) == -1)
-		do_error(all, 5);
-	temp = all->stor;
+		do_error(all, "syntax error\n", 5);
+	pp = 0x0;
+	temp  = ft_split(com, -10);
+/*	temp = all->stor;
 	all->stor = ft_strdup(com);
 	free(temp);
 	temp = ft_strtrim(ft_get_line(&all->stor), " ");
 	com = ft_strtrim(all->stor, " ");
 		if (com)
 		{
-			do_pipe(all, temp, com);
 			exit(1) ;
 		}
 	printf("%s here is stor\n", all->stor);
-	printf("%s here is temp\n", temp);
-	if (temp && *temp)
+	printf("%s here is temp\n", temp);*/
+	while (temp[++j])
     {
-	    point = temp;
-	    temp = ft_strtrim(temp, " ");
+	    point = temp[j];
+	    temp[j] = ft_strtrim(temp[j], " ");
 	    free(point);
         refresh_all(&all, &all->args);
 		//printf("before change_redir\n");
-		if (ft_change_redir(&temp) == -1)
-			do_error(all, 5); /**syntax error*/
-		get_command(temp, all);
-		if (all->cmd_len + 1 < (int)ft_strlen(temp))
-		    all->arg = ft_strdup(temp + all->cmd_len);
+		if (ft_change_redir(&temp[j]) == -1)
+			do_error(all, "syntax error\n", 5);
+		get_command(temp[j], all);
+		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
+		    all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
 		ft_fd(all);
-		all->last_rv = manage_cmds(all);
+		pipi_add_back(&pp, pipi_new(all));
+		/*
 		if (!all->stor)
 		{
 			dup2(all->fd1_def, 1);
@@ -165,12 +168,16 @@ void        hook_command(char *com, t_all *all)
 			printf("last else\n");
 			dup2(all->fd0, 0);
 		}
-		/*
 		if (all->stor)
 		{
 			hook_command(all->stor, all);
 		}*/
 	}
+	if (j < 2)
+		all->last_rv = manage_cmds(all);
+	//else
+		//do_pipe(all, pp);
+
 }
 
 int ft_parse_commands(t_all *all)
@@ -182,10 +189,10 @@ int ft_parse_commands(t_all *all)
 	i = 0;
 	//printf("before ft_dollar\n");
 	if (ft_dollar(all, all->line) == 1)
-		do_error(all, 5);
+		do_error(all, "syntax error\n", 5);
 	//printf("before ft_parse_line\n");
 	if (ft_parse_line(all->line) == -1)
-		do_error(all, 5);
+		do_error(all, "syntax error\n", 5);
 	commands = ft_split(all->line, -1);
 	while(commands[i])
 	{
@@ -211,7 +218,7 @@ void get_data(t_all *all)
 {
 
 	if ( 0 > get_next_line(STDIN_FILENO, &all->line))
-		do_error(all, -1);
+		do_error(all, "can't read the file\n", 4);
 	process_tilda(all);
 	ft_parse_commands(all);
 	if (all->line)

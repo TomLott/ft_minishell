@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/21 13:02:06 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 13:21:12 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int		get_path(t_all *all, char *path, char *ex_name)
 	char	*tmp;
 	int		i;
 
-	if (!ex_name)
-		return (0);
+	if (!ex_name || !(*ex_name))
+		return (1);
 	if (all->arg)
 		args = copy_env(all->args.args);
 	else

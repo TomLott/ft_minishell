@@ -276,28 +276,29 @@ char        *ft_quotes_deleting(char *line, t_all *all)
 
 void		get_command(char *s, t_all *all)
 {
-	char *temp;
+	char *temp[2];
 
-	temp = malloc(4096);
-	//printf("get_command\n");
-	temp = ft_com_parser(s, all, temp);
-	if (ft_strcmp(temp, "pwd"))
+	temp[0] = malloc(4096);
+	temp[0] = ft_com_parser(s, all, temp[0]);
+	temp[1] = temp[0];
+	temp[0] = ft_strtrim(temp[0], " ");
+	if ((all->def_cmd = ft_strdup(temp[0])) && ft_strcmp(temp[0], "pwd"))
 		all->cmd = PWD;
-	else if (ft_strcmp(temp, "cd"))
+	else if (ft_strcmp(temp[0], "cd"))
 		all->cmd = CD;
-	else if (ft_strcmp(temp, "echo"))
+	else if (ft_strcmp(temp[0], "echo"))
 		all->cmd = ECHO;
-	else if (ft_strcmp(temp, "export"))
+	else if (ft_strcmp(temp[0], "export"))
 		all->cmd = EXPORT;
-	else if (ft_strcmp(temp, "unset"))
+	else if (ft_strcmp(temp[0], "unset"))
 		all->cmd = UNSET;
-	else if (ft_strcmp(temp, "env"))
+	else if (ft_strcmp(temp[0], "env"))
 		all->cmd = ENV;
-	else if (ft_strcmp(temp, "exit"))
+	else if (ft_strcmp(temp[0], "exit"))
 		all->cmd = EXIT;
-	else if (ft_strcmp(temp, "minishell"))
+	else if (ft_strcmp(temp[0], "minishell"))
 		all->cmd = SELF;
-	else if ((all->def_cmd = ft_strdup(temp)))
+	else
 		all->cmd = DEF;
-	free(temp);
+	free_arr((void **)&temp, 2);
 }

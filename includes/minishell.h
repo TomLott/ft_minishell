@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/21 18:08:37 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 13:21:09 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ typedef struct      s_args
     void            *next;
 }                   t_args;
 
+typedef struct		s_pipi
+{
+	char			*cmd;
+	char			**args;
+	int				fd0;
+	int				fd1;
+	struct s_pipi	*next;
+}					t_pipi;
+
 typedef struct		s_redir
 {
 	int				redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
@@ -98,9 +107,9 @@ void				check_and_add(char	***env, char *to_add);
 int					check_key(char **arr, char *key);
 int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
-int					do_error(t_all *all, int rv);
+int					do_error(t_all *all, char *err, int rv);
 void				do_malloc(t_all *all, void **p, t_cmd type);
-void				do_pipe(t_all *all, char *left, char *right);
+void				do_pipe(t_all *all, t_pipi *pp);
 void				env_add_back(t_all *all, char *env);
 char				*extract_env(char **env, char *key);
 int					file_exists(char *file_path);
@@ -140,6 +149,8 @@ int					ms_unset(t_all *all);
 void				myint(int sig);
 void				parse_env(char *env, char **key, char **value);
 char				**pop_str(char **arr, char *key);
+void				pipi_add_back(t_pipi **lst, t_pipi *p_new);
+t_pipi				*pipi_new(t_all *all);
 int					print_empty_export(char **env);
 void				process_tilda(t_all *all);
 int					process_quotes(char **str);

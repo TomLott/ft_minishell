@@ -161,10 +161,7 @@ int			ft_check_redir(char *line, t_all *all)
 	else if (line[all->cmd_len] == -2)
 		all->redir = 3;
 	else if (line[all->cmd_len] == '|')
-	{
-		all->pipe = 1;
 		return (1);
-	}
 	return (all->redir);
 }
 

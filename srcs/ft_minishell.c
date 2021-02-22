@@ -120,35 +120,23 @@ char		*ft_get_line(char **s)
 
 void        hook_command(char *com, t_all *all)
 {
-	char **temp;
+	char	**temp;
 	int		j;
-	char *point;
-	t_pipi *pp;
+	char	*point;
+	t_pipi	*pp;
 
 	j = -1;
 	printf("=====%s======\n", all->stor);
-	if (ft_change_pipes(com) == -1)
+	if (ft_change_pipes(all, com) == -1)
 		do_error(all, "syntax error\n", 5);
 	pp = 0x0;
 	temp  = ft_split(com, -10);
-/*	temp = all->stor;
-	all->stor = ft_strdup(com);
-	free(temp);
-	temp = ft_strtrim(ft_get_line(&all->stor), " ");
-	com = ft_strtrim(all->stor, " ");
-		if (com)
-		{
-			exit(1) ;
-		}
-	printf("%s here is stor\n", all->stor);
-	printf("%s here is temp\n", temp);*/
 	while (temp[++j])
     {
 	    point = temp[j];
 	    temp[j] = ft_strtrim(temp[j], " ");
 	    free(point);
         refresh_all(&all, &all->args);
-		//printf("before change_redir\n");
 		if (ft_change_redir(&temp[j]) == -1)
 			do_error(all, "syntax error\n", 5);
 		get_command(temp[j], all);

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:34:35 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 13:21:15 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:28:52 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	pipi_add_back(t_pipi **lst, t_pipi *p_new)
 {
 	t_pipi	*tmp;
 
-	tmp = *lst;
-	if (!tmp)
-		tmp = p_new;
+	if (!(*lst))
+		*lst = p_new;
 	else
 	{
+		tmp = *lst;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = p_new;

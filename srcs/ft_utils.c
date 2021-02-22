@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/14 19:34:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:35:46 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void        refresh_all(t_all **all, t_args *args)
     (*all)->arg = NULL;
     (*all)->redir = 0;
     (*all)->cmd_len = 0;
-    (*all)->pipe = 0;
 	(void)args;
 	(*all)->l_red = NULL;
     //args->dst = NULL;

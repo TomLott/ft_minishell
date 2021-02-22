@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:54 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/15 19:20:58 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:34:45 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int         get_flag(char *line, int *i, char c)
 	return (1);
 }
 
-int         ft_change_pipes(char *line)
+int         ft_change_pipes(t_all *all, char *line)
 {
 	int i;
 	int flag;
 
 	i = 0;
 	flag = 0;
+	all->pipe = 0;
 	while (line[i])
 	{
 		if (line[i] == '\'' && (flag = 1))
@@ -45,7 +46,10 @@ int         ft_change_pipes(char *line)
 		if ((line[i] && line[i] == '\0' ) || flag == 1)
 			return (-1); /** syntax error*/
 		if (line[i] == '|')
+		{
+			all->pipe++;
 			line[i] =  -10;
+		}
 		i++;
 	}
 	return (1);

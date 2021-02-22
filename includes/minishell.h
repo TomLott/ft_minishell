@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 13:21:09 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/22 16:55:21 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char				**arr_append(char **arr, char *to_add);
 int					arr_len(char **arr);
 void				check_and_add(char	***env, char *to_add);
 int					check_key(char **arr, char *key);
+char				*concat_path_exec(char *dir, char *exec);
 int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
 int					do_error(t_all *all, char *err, int rv);
@@ -119,7 +120,7 @@ void				free_env(t_envlst **env);
 int					ft_allowed_chars(char c);
 int					ft_dollar(t_all *all, char *line);
 char				*ft_com_parser(char *line, t_all *all, char *temp);
-int					ft_change_pipes(char *line);
+int					ft_change_pipes(t_all *all, char *line);
 char				ft_change_redir(char **line);
 void				ft_init_env(char **env, t_all *all);
 int                 ft_parse_argument(char *line, t_all *all, t_args *args);

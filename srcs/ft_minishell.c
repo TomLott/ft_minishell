@@ -126,7 +126,6 @@ void        hook_command(char *com, t_all *all)
 	t_pipi	*pp;
 
 	j = -1;
-	printf("=====%s======\n", all->stor);
 	if (ft_change_pipes(all, com) == -1)
 		do_error(all, "syntax error\n", 5);
 	pp = 0x0;
@@ -145,26 +144,14 @@ void        hook_command(char *com, t_all *all)
 		ft_parse_argument(all->arg, all, &(all->args));
 		ft_fd(all);
 		pipi_add_back(&pp, pipi_new(all));
-		/*
-		if (!all->stor)
-		{
-			dup2(all->fd1_def, 1);
-			dup2(all->fd0_def, 0);
-		}
-		else
-		{
-			printf("last else\n");
-			dup2(all->fd0, 0);
-		}
-		if (all->stor)
-		{
-			hook_command(all->stor, all);
-		}*/
 	}
 	if (j < 2)
 		all->last_rv = manage_cmds(all);
 	else
+	{
+		printf("We are in pipes\n");
 		do_pipe(all, pp);
+	}
 
 }
 
@@ -191,7 +178,6 @@ int ft_parse_commands(t_all *all)
 		refresh_all(&all, &(all->args));
 		temp = commands[i];
 		commands[i] = ft_strtrim(commands[i], " ");
-		all->stor = ft_strdup(commands[i]);
 		hook_command(commands[i], all);
 		free(temp);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:47 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 16:55:03 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 18:03:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**arr_append(char **arr, char *to_add)
 		ans[i] = ft_strdup(arr[i - 1]);
 	ans[len] = 0x0;
 	if (arr)
-		free_double_char(arr);
+		free_double_char(&arr);
 	return (ans);
 }
 
@@ -81,6 +81,6 @@ char	**pop_str(char **arr, char *key)
 		ans[1]++;
 	}
 	*ans[1] = 0x0;
-	free_double_char(arr);
+	free_double_char(&arr);
 	return (ans[0]);
 }

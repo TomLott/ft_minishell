@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/23 11:53:52 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 18:03:12 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void		free_args(t_args *args)
 	{
 		args->cmd = DEF;
 		args->redir = 0;
-		//if (args->args)
-		//	free_double_char(args->args);
+		if (args->args)
+			free_double_char(&(args->args));
 		args = args->next;
 	}
 }

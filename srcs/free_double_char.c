@@ -6,22 +6,22 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 15:12:38 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/14 19:33:14 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 17:51:32 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_double_char(char **arr)
+void	free_double_char(char ***arr)
 {
 	int		i;
 
 	i = 0;
-	while (arr && arr[i++])
+	while ((*arr) && (*arr)[i++])
 	{
-		free(arr[i - 1]);
-		arr[i - 1] = 0x0;
+		free((*arr)[i - 1]);
+		(*arr)[i - 1] = 0x0;
 	}
-	free(arr);
-	arr = 0x0;
+	free((*arr));
+	(*arr) = 0x0;
 }

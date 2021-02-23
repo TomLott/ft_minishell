@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 13:21:12 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 18:03:19 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		get_path(t_all *all, char *path, char *ex_name)
 		if (manage_execve(all, tmp, args))
 			return (1);
 	}
-	free_double_char(dirs);
+	free_double_char(&dirs);
 	free(path);
 	return (0);
 }

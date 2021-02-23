@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 16:55:21 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 17:51:21 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void				env_add_back(t_all *all, char *env);
 char				*extract_env(char **env, char *key);
 int					file_exists(char *file_path);
 void				free_arr(void **arr, int size);
-void				free_double_char(char **arr);
+void				free_double_char(char ***arr);
 void				free_env(t_envlst **env);
 int					ft_allowed_chars(char c);
 int					ft_dollar(t_all *all, char *line);

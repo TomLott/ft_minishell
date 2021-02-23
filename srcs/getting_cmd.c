@@ -135,14 +135,7 @@ int			ft_parse_argument(char *line, t_all *all, t_args *args)
 	flag = 0;
 	if (!line)
 		return (1);
-   /* if (all->redir || ft_strrchr(line, -1) || ft_strrchr(line, -2) || ft_strchr(line, -3))
-    {
-        ft_redirect_parse(args, line, all);
-        line = all->arg;
-	//	printf("line is %s\n", line);
-    }*/
 	line = line_cleaner(all->arg);
-	printf("here is clean line%s\n", line);
 	all->args.args = ft_split(line, -5);
 	func_do_trick(all->args.args, all);
 	return (0);

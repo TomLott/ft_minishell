@@ -177,9 +177,8 @@ int				ft_parse_commands(t_all *all)
 		hook_command(commands[i], all);
 		free(temp);
 		i++;
-//		all->last_rv = manage_cmds(all);
 	}
-	free_double_char(commands);
+	free_double_char(&commands);
 	return (1);
 }
 

@@ -80,8 +80,7 @@ char        ft_change_redir(char **line)
 			else
                 *(*line + i) = -1;
 		}
-		if (*(*line + i) == '<')
-            *(*line + i) = -2;
+		(*(*line + i) == '<') ? (*(*line + i) = -2) : 1;
 	}
 	return (1);
 }

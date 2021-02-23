@@ -20,7 +20,7 @@ int			ft_parse_dollar(t_all *all, char *line, int *i)
 	int		j;
 	int		k;
 	int		fl;
-	char	*str[2];	/** str[0] for temp, str[1] for dollar */
+	char	*str[2];
 
 	fl = 0;
 	line[(*i)++] = '\0';

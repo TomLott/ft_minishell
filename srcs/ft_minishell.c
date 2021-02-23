@@ -1,13 +1,12 @@
 #include "minishell.h"
 
-int         ft_parse_line(char *line)
+int				ft_parse_line(char *line)
 {
 	int i;
 	int flag;
 
 	i = 0;
 	flag = 0;
-
 	while (line[i])
 	{
 		if (line[i] == '\'' && (flag = 1))
@@ -15,16 +14,16 @@ int         ft_parse_line(char *line)
 		else if (line[i] && line[i] == '\"' && (flag = 1))
 			flag = get_flag(line, &i, '\"');
 		if (line[i] == '\0' && flag == 1)
-			return (-1);	/** syntax error*/
+			return (-1);
 		if (line[i] == ';')
-			line[i] = -1; /** we change semicolons to (-1) by ASCII to split commands by (-1) */
+			line[i] = -1;
 		i++;
 	}
 //	printf("%s parse line\n", line);
 	return (1);
 }
 
-int		ft_do_right_r(t_all *all, t_redir *red, int temp)
+int				ft_do_right_r(t_all *all, t_redir *red, int temp)
 {
 	if (temp != 1)
 		close(temp);
@@ -41,7 +40,7 @@ int		ft_do_right_r(t_all *all, t_redir *red, int temp)
 	return (all->fd1);
 }
 
-int		ft_do_left_r(t_all *all, t_redir *red, int temp)
+int				ft_do_left_r(t_all *all, t_redir *red, int temp)
 {
 	printf("ft_do_left_r\n");
 	if (temp != 0)
@@ -54,16 +53,16 @@ int		ft_do_left_r(t_all *all, t_redir *red, int temp)
 	return (all->fd0);
 }
 
-void		ft_fd(t_all *all)
+void			ft_fd(t_all *all)
 {
-	t_redir *redir;
-	int temp_in;
-	int temp_out;
+	t_redir	*redir;
+	int		temp_in;
+	int		temp_out;
 
 	redir = all->l_red;
 	temp_in = 0;
 	temp_out = 1;
-	while(redir)
+	while (redir)
 	{
 		printf("args: %d %s\n", redir->redir, redir->cont);
 		if (redir->redir == -2)
@@ -82,14 +81,14 @@ void		ft_fd(t_all *all)
 	printf("%d %d fd\n", all->fd1, all->fd0);
 }
 
-char		*wrap_null(char *ans, char **str)
+char			*wrap_null(char *ans, char **str)
 {
 	free(*str);
 	*str = 0x0;
 	return (ans);
 }
 
-char		*ft_get_line(char **s)
+char			*ft_get_line(char **s)
 {
 	int		i;
 	int		len;
@@ -118,7 +117,7 @@ char		*ft_get_line(char **s)
 	return (ret);
 }
 
-void        hook_command(char *com, t_all *all)
+void			hook_command(char *com, t_all *all)
 {
 	char	**temp;
 	int		j;
@@ -129,18 +128,18 @@ void        hook_command(char *com, t_all *all)
 	if (ft_change_pipes(all, com) == -1)
 		do_error(all, "syntax error\n", 5);
 	pp = 0x0;
-	temp  = ft_split(com, -10);
+	temp = ft_split(com, -10);
 	while (temp[++j])
-    {
-	    point = temp[j];
-	    temp[j] = ft_strtrim(temp[j], " ");
-	    free(point);
-        refresh_all(&all, &all->args);
+	{
+		point = temp[j];
+		temp[j] = ft_strtrim(temp[j], " ");
+		free(point);
+		refresh_all(&all, &all->args);
 		if (ft_change_redir(&temp[j]) == -1)
 			do_error(all, "syntax error\n", 5);
 		get_command(temp[j], all);
 		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
-		    all->arg = ft_strdup(temp[j] + all->cmd_len);
+			all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
 		ft_fd(all);
 		pipi_add_back(&pp, pipi_new(all));
@@ -152,26 +151,23 @@ void        hook_command(char *com, t_all *all)
 		printf("We are in pipes\n");
 		do_pipe(all, pp);
 	}
-
 }
 
-int ft_parse_commands(t_all *all)
+int				ft_parse_commands(t_all *all)
 {
-	char **commands;
-	int i;
-	char *temp;
+	char	**commands;
+	int		i;
+	char	*temp;
 
 	i = 0;
-	//printf("before ft_dollar\n");
 	if (ft_dollar(all, all->line) == 1)
 		do_error(all, "syntax error\n", 5);
-	//printf("before ft_parse_line\n");
 	if (ft_parse_line(all->line) == -1)
 		do_error(all, "syntax error\n", 5);
 	commands = ft_split(all->line, -1);
-	while(commands[i])
+	while (commands[i])
 	{
-		all->fd1 = 1;  /******   need to move this line somewhere else*/
+		all->fd1 = 1;
 		all->fd0 = 0;
 		all->fd0_def = dup(0);
 		all->fd1_def = dup(1);
@@ -187,11 +183,9 @@ int ft_parse_commands(t_all *all)
 	return (1);
 }
 
-
-void get_data(t_all *all)
+void			get_data(t_all *all)
 {
-
-	if ( 0 > get_next_line(STDIN_FILENO, &all->line))
+	if (0 > get_next_line(STDIN_FILENO, &all->line))
 		do_error(all, "can't read the file\n", 4);
 	process_tilda(all);
 	ft_parse_commands(all);
@@ -199,7 +193,7 @@ void get_data(t_all *all)
 		free(all->line);
 }
 
-int main(int argc, char **argv, char **env)
+int				main(int argc, char **argv, char **env)
 {
 	t_all *all;
 
@@ -209,13 +203,11 @@ int main(int argc, char **argv, char **env)
 	do_malloc(all, (void **)(&all), ALL);
 	all->env = copy_env(env);
 	//ft_init_env(env, all);
-	while(1)
+	while (1)
 	{
 		ft_print_capt(1);
 		signal(SIGINT, myint);
 		get_data(all);
 	//	refresh_all(&all);
-	//	break; /*remove*/g
 	}
-
 }

@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-char		*ft_realloc_r(char *str, char c)
+char			*ft_realloc_r(char *str, char c)
 {
-	char *temp;
-	size_t size;
+	char		*temp;
+	size_t		size;
 
 	if (c == ' ')
 		c = -5;
@@ -27,7 +27,7 @@ char		*ft_realloc_r(char *str, char c)
 
 static char		*ft_not_line(char c)
 {
-	char *temp;
+	char	*temp;
 
 	temp = malloc(4);
 	temp[0] = -5;
@@ -37,10 +37,10 @@ static char		*ft_not_line(char c)
 	return (temp);
 }
 
-char		*ft_redir_make(char *line, char c)
+char			*ft_redir_make(char *line, char c)
 {
-	int size;
-	char *temp;
+	int		size;
+	char	*temp;
 
 	if (!line[0])
 		ft_not_line(c);
@@ -64,7 +64,7 @@ char		*ft_redir_make(char *line, char c)
 	return (temp);
 }
 
-static int	check_flag_r(char *c, int flag, int *i)
+static int		check_flag_r(char *c, int flag, int *i)
 {
 	if (c[(*i) - 1] == -5 && c[(*i)] == ' ')
 		while (c[*i] == ' ')
@@ -84,15 +84,15 @@ static int	check_flag_r(char *c, int flag, int *i)
 	return (flag);
 }
 
-char		*line_cleaner(char *line)
+char			*line_cleaner(char *line)
 {
-	int i;
-	int flag;
-	char *temp;
+	int		i;
+	int		flag;
+	char	*temp;
 
 	i = 0;
 	temp = ft_strdup("");
-	while(line[i])
+	while (line[i])
 	{
 		flag = 0;
 		if (line[i] == -1 || line[i] == -2 || line[i] == -3)
@@ -100,10 +100,10 @@ char		*line_cleaner(char *line)
 		else if (line[i] == '\\' && ++i)
 			temp = ft_realloc_r(temp, line[i++]);
 		else if (line[i] == '\"' && (flag = 1))
-			while(line[++i] && line[i] != '\"')
+			while (line[++i] && line[i] != '\"')
 				temp = ft_realloc_r(temp, line[i]);
 		else if (line[i] == '\'' && (flag = 2))
-			while(line[++i] && line[i] != '\'')
+			while (line[++i] && line[i] != '\'')
 				temp = ft_realloc_r(temp, line[i]);
 		else
 			temp = ft_realloc_r(temp, line[i++]);

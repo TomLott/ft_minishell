@@ -14,7 +14,7 @@
 
 void	do_all_work(t_pipi *pipi, t_all *all)
 {
-	while(pipi)
+	while (pipi)
 	{
 		pipi->args = arr_append(pipi->args, pipi->cmd);
 		if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
@@ -45,10 +45,10 @@ void	fill_pipes(t_all *all, t_pipi *pipi)
 
 void	do_pipe(t_all *all, t_pipi *pipi)
 {
-	int	i;
-	int	f;
-	t_pipi *temp;
-	int temp_fd;
+	int		i;
+	int		f;
+	t_pipi	*temp;
+	int		temp_fd;
 
 	i = 0;
 	fill_pipes(all, pipi);

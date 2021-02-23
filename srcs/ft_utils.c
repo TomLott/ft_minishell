@@ -37,8 +37,6 @@ void		free_args(t_args *args)
 	{
 		args->cmd = DEF;
 		args->redir = 0;
-		//free_and_null(&(args->src));
-		//free_and_null(&(args->dst));
 		//if (args->args)
 		//	free_double_char(args->args);
 		args = args->next;

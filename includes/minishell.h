@@ -53,9 +53,7 @@ typedef struct		s_envlst
 typedef struct      s_args
 {
     t_cmd           cmd;
-    int             redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
- //   char            *src;
- //   char            *dst;
+    int             redir;
     char			**args;
     void            *next;
 }                   t_args;
@@ -71,7 +69,7 @@ typedef struct		s_pipi
 
 typedef struct		s_redir
 {
-	int				redir; /** 1 is '>'; 2 is ">>"; 3 is '<'*/
+	int				redir;
 	char			*cont;
 	struct s_redir	*next;
 }					t_redir;
@@ -97,7 +95,6 @@ typedef struct		s_all
 	int				fd0;
 	int				fd1_def;
 	int				fd0_def;
-	char			*stor;
 }					t_all;
 
 

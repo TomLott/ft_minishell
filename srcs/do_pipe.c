@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 19:56:47 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:17:47 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,16 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 			if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
 				printf(">%s<\terrr 0\n%s\n", pipi->cmd, strerror(errno));
 		}
+		else
+		{
+			close(pipi->fd1);
+			wait(&all->last_rv);
+		}
 		close(pipi->fd0);
 		//close(pipi->fd1);
 		//temp_fd = pipi->fd1;
 		pipi = pipi->next;
-		
 	}
-	sleep(1);
 	close(temp_fd);
 	i = 0;
 	pipi = temp;
@@ -87,27 +90,4 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 	}
 	dup2(all->fd1_def, 1);
 	dup2(all->fd0_def, 0);
-	
-	/*
-	printf("pipes = %d\n", all->pipe);
-	pipe(pp);
-	ff[0] = fork();
-	if (ff[0] == 0)
-	{
-	//	close(pp[0]);
-		dup2(pp[1], 1);
-		//pipi->args = arr_append(pipi->args, pipi->cmd);
-		//if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
-		//	printf(">%s<\terrr 0\n%s\n", pipi->cmd, strerror(errno));
-	}
-	else
-	{
-	//	close(pp[1]);
-		//wait(&all->last_rv);
-		dup2(pp[0], 0);
-		//pipi->next->args = arr_append(pipi->next->args, pipi->next->cmd);
-		//if (execve(ft_strjoin("/bin/", pipi->next->cmd), pipi->next->args, all->env) < 0)
-			//printf(">%s<\terrr 1\n%s\n", pipi->next->cmd, strerror(errno));
-	}
-	*/
 }

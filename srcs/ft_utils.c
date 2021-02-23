@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/22 15:35:46 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:15:20 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,13 @@ void		free_args(t_args *args)
 
 void        refresh_all(t_all **all, t_args *args)
 {
+	(void)args;
     (*all)->cmd = DEF;
-    (*all)->arg = NULL;
+    if ((*all)->arg)
+    	free_and_null(&((*all)->arg));
     (*all)->redir = 0;
     (*all)->cmd_len = 0;
-	(void)args;
 	(*all)->l_red = NULL;
-    //args->dst = NULL;
-    //args->src = NULL;
 	if ((*all)->def_cmd)
 		free_and_null(&((*all)->def_cmd));
 	free_args(&((*all)->args));

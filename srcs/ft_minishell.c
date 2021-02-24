@@ -218,6 +218,7 @@ int				main(int argc, char **argv, char **env)
 	{
 		g_f = 0;
 		signal(SIGINT, myint);
+		signal(SIGQUIT, myint);
 		get_data(all, &flag);
 		if (all->err != E_DEF)
 			do_error(all);

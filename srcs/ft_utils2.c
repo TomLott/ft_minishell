@@ -86,7 +86,7 @@ int        ft_change_redir(t_all *all, char **line)
 
 void        myint(int sig) 
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT || sig == SIGQUIT)
 	{
 		write(1, "\n", 1);
 		ft_print_capt(1);

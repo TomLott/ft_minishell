@@ -73,8 +73,8 @@ void			ft_fd(t_all *all)
 	}
 	if (all->fd0 >= 0 && all->fd1 >= 1)
 	{
-		all->fd0 = dup2(all->fd0, 0);
-		all->fd1 = dup2(all->fd1, 1);
+		dup2(all->fd0, 0);
+		dup2(all->fd1, 1);
 	}
 	else
 		printf("ERROR in ft_fd\n");
@@ -147,10 +147,10 @@ void			hook_command(char *com, t_all *all)
 	if (j < 2)
 		all->last_rv = manage_cmds(all);
 	else
-	{
-		printf("We are in pipes\n");
 		do_pipe(all, pp);
-	}
+	dup2(all->fd1_def, 1);
+	dup2(all->fd0_def, 0);
+	free_pipi(&pp);
 }
 
 int				ft_parse_commands(t_all *all)
@@ -182,10 +182,16 @@ int				ft_parse_commands(t_all *all)
 	return (1);
 }
 
-void			get_data(t_all *all)
+void			get_data(t_all *all, int *flag)
 {
-	if (0 > get_next_line(STDIN_FILENO, &all->line))
-		do_error(all, "can't read the file\n", 4);
+	int			i;
+
+	if (*flag == 0)
+		exit (0);
+	ft_print_capt(1);
+	if (0 > (i = get_next_line(STDIN_FILENO, &all->line)))
+		do_error(all, "can't read the data\n", 4);
+	*flag = i;
 	process_tilda(all);
 	ft_parse_commands(all);
 	if (all->line)
@@ -194,19 +200,19 @@ void			get_data(t_all *all)
 
 int				main(int argc, char **argv, char **env)
 {
-	t_all *all;
+	t_all	*all;
+	int		flag;
 
 	all = 0x0;
+	flag = -2;
 	(void)argc;
 	(void)argv;
 	do_malloc(all, (void **)(&all), ALL);
 	all->env = copy_env(env);
-	//ft_init_env(env, all);
 	while (1)
 	{
-		ft_print_capt(1);
 		signal(SIGINT, myint);
-		get_data(all);
+		get_data(all, &flag);
 	//	refresh_all(&all);
 	}
 }

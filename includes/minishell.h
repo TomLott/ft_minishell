@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/23 17:51:21 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 09:47:23 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int					file_exists(char *file_path);
 void				free_arr(void **arr, int size);
 void				free_double_char(char ***arr);
 void				free_env(t_envlst **env);
+void				free_pipi(t_pipi **pp);
 int					ft_allowed_chars(char c);
 int					ft_dollar(t_all *all, char *line);
 char				*ft_com_parser(char *line, t_all *all, char *temp);

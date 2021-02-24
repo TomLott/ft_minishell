@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:54 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 15:34:45 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 12:10:38 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void        myint(int sig)
 	{
 		write(1, "\n", 1);
 		ft_print_capt(1);
-		//signal(SIGINT, myint);
+		signal(SIGINT, myint);
 	}
 }
 

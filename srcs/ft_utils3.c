@@ -6,13 +6,32 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:21:08 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/16 16:44:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 09:59:22 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_empty_export(char **env)
+void	free_redir(t_redir **red)
+{
+	t_redir	*tmp;
+	t_redir	*prev;
+
+	prev = 0x0;
+	tmp = *red;
+	while (tmp)
+	{
+		if (prev)
+			free(prev);
+		free(tmp->cont);
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	if (prev)
+		free(prev);
+}
+
+int		print_empty_export(char **env)
 {
 	int	i;
 
@@ -25,7 +44,7 @@ int	print_empty_export(char **env)
 	return (0);
 }
 
-int	file_exists(char *file_path)
+int		file_exists(char *file_path)
 {
 	struct stat	buffer;
 

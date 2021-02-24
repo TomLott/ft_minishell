@@ -6,11 +6,31 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:34:35 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/22 15:28:52 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 09:48:49 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_pipi(t_pipi **pp)
+{
+	t_pipi	*tmp;
+	t_pipi	*prev;
+
+	tmp = *pp;
+	prev = 0x0;
+	while (tmp)
+	{
+		if (prev)
+			free(prev);
+		free(tmp->cmd);
+		free_double_char(&(tmp->args));
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	if (prev)
+		free(prev);
+}
 
 void	pipi_add_back(t_pipi **lst, t_pipi *p_new)
 {

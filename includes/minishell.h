@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 09:47:23 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 16:14:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ typedef enum
 	E_DEF,
     E_MALLOC,
     E_NO_LINE,
-    E_SYNERR
+    E_SYNTAX,
+	E_READ,
+	E_EXIT,
+	E_FD
 }   t_err;
 
 typedef struct		s_envlst
@@ -74,6 +77,8 @@ typedef struct		s_redir
 	struct s_redir	*next;
 }					t_redir;
 
+int					g_f;
+
 typedef struct		s_all
 {
 	char			**env;
@@ -105,7 +110,7 @@ int					check_key(char **arr, char *key);
 char				*concat_path_exec(char *dir, char *exec);
 int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
-int					do_error(t_all *all, char *err, int rv);
+void				do_error(t_all *all);
 void				do_malloc(t_all *all, void **p, t_cmd type);
 void				do_pipe(t_all *all, t_pipi *pp);
 void				env_add_back(t_all *all, char *env);
@@ -119,7 +124,7 @@ int					ft_allowed_chars(char c);
 int					ft_dollar(t_all *all, char *line);
 char				*ft_com_parser(char *line, t_all *all, char *temp);
 int					ft_change_pipes(t_all *all, char *line);
-char				ft_change_redir(char **line);
+int					ft_change_redir(t_all *all, char **line);
 void				ft_init_env(char **env, t_all *all);
 int                 ft_parse_argument(char *line, t_all *all, t_args *args);
 int					ft_parse_dollar(t_all *all, char *line, int *i);

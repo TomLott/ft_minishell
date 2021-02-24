@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/24 09:51:05 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 16:14:54 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void        refresh_all(t_all **all, t_args *args)
 
 void        ft_print_capt(int fd)
 {
-    char *caption;
-
-    caption = "minishell:";
-    ft_putstr_fd(caption, fd);
+	if (g_f == 0)
+	{
+		ft_putstr_fd("minishell:", fd);
+		g_f = 1;
+	}
 }

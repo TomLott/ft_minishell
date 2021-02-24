@@ -19,7 +19,6 @@ int				ft_parse_line(char *line)
 			line[i] = -1;
 		i++;
 	}
-//	printf("%s parse line\n", line);
 	return (1);
 }
 
@@ -53,7 +52,7 @@ int				ft_do_left_r(t_all *all, t_redir *red, int temp)
 	return (all->fd0);
 }
 
-void			ft_fd(t_all *all)
+int				ft_fd(t_all *all)
 {
 	t_redir	*redir;
 	int		temp_in;
@@ -77,8 +76,8 @@ void			ft_fd(t_all *all)
 		dup2(all->fd1, 1);
 	}
 	else
-		printf("ERROR in ft_fd\n");
-	printf("%d %d fd\n", all->fd1, all->fd0);
+		return ((all->err = E_FD));
+	return (0);
 }
 
 char			*wrap_null(char *ans, char **str)
@@ -117,7 +116,7 @@ char			*ft_get_line(char **s)
 	return (ret);
 }
 
-void			hook_command(char *com, t_all *all)
+int				hook_command(char *com, t_all *all)
 {
 	char	**temp;
 	int		j;
@@ -125,8 +124,8 @@ void			hook_command(char *com, t_all *all)
 	t_pipi	*pp;
 
 	j = -1;
-	if (ft_change_pipes(all, com) == -1)
-		do_error(all, "syntax error\n", 5);
+	if (ft_change_pipes(all, com) != E_DEF)
+		return ((all->err = E_SYNTAX));
 	pp = 0x0;
 	temp = ft_split(com, -10);
 	while (temp[++j])
@@ -135,13 +134,14 @@ void			hook_command(char *com, t_all *all)
 		temp[j] = ft_strtrim(temp[j], " ");
 		free(point);
 		refresh_all(&all, &all->args);
-		if (ft_change_redir(&temp[j]) == -1)
-			do_error(all, "syntax error\n", 5);
+		if (ft_change_redir(all, &temp[j]) != E_DEF)
+			return ((all->err = E_SYNTAX));
 		get_command(temp[j], all);
 		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
 			all->arg = ft_strdup(temp[j] + all->cmd_len);
 		ft_parse_argument(all->arg, all, &(all->args));
-		ft_fd(all);
+		if (ft_fd(all))
+			return (1);
 		pipi_add_back(&pp, pipi_new(all));
 	}
 	if (j < 2)
@@ -151,6 +151,7 @@ void			hook_command(char *com, t_all *all)
 	dup2(all->fd1_def, 1);
 	dup2(all->fd0_def, 0);
 	free_pipi(&pp);
+	return (0);
 }
 
 int				ft_parse_commands(t_all *all)
@@ -161,9 +162,9 @@ int				ft_parse_commands(t_all *all)
 
 	i = 0;
 	if (ft_dollar(all, all->line) == 1)
-		do_error(all, "syntax error\n", 5);
+		return ((all->err = E_SYNTAX));
 	if (ft_parse_line(all->line) == -1)
-		do_error(all, "syntax error\n", 5);
+		return ((all->err = E_SYNTAX));
 	commands = ft_split(all->line, -1);
 	while (commands[i])
 	{
@@ -174,15 +175,16 @@ int				ft_parse_commands(t_all *all)
 		refresh_all(&all, &(all->args));
 		temp = commands[i];
 		commands[i] = ft_strtrim(commands[i], " ");
-		hook_command(commands[i], all);
 		free(temp);
+		if (hook_command(commands[i], all))
+			do_error(all);
 		i++;
 	}
 	free_double_char(&commands);
-	return (1);
+	return (0);
 }
 
-void			get_data(t_all *all, int *flag)
+int				get_data(t_all *all, int *flag)
 {
 	int			i;
 
@@ -190,12 +192,15 @@ void			get_data(t_all *all, int *flag)
 		exit (0);
 	ft_print_capt(1);
 	if (0 > (i = get_next_line(STDIN_FILENO, &all->line)))
-		do_error(all, "can't read the data\n", 4);
+		return ((all->err = E_READ));
+	if (!i)
+		ft_putstr_fd("exit\n", all->fd1);
 	*flag = i;
 	process_tilda(all);
 	ft_parse_commands(all);
 	if (all->line)
 		free(all->line);
+	return (0);
 }
 
 int				main(int argc, char **argv, char **env)
@@ -211,8 +216,10 @@ int				main(int argc, char **argv, char **env)
 	all->env = copy_env(env);
 	while (1)
 	{
+		g_f = 0;
 		signal(SIGINT, myint);
 		get_data(all, &flag);
-	//	refresh_all(&all);
+		if (all->err != E_DEF)
+			do_error(all);
 	}
 }

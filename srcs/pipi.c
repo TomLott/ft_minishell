@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:34:35 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 09:48:49 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 14:30:24 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ t_pipi	*pipi_new(t_all *all)
 	t_pipi *ans;
 
 	if (!(ans = malloc(sizeof(t_pipi))))
-		do_error(all, "malloc error\n", 6);
+	{
+		all->err = E_MALLOC;
+		do_error(all);
+	}
 	ans->cmd = ft_strdup(all->def_cmd);
 	ans->args = copy_env(all->args.args);
 	ans->fd0 = all->fd0;

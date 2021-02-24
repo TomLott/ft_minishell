@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:54 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 12:10:38 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 16:15:01 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int         ft_change_pipes(t_all *all, char *line)
 		else if (line[i] && line[i] == '\"' && (flag = 1))
 			flag = get_flag(line, &i, '\"');
 		if ((line[i] && line[i] == '\0' ) || flag == 1)
-			return (-1); /** syntax error*/
+			return ((all->err = E_SYNTAX));
 		if (line[i] == '|')
 		{
 			all->pipe++;
@@ -52,37 +52,36 @@ int         ft_change_pipes(t_all *all, char *line)
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
-char        ft_change_redir(char **line)
+int        ft_change_redir(t_all *all, char **line)
 {
-	int i;
-	int flag;
+	int i[2];
 
-	i = -1;
-	flag = 0;
-	while (++i < (int)ft_strlen(*line))
+	i[0] = -1;
+	i[1] = 0;
+	while (++i[0] < (int)ft_strlen(*line))
 	{
-		if (*(*line + i) == '\'' && (flag = 1))
-			flag = get_flag(*line, &i, '\'');
-		else if (*(*line + i) && *(*line + i) == '\"' && (flag = 1))
-			flag = get_flag(*line, &i, '\"');
-		if ((*(*line + i) && *(*line + i) == '\0') && flag == 1)
-			return (-1); /** syntax error*/
-		if (*(*line + i) == '>')
+		if (*(*line + i[0]) == '\'' && (i[1] = 1))
+			i[1] = get_flag(*line, &(i[0]), '\'');
+		else if (*(*line + i[0]) && *(*line + i[0]) == '\"' && (i[1] = 1))
+			i[1] = get_flag(*line, &i[0], '\"');
+		if ((*(*line + i[0]) && *(*line + i[0]) == '\0') && i[1] == 1)
+			return ((all->err = E_SYNTAX));
+		if (*(*line + i[0]) == '>')
         {
-		    if (*(*line + i + 1) && *(*line + i + 1) == '>')
+		    if (*(*line + i[0] + 1) && *(*line + i[0] + 1) == '>')
 			{
-                *(*line + i) = -3;
-                *(*line + (i++) + 1) = -3;
+                *(*line + i[0]) = -3;
+                *(*line + (i[0]++) + 1) = -3;
 			}
 			else
-                *(*line + i) = -1;
+                *(*line + i[0]) = -1;
 		}
-		(*(*line + i) == '<') ? (*(*line + i) = -2) : 1;
+		(*(*line + i[0]) == '<') ? (*(*line + i[0]) = -2) : 1;
 	}
-	return (1);
+	return (0);
 }
 
 void        myint(int sig) 
@@ -91,7 +90,7 @@ void        myint(int sig)
 	{
 		write(1, "\n", 1);
 		ft_print_capt(1);
-		signal(SIGINT, myint);
+		//signal(SIGINT, myint);
 	}
 }
 

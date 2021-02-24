@@ -1,72 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   getting_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/24 13:48:22 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/24 13:58:53 by jmogo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-/*
-void ft_redir_after_command(t_all *all, t_args *args, char *line)
-{
-    int     i;
-    char    *terminat;
-
-    i = 0;
-    terminat = line;
-    line = ft_strtrim(line, " ");
-    free(terminat);
-    while (line[i] && line[i] != ' ')
-        i++;
-    line[i] = '\0';
-    i++;
-    args->dst = ft_strdup(line);
-    all->arg = ft_strdup(line + i);
-}
-
-char *do_wise_trim(char *line)
-{
-    char *temp;
-    char *new_line;
-
-    temp = line;
-    new_line = ft_strdup(line);
-   //e free(temp);
-    temp = new_line;
-    new_line = ft_strtrim((new_line), " ");
-    free(temp);
-    temp = new_line;
-    new_line = ft_strtrim((new_line), "\'");
-    free(temp);
-    temp = new_line;
-    new_line = ft_strtrim((new_line), "\"");
-    free(temp);
-    //ft_strtrim((ft_strtrim(ft_strtrim(ft_strdup(terminat), "\""), "\'")), " ");
-    return (new_line);
-}
-
-void        ft_redirect_parse(t_args *args, char *line, t_all *all)
-{
-    int i;
-    char *terminat;
-
-    if (all->redir != 0)
-    {
-        ft_redir_after_command(all, args, line);
-        return ;
-    }
-    terminat = line;
-    i = 0;
-    while(*line && (*line != -1 && *line != -2 && *line != -3))
-        line++;
-    *line = '\0';
-    if (*line == -3 && ++line)
-        *line = '\0';
-    line++;
-    args->src = ft_strtrim(terminat, " ");
-    args->dst = ft_strtrim(line, " ");
-    while(args->dst[i] && args->dst[i] != ' ')
-        i++;
-    free(terminat);
-    terminat = args->dst;
-    args->dst[i++] = '\0';
-    all->arg = ft_strdup(args->dst + i);
-    args->dst = ft_strdup(args->dst);
-    //free(terminat);
-}*/
 
 t_redir		*ft_lstnew_r(void *content, int redir)
 {
@@ -119,7 +63,6 @@ int			func_do_trick(char **args, t_all *all)
 			free(res[1]);
 		}
 	}
-	printf("here we are %s\n", res[0]);
 	all->arg = res[0];
 	all->args.args = ft_split(all->arg, -5);
 	return (0);
@@ -158,111 +101,44 @@ int			ft_check_redir(char *line, t_all *all)
 	return (all->redir);
 }
 
-char        *ft_com_parser(char *line, t_all *all, char *temp)
+char		*wrap_zero(char **t, int i)
+{
+	char	*ans;
+
+	(*t)[i] = '\0';
+	ans = *t;
+	return (ans);
+}
+
+char        *ft_com_parser(char *l, t_all *all, char *t)
 {
 	int i[2];
 
 	i[0] = 0;
-	while(line[all->cmd_len] && line[all->cmd_len] != ' ')
+	while(l[all->cmd_len] && l[all->cmd_len] != ' ')
 	{
-		if (line[all->cmd_len] == '\\' && line[all->cmd_len + 1] && ++all->cmd_len)
-			temp[i[0]++] = line[all->cmd_len++];
-		else if (line[all->cmd_len] == '\"' && ++all->cmd_len)
+		if (l[all->cmd_len] == '\\' && l[all->cmd_len + 1] && ++all->cmd_len)
+			t[i[0]++] = l[all->cmd_len++];
+		else if (l[all->cmd_len] == '\"' && ++all->cmd_len)
 		{
-			while (line[all->cmd_len] && line[all->cmd_len] != '\"')
-				temp[i[0]++] = line[all->cmd_len++];
-			(line[all->cmd_len] == '\"') ? all->cmd_len++ : (i[1] = -1);
+			while (l[all->cmd_len] && l[all->cmd_len] != '\"')
+				t[i[0]++] = l[all->cmd_len++];
+			(l[all->cmd_len] == '\"') ? all->cmd_len++ : (i[1] = -1);
 		}
-		else if (line[all->cmd_len] == '\'' && ++all->cmd_len)
+		else if (l[all->cmd_len] == '\'' && ++all->cmd_len)
 		{
-			while (line[all->cmd_len] && line[all->cmd_len] != '\'')
-				temp[i[0]++] = line[all->cmd_len++];
-			(line[all->cmd_len] == '\'') ? all->cmd_len++ : (i[1] = -1);
+			while (l[all->cmd_len] && l[all->cmd_len] != '\'')
+				t[i[0]++] = l[all->cmd_len++];
+			(l[all->cmd_len] == '\'') ? all->cmd_len++ : (i[1] = -1);
 		}
-		else if (ft_check_redir(line, all))
+		else if (ft_check_redir(l, all))
 			break;
 		else
-				temp[i[0]++] = line[all->cmd_len++];
+			t[i[0]++] = l[all->cmd_len++];
 	}
-	temp[i[0]] = '\0';
-	return (i[1] == -1 ) ? "ERROR" : temp;
+	//t[i[0]] = '\0';
+	return (i[1] == -1 ) ? "ERROR" : wrap_zero(&t, i[0]);
 }
-/*
-int			ft_strlen_for_arg(char *line)
-{
-	int		j;
-	int		i;
-    int		flag;
-
-    j = 0;
-	i = 0;
-    while(line && line[i] && line[i] != ' ')
-    {
-        if (line[i] == '\\' && line[i + 1] && ++i)
-            j++;
-        else if (line[i] == '\"' && ++i)
-        {
-            while (line[i] && line[i++] != '\"')
-                j++;
-            (line[i] == '\"') ? i++ : (flag = -1);
-        }
-        else if (line[i] == '\'' && ++i)
-        {
-            while (line[i] && line[i++] != '\'')
-                j++;
-            (line[i] == '\'') ? i++ : (flag = -1);
-        }
-        else
-		{
-			i++;
-            j++;
-		}
-		if (flag == -1)
-		{
-			j = 0;
-			break ;
-		}
-	}
-	return (j);
-}
-
-char        *ft_quotes_deleting(char *line, t_all *all)
-{
-    char	*temp;
-    int		j;
-	int		i;
-    int		flag;
-
-    j = 0;
-    i = 0;
-    temp = malloc(ft_strlen_for_arg(line));
-    while(line && line[i] && line[i] != ' ')
-    {
-        if (line[i] == '\\' && line[i + 1] && ++i)
-            temp[j++] = line[i++];
-        else if (line[i] == '\"' && ++i)
-        {
-            while (line[i] && line[i] != '\"')
-                temp[j++] = line[i++];
-            (line[i] == '\"') ? i++ : (flag = -1);
-        }
-        else if (line[i] == '\'' && ++i)
-        {
-            while (line[i] && line[i] != '\'')
-                temp[j++] = line[i++];
-            (line[i] == '\'') ? i++ : (flag = -1);
-        }
-        else if (ft_check_redir(line, all) && ++j)
-        {
-            (all->redir == 2) ? j++ : 1;
-            break;
-        }
-        else
-            temp[j++] = line[i++];
-    }
-    temp[j] = '\0';
-    return (flag == -1 ) ? "z" : temp;
-}*/
 
 void		get_command(char *s, t_all *all)
 {

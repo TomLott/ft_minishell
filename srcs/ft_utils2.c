@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:54 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 16:15:01 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 19:35:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,19 @@ int        ft_change_redir(t_all *all, char **line)
 
 void        myint(int sig) 
 {
+	static int	o;
+
+	printf("O IOOOOOOOOO %d\n", o++);
 	if (sig == SIGINT || sig == SIGQUIT)
 	{
-		write(1, "\n", 1);
-		ft_print_capt(1);
-		//signal(SIGINT, myint);
+		if (g_f[0] == 0)
+		{
+			write(1, "\n", 1);
+			ft_print_capt(1, 1);
+			g_f[0] = 0;
+		}
+	//	signal(SIGINT, myint);
+	//	signal(SIGQUIT, myint);
 	}
 }
 

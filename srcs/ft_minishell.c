@@ -190,7 +190,8 @@ int				get_data(t_all *all, int *flag)
 
 	if (*flag == 0)
 		exit (0);
-	ft_print_capt(1);
+	if (g_f[1] == 0)
+		ft_print_capt(STDOUT_FILENO, 0);
 	if (0 > (i = get_next_line(STDIN_FILENO, &all->line)))
 		return ((all->err = E_READ));
 	if (!i)
@@ -200,6 +201,8 @@ int				get_data(t_all *all, int *flag)
 	ft_parse_commands(all);
 	if (all->line)
 		free(all->line);
+	//g_f[0] = 0;
+	g_f[1] = 0;
 	return (0);
 }
 
@@ -207,6 +210,7 @@ int				main(int argc, char **argv, char **env)
 {
 	t_all	*all;
 	int		flag;
+	//static int p;
 
 	all = 0x0;
 	flag = -2;
@@ -216,7 +220,7 @@ int				main(int argc, char **argv, char **env)
 	all->env = copy_env(env);
 	while (1)
 	{
-		g_f = 0;
+	//	printf("P IPPPPPPPPPPP %d\n", p++);
 		signal(SIGINT, myint);
 		signal(SIGQUIT, myint);
 		get_data(all, &flag);

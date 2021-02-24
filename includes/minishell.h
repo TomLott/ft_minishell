@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 16:14:56 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 19:35:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_redir
 	struct s_redir	*next;
 }					t_redir;
 
-int					g_f;
+int					g_f[2];
 
 typedef struct		s_all
 {
@@ -129,7 +129,7 @@ void				ft_init_env(char **env, t_all *all);
 int                 ft_parse_argument(char *line, t_all *all, t_args *args);
 int					ft_parse_dollar(t_all *all, char *line, int *i);
 int					ft_parse_line(char *line);
-void				ft_print_capt(int fd);
+void				ft_print_capt(int fd, int fl);
 char				*ft_realloc_r(char *str, char c);
 char				*ft_quotes_deleting(char *str, t_all *all);
 void				get_command(char *s, t_all *all);

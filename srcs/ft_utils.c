@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/24 16:14:54 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/24 19:35:19 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,26 @@ void        refresh_all(t_all **all, t_args *args)
 	free_args(&((*all)->args));
 }
 
-void        ft_print_capt(int fd)
+void        ft_print_capt(int fd, int fl)
 {
-	if (g_f == 0)
-	{
+	//if (((g_f[0] == 0 && fl == 0) || (fl == 1 && g_f[1] == 0)))
+//	{
+	printf("f0 %d\tf1 %d\n", g_f[0], g_f[1]);
+		fl = 5;
 		ft_putstr_fd("minishell:", fd);
-		g_f = 1;
-	}
+		/*
+		if (fl == 0)
+		{
+			g_f[0] = 1;
+			g_f[1] = 0;
+		}
+		else
+		{
+			g_f[1] = 1;
+			g_f[0] = 0;
+		}
+		*/
+		//g_f[0] = 1;
+		g_f[1] = 1;
+//	}
 }

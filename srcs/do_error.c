@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 18:30:13 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 21:01:26 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,8 @@ void	print_error(t_all *all)
 
 void	do_error(t_all *all)
 {
-	t_list	*tmp;
-
-	if (!all || !(all->grbg))
+	if (!all)
 		exit(all->err);
-	while (all->grbg)
-	{
-		tmp = all->grbg->next;
-		free(all->grbg->content);
-		free(all->grbg);
-		all->grbg = tmp;
-	}
 	if (all->err == E_EXIT)
 	{
 		ft_putstrn_fd("exit", all->fd1);

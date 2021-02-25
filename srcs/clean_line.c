@@ -12,12 +12,14 @@ char			*ft_realloc_r(char *str, char c)
 		temp = malloc(2);
 		temp[0] = c;
 		temp[1] = '\0';
+		ft_lstadd_front(&pnts, ft_lstnew(temp));
 		return (temp);
 	}
 	size = ft_strlen(str);
 	if (str[size - 1] == -5 && c == -5)
 		return (str);
 	temp = malloc(size + 2);
+	ft_lstadd_front(&pnts, ft_lstnew(temp));
 	ft_strcpy(temp, str);
 	temp[size] = c;
 	temp[size + 1] = '\0';
@@ -34,6 +36,7 @@ static char		*ft_not_line(char c)
 	temp[1] = c;
 	temp[2] = -5;
 	temp[3] = '\0';
+	ft_lstadd_front(&pnts, ft_lstnew(temp));
 	return (temp);
 }
 
@@ -46,6 +49,7 @@ char			*ft_redir_make(char *line, char c)
 		ft_not_line(c);
 	size = ft_strlen(line);
 	temp = malloc(size + 3);
+	ft_lstadd_front(&pnts, ft_lstnew(temp));
 	ft_strcpy(temp, line);
 	if (temp[size - 1] != -5)
 	{
@@ -108,7 +112,7 @@ char			*line_cleaner(char *line)
 		else
 			temp = ft_realloc_r(temp, line[i++]);
 		if ((flag = check_flag_r(line, flag, &i)))
-			return ("Error: qoutes");
+			return ("Error:quotes");
 	}
 	return (temp);
 }

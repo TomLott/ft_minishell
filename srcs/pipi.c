@@ -61,5 +61,6 @@ t_pipi	*pipi_new(t_all *all)
 	ans->fd0 = all->fd0;
 	ans->fd1 = all->fd1;
 	ans->next = 0x0;
+	ft_lstadd_front(&pnts, ft_lstnew(ans));
 	return (ans);
 }

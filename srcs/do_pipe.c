@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	do_all_work(t_pipi *pipi, t_all *all)
 {
 	while (pipi)
@@ -22,7 +22,7 @@ void	do_all_work(t_pipi *pipi, t_all *all)
 		pipi = pipi->next;
 	}
 	printf("done\n");
-}
+}*/
 
 void	fill_pipes(t_all *all, t_pipi *pipi)
 {
@@ -35,7 +35,7 @@ void	fill_pipes(t_all *all, t_pipi *pipi)
 		pipe(pp);
 		if (pipi->fd1 == 1)
 			pipi->fd1 = dup(pp[1]);
-		if (pipi->fd0 == 0)
+		if (pipi->next->fd0 == 0)
 			pipi->next->fd0 = dup(pp[0]);
 		close(pp[0]);
 		close(pp[1]);
@@ -82,12 +82,12 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 	close(temp_fd);
 	i = 0;
 	pipi = temp;
-	while (i++ < all->pipe)
+	/*while (i++ < all->pipe)
 	{
 		close(temp->fd1);
 		close(temp->fd0);
 		temp = temp->next;
-	}
+	}*/
 	dup2(all->fd1_def, 1);
 	dup2(all->fd0_def, 0);
 }

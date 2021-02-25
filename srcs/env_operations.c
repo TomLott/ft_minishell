@@ -59,6 +59,7 @@ char	**arr_append(char **arr, char *to_add)
 	ans[len] = 0x0;
 	if (arr)
 		free_double_char(&arr);
+	ft_lstadd_front(&pnts, ft_lstnew(ans));
 	return (ans);
 }
 

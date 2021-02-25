@@ -56,8 +56,9 @@ char	*extract_env(char **env, char *key)
 			ans[2] = ft_strdup(ans[1]);
 			break ;
 		}
+		//free(ans[1]);
 		tmp++;
 	}
-	free_arr((void **)&ans, 2);
+	//free_arr((void **)&ans, 2);
 	return (ans[2]);
 }

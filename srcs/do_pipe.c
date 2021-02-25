@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/25 18:03:57 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 21:06:25 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 		//close(pipi->fd1);
 		//temp_fd = pipi->fd1;
 		pipi = pipi->next;
+		dup2(all->fd1_def, 1);
+		dup2(all->fd0_def, 0);
 	}
 	close(temp_fd);
 	i = 0;
@@ -88,6 +90,4 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 		close(temp->fd0);
 		temp = temp->next;
 	}*/
-	dup2(all->fd1_def, 1);
-	dup2(all->fd0_def, 0);
 }

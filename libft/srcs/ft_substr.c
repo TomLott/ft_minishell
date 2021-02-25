@@ -6,7 +6,7 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 13:46:56 by jmogo             #+#    #+#             */
-/*   Updated: 2020/11/07 18:16:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 14:49:22 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 		ans[s_len] = s[start + s_len];
 		s_len++;
 	}
+	ft_lstadd_back(&pnts, ft_lstnew(ans));
 	return (ans);
 }

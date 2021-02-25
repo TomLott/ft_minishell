@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:13:49 by jmogo             #+#    #+#             */
-/*   Updated: 2020/12/06 10:32:33 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 15:05:43 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static char			*get_word(char *s, char c)
 	*(ans + len) = '\0';
 	while (len--)
 		*(ans + len) = *(s + len);
+	ft_lstadd_back(&pnts, ft_lstnew(ans));
 	return (ans);
 }
 
@@ -88,5 +89,6 @@ char				**ft_split(const char *s, char c)
 		return (0x0);
 	if (!fill_arr(ans, (char *)s, c))
 		return (0x0);
+	ft_lstadd_back(&pnts, ft_lstnew(ans));
 	return (ans);
 }

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:04:17 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 14:10:22 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 16:08:45 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_addnewptr(t_all *all, void *p)
 
 	if (!(toadd = malloc(sizeof(t_list))))
 		do_error(all);
+	printf("lst is %p\n", toadd);
 	toadd->next = 0x0;
 	toadd->content = p;
 	if (!(all->grbg))
@@ -43,5 +44,5 @@ void	do_malloc(t_all *all, void **p, t_cmd type)
 	if (!(*p))
 		do_error(all);
 	init_obj(p, type);
-	ft_addnewptr(all, *p);
+	ft_lstadd_front(&pnts, ft_lstnew(all));
 }

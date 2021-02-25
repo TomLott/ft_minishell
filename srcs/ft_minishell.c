@@ -216,6 +216,8 @@ int				main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	do_malloc(all, (void **)(&all), ALL);
+	//if (!(all = (t_all *)malloc(sizeof(t_all))))
+	//	return (-1);
 	all->env = copy_env(env);
 	while (1)
 	{

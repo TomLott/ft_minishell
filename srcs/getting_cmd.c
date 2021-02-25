@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:48:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 13:58:53 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 15:23:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ int			func_do_trick(char **args, t_all *all)
 			free(res[1]);
 		}
 	}
-	all->arg = res[0];
-	all->args.args = ft_split(all->arg, -5);
+	free(all->arg);
+	all->arg = ft_strdup(res[0]);
+	//all->args.args = ft_split(all->arg, -5);
 	return (0);
 }
 

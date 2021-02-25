@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/24 20:05:06 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 16:12:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,16 @@ void		free_and_null(char **str)
 
 void		free_args(t_args *args)
 {
-	while (args)
+	t_args	*prev;
+	t_args	*tmp;
+
+	prev = 0x0;
+	tmp = args;
+	while (tmp)
 	{
 		args->cmd = DEF;
 		args->redir = 0;
+		prev = args;
 		if (args->args)
 			free_double_char(&(args->args));
 		args = args->next;

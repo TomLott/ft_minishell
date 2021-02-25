@@ -6,7 +6,7 @@
 /*   By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:12:53 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/17 17:50:28 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 14:45:45 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+t_list			*pnts;
 
 void			*ft_memset(void *s, int c, size_t n);
 int				ft_atoi(const char *nptr);

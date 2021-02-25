@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 19:35:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 14:09:36 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_redir
 	struct s_redir	*next;
 }					t_redir;
 
-int					g_f[2];
+int					g_f[3];
 
 typedef struct		s_all
 {

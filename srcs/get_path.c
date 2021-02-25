@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/23 18:03:19 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 14:12:26 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		check_no_path(t_all *all, char **args)
 {
 	if (manage_execve(all, all->def_cmd, args))
 		return (1);
+	if (ft_strcmp("cat", all->def_cmd))
+		g_f[2] = 1;
 	return (0);
 }
 

@@ -1,4 +1,0 @@
-fd0: 0	fd1: 24
-echo cmd here
-fd0: 25	fd1: 21
-bash cmd here

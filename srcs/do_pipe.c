@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/23 11:17:47 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 18:03:57 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	fill_pipes(t_all *all, t_pipi *pipi)
 	while (i++ < all->pipe)
 	{
 		pipe(pp);
-		//if (pipi->fd1 == 1)
+		if (pipi->fd1 == 1)
 			pipi->fd1 = dup(pp[1]);
-		//if (pipi->fd0 == 0)
+		if (pipi->fd0 == 0)
 			pipi->next->fd0 = dup(pp[0]);
 		close(pp[0]);
 		close(pp[1]);

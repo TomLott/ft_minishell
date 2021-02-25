@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/25 16:12:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 16:13:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void        refresh_all(t_all **all, t_args *args)
 	(*all)->l_red = NULL;
 	if ((*all)->def_cmd)
 		free_and_null(&((*all)->def_cmd));
-	free_args(&((*all)->args));
+	//free_args(&((*all)->args));
 }
 
 void        ft_print_capt(int fd, int fl)

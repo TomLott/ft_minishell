@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/25 16:13:56 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/25 18:44:47 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void		free_args(t_args *args)
 	tmp = args;
 	while (tmp)
 	{
-		args->cmd = DEF;
-		args->redir = 0;
+		tmp->cmd = DEF;
+		tmp->redir = 0;
 		prev = args;
-		if (args->args)
-			free_double_char(&(args->args));
-		args = args->next;
+		if (tmp->args)
+			free_double_char(&(tmp->args));
+		tmp = tmp->next;
 	}
 }
 
@@ -60,7 +60,7 @@ void        refresh_all(t_all **all, t_args *args)
 	(*all)->l_red = NULL;
 	if ((*all)->def_cmd)
 		free_and_null(&((*all)->def_cmd));
-	//free_args(&((*all)->args));
+	free_args(&((*all)->args));
 }
 
 void        ft_print_capt(int fd, int fl)

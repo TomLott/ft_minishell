@@ -1,5 +1,25 @@
 #include "minishell.h"
 
+int				check_for_any_grbg(char *line)
+{
+	int		i;
+	int		count;
+	char	*set;
+
+	i = 0;
+	count = 0;
+	set = " /|><\\";
+	while(line[i])
+	{
+		if (ft_strchr(set, line[i]))
+			count++;
+		i++;
+	}
+	if (count == (int)ft_strlen(line))
+		return (1);
+	return (0);
+}
+
 int				ft_parse_line(char *line)
 {
 	int i;
@@ -7,6 +27,8 @@ int				ft_parse_line(char *line)
 
 	i = 0;
 	flag = 0;
+	if (check_for_any_grbg(line))
+		return (-1);
 	while (line[i])
 	{
         if (line[i] == '\\' && line[i + 1] && (i += 2))
@@ -63,7 +85,6 @@ int				ft_fd(t_all *all)
 	redir = all->l_red;
 	temp_in = 0;
 	temp_out = 1;
-	printf("ft_fd begin\n");
 	if (redir)
     {
 	    while (redir)
@@ -161,7 +182,7 @@ int				hook_command(char *com, t_all *all)
 	if (j < 2)
 		all->last_rv = manage_cmds(all);
 	else
-		if (do_pipe(all, pp))
+		if ((all->err = do_pipe(all, pp)))
 			return (all->err);
 	dup2(all->fd1_def, 1);
 	dup2(all->fd0_def, 0);
@@ -179,8 +200,6 @@ int				ft_parse_commands(t_all *all)
 	if ((ft_dollar(all, all->line) == 1) || (ft_parse_line(all->line) == -1))
 		return ((all->err = E_SYNTAX));
 	commands = ft_split(all->line, -1);
-	if (commands && !(*commands) && !(**commands))
-	    printf("heheheh\n");
 	while (commands[++i])
 	{
 		all->fd1 = 1;

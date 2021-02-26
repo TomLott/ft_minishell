@@ -79,17 +79,14 @@ int			ft_parse_argument(char *line, t_all *all, t_args *args)
 	i = 0;
 	flag = 0;
 	if (!line)
-		return (1);
+		return (0);
 	temp = line;
-	printf("11111\n");
 	line = line_cleaner(all->arg, all);
 	if (all->err != E_DEF)
         return (1);
-    printf("fufufu\n");
     free(temp);
 	all->args.args = ft_split(line, -5);
 	func_do_trick(all->args.args, all);
-	printf("%s parse_arg\n", all->arg);
 	return (0);
 }
 

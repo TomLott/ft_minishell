@@ -23,7 +23,6 @@ int 	check_nodes(t_pipi *pipi)
 	    res = 1;
 	while (temp)
 	{
-	    printf("%s temp->cmd\n", temp->cmd);
 		if (!temp->cmd || !(*temp->cmd))
 			return ((res = 1));
 		temp = temp->next;

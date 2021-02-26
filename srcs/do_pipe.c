@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 20:24:42 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/26 21:59:17 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,67 @@ int		fill_pipes(t_all *all, t_pipi *pipi)
 	return (res);
 }
 
+int		manage_execve_p(t_all *all, char *bin, char **args)
+{
+	size_t  pid;
+
+	if (file_exists(bin))
+	{
+    	pid = fork();
+    	if (pid != 0)
+    	{
+			wait(&(ex_code));
+			return (1);
+		}
+		else
+		{
+			printf("bin is %s\n", bin);
+			printf("arg is %s\n", args[1]);
+
+			if (0 > execve(bin, args, all->env))
+			{
+				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
+				exit(errno);
+			}
+			exit(0);
+		}
+	}
+	return (0);
+}
+
+int     pipe_no_path(t_all *all, char **args, char *ex_name)
+{
+    if (manage_execve_p(all, ex_name, args))
+        return (1);
+    if (ft_strcmp("cat", ex_name) || ft_strcmp("grep", ex_name))
+        g_f[2] = 1;
+    return (0);
+}
+
+int		pipe_path(t_all *all, char *path, char *ex_name, t_pipi *pipe)
+{
+	char	**dirs;
+	//char	**args;
+	char	*tmp;
+	int		i;
+
+	if (!ex_name || !(*ex_name))
+		return (1);
+	dirs = ft_split(path, ':');
+	if (pipe_no_path(all, pipe->args, ex_name))
+		return (1);
+	i = 0;
+	while (dirs && dirs[i++])
+	{
+		tmp = concat_path_exec(dirs[i - 1], ex_name);
+		if (manage_execve_p(all, tmp, pipe->args))
+			return (1);
+	}
+	free_double_char(&dirs);
+	free(path);
+	return (0);
+}
+
 int		do_pipe(t_all *all, t_pipi *pipi)
 {
 	int		i;
@@ -76,12 +137,12 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 			//if (temp_fd != -2)
 			//	close(temp_fd);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
-			if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
+			if (!pipe_path(all, extract_env(all->env, "PATH"), pipi->cmd, pipi))
 			{
 				printf("heheheh\n");
 				ft_putstrn_fd(strerror(errno), all->fd1);
-				exit(errno);
 			}
+			exit(errno);
 		}
 		else
 		{

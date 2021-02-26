@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 20:22:32 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/26 20:36:11 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int					is_any_quote(char c);
 int					is_export(t_all *all);
 char				*line_cleaner(char *line, t_all *all);
 int					manage_cmds(t_all *all);
+int					manage_execve(t_all *all, char *bin, char **args);
 int                 ms_cd(t_all *all);
 int					ms_def(t_all *all);
 int					ms_echo(t_all *all);

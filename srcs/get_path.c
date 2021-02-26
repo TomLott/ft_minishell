@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:44:34 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 12:56:52 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/26 21:58:43 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 		pid = fork();
 		if (pid != 0)
 		{
-			wait(&(all->last_rv));
+			wait(&ex_code);
 			return (1);
 		}
 		else
@@ -41,7 +41,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
 				exit(errno);
 			}
-			return (errno);
+			return ((ex_code = errno));
 		}
 	}
 	return (0);
@@ -51,7 +51,7 @@ int		check_no_path(t_all *all, char **args)
 {
 	if (manage_execve(all, all->def_cmd, args))
 		return (1);
-	if (ft_strcmp("cat", all->def_cmd))
+	if (ft_strcmp("cat", all->def_cmd) || ft_strcmp("grep", all->def_cmd))
 		g_f[2] = 1;
 	return (0);
 }

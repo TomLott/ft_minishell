@@ -39,6 +39,8 @@ int         ft_change_pipes(t_all *all, char *line)
 	all->pipe = 0;
 	while (line[i])
 	{
+		if (line[i] == '\\' && line[i + 1] && (i += 2))
+			continue ;
 		if (line[i] == '\'' && (flag = 1))
 			flag = get_flag(line, &i, '\'');
 		else if (line[i] && line[i] == '\"' && (flag = 1))

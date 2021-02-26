@@ -88,7 +88,9 @@ static int		check_flag_r(char *c, int flag, int *i)
 	return (flag);
 }
 
-char			*line_cleaner(char *line)
+//char            *purge(char *temp, char *line)
+
+char			*line_cleaner(char *line, t_all *all)
 {
 	int		i;
 	int		flag;
@@ -102,7 +104,10 @@ char			*line_cleaner(char *line)
 		if (line[i] == -1 || line[i] == -2 || line[i] == -3)
 			temp = ft_redir_make(temp, line[i++]);
 		else if (line[i] == '\\' && ++i)
-			temp = ft_realloc_r(temp, line[i++]);
+		{
+            temp = ft_realloc_r(temp, line[i]);
+            line[i] ? i++ : (all->err = E_SYNTAX);
+        }
 		else if (line[i] == '\"' && (flag = 1))
 			while (line[++i] && line[i] != '\"')
 				temp = ft_realloc_r(temp, line[i]);
@@ -111,7 +116,7 @@ char			*line_cleaner(char *line)
 				temp = ft_realloc_r(temp, line[i]);
 		else
 			temp = ft_realloc_r(temp, line[i++]);
-		if ((flag = check_flag_r(line, flag, &i)))
+		if ((flag = check_flag_r(line, flag, &i)) && (all->err = E_SYNTAX))
 			return ("Error:quotes");
 	}
 	return (temp);

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/25 18:40:57 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/26 10:42:08 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ typedef enum
 typedef enum
 {
 	E_DEF,
+	E_EXIT,
+	E_FD,
     E_MALLOC,
     E_NO_LINE,
-    E_SYNTAX,
+	E_PIPE,
 	E_READ,
-	E_EXIT,
-	E_FD
+    E_SYNTAX
 }   t_err;
 
 typedef struct		s_envlst
@@ -100,6 +101,7 @@ typedef struct		s_all
 	int				fd0;
 	int				fd1_def;
 	int				fd0_def;
+	char			*exec;
 }					t_all;
 
 
@@ -142,7 +144,7 @@ void				init_obj(void **p, t_cmd type);
 int					inside_quotes(char *str, char *end, char c);
 int					is_any_quote(char c);
 int					is_export(t_all *all);
-char				*line_cleaner(char *line);
+char				*line_cleaner(char *line, t_all *all);
 int					manage_cmds(t_all *all);
 int                 ms_cd(t_all *all);
 int					ms_def(t_all *all);
@@ -150,6 +152,7 @@ int					ms_echo(t_all *all);
 int					ms_env(t_all *all);
 int					ms_export(t_all *all);
 int					ms_pwd(void);
+int					ms_self(t_all *all);
 int					ms_unset(t_all *all);
 void				myint(int sig);
 void				parse_env(char *env, char **key, char **value);

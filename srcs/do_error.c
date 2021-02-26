@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/25 21:01:26 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/26 10:20:59 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	print_error(t_all *all)
 		ft_putstrn_fd("malloc error", all->fd1);
 	else if (all->err == E_FD)
 		ft_putstrn_fd("no such file or directory", all->fd1);
+	else if (all->err == E_PIPE)
+		ft_putstrn_fd("syntax error near `|'", all->fd1);
 }
 
 void	do_error(t_all *all)

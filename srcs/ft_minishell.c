@@ -9,6 +9,8 @@ int				ft_parse_line(char *line)
 	flag = 0;
 	while (line[i])
 	{
+        if (line[i] == '\\' && line[i + 1] && (i += 2))
+            continue ;
 		if (line[i] == '\'' && (flag = 1))
 			flag = get_flag(line, &i, '\'');
 		else if (line[i] && line[i] == '\"' && (flag = 1))
@@ -61,22 +63,33 @@ int				ft_fd(t_all *all)
 	redir = all->l_red;
 	temp_in = 0;
 	temp_out = 1;
-	while (redir)
-	{
-		printf("args: %d %s\n", redir->redir, redir->cont);
-		if (redir->redir == -2)
-			temp_in = ft_do_left_r(all, redir, temp_in);
-		if (redir->redir == -1 || redir->redir == -3)
-			temp_out = ft_do_right_r(all, redir, temp_out);
-		redir = redir->next;
+	printf("ft_fd begin\n");
+	if (redir)
+    {
+	    while (redir)
+		{
+			printf("args: %d %s\n", redir->redir, redir->cont);
+			if (redir->redir == -2)
+				temp_in = ft_do_left_r(all, redir, temp_in);
+			if (redir->redir == -1 || redir->redir == -3)
+				temp_out = ft_do_right_r(all, redir, temp_out);
+			redir = redir->next;
+			if (temp_in == -1 || temp_out == -1)
+				all->err = E_FD;
+		}
 	}
+	else
+		return (0);
 	if (all->fd0 >= 0 && all->fd1 >= 1)
 	{
 		dup2(all->fd0, 0);
 		dup2(all->fd1, 1);
 	}
 	else
+	{
+	    printf("ft_fd\n");
 		return ((all->err = E_FD));
+	}
 	return (0);
 }
 
@@ -128,6 +141,8 @@ int				hook_command(char *com, t_all *all)
 		return ((all->err = E_SYNTAX));
 	pp = 0x0;
 	temp = ft_split(com, -10);
+	if (temp && *temp && !**temp)
+	    printf("shit\n");
 	while (temp[++j])
 	{
 		point = temp[j];
@@ -139,15 +154,14 @@ int				hook_command(char *com, t_all *all)
 		get_command(temp[j], all);
 		if (all->cmd_len + 1 < (int)ft_strlen(temp[j]))
 			all->arg = ft_strdup(temp[j] + all->cmd_len);
-		ft_parse_argument(all->arg, all, &(all->args));
-		if (ft_fd(all))
-			return (1);
+		if ((ft_parse_argument(all->arg, all, &(all->args))) || (ft_fd(all)))
+			return (all->err);
 		pipi_add_back(&pp, pipi_new(all));
 	}
 	if (j < 2)
 		all->last_rv = manage_cmds(all);
 	else
-		if (!do_pipe(all, pp))
+		if (do_pipe(all, pp))
 			return (all->err);
 	dup2(all->fd1_def, 1);
 	dup2(all->fd0_def, 0);
@@ -161,13 +175,13 @@ int				ft_parse_commands(t_all *all)
 	int		i;
 	char	*temp;
 
-	i = 0;
-	if (ft_dollar(all, all->line) == 1)
-		return ((all->err = E_SYNTAX));
-	if (ft_parse_line(all->line) == -1)
+	i = -1;
+	if ((ft_dollar(all, all->line) == 1) || (ft_parse_line(all->line) == -1))
 		return ((all->err = E_SYNTAX));
 	commands = ft_split(all->line, -1);
-	while (commands[i])
+	if (commands && !(*commands) && !(**commands))
+	    printf("heheheh\n");
+	while (commands[++i])
 	{
 		all->fd1 = 1;
 		all->fd0 = 0;
@@ -178,8 +192,7 @@ int				ft_parse_commands(t_all *all)
 		commands[i] = ft_strtrim(commands[i], " ");
 		free(temp);
 		if (hook_command(commands[i], all))
-			do_error(all);
-		i++;
+            return (1);
 	}
 	free_double_char(&commands);
 	return (0);
@@ -216,11 +229,11 @@ int				main(int argc, char **argv, char **env)
 	flag = -2;
 	(void)argc;
 	(void)argv;
-	//do_malloc(all, (void **)(&all), ALL);
 	if (!(all = (t_all *)malloc(sizeof(t_all))))
 		return (-1);
 	init_all(&all);
 	all->env = copy_env(env);
+	all->exec = extract_env(all->env, "PWD");
 	while (1)
 	{
 		signal(SIGINT, myint);
@@ -230,5 +243,6 @@ int				main(int argc, char **argv, char **env)
 		get_data(all, &flag);
 		if (all->err != E_DEF)
 			do_error(all);
+		all->err = E_DEF;
 	}
 }

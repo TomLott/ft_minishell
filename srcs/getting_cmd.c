@@ -64,7 +64,6 @@ int			func_do_trick(char **args, t_all *all)
 			free(res[1]);
 		}
 	}
-	//free(all->arg);
 	all->arg = ft_strdup(res[0]);
 	all->args.args = ft_split(all->arg, -5);
 	return (0);
@@ -82,10 +81,15 @@ int			ft_parse_argument(char *line, t_all *all, t_args *args)
 	if (!line)
 		return (1);
 	temp = line;
-	line = line_cleaner(all->arg);
-	free(temp);
+	printf("11111\n");
+	line = line_cleaner(all->arg, all);
+	if (all->err != E_DEF)
+        return (1);
+    printf("fufufu\n");
+    free(temp);
 	all->args.args = ft_split(line, -5);
 	func_do_trick(all->args.args, all);
+	printf("%s parse_arg\n", all->arg);
 	return (0);
 }
 
@@ -141,7 +145,6 @@ char        *ft_com_parser(char *l, t_all *all, char *t)
 		else
 			t[i[0]++] = l[all->cmd_len++];
 	}
-	//t[i[0]] = '\0';
 	return (i[1] == -1 ) ? "ERROR" : wrap_zero(&t, i[0]);
 }
 

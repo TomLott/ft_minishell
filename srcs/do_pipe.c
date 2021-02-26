@@ -6,23 +6,11 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/25 21:06:25 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/26 13:17:41 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-void	do_all_work(t_pipi *pipi, t_all *all)
-{
-	while (pipi)
-	{
-		pipi->args = arr_append(pipi->args, pipi->cmd);
-		if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
-			printf(">%s<\terrr 0\n%s\n", pipi->cmd, strerror(errno));
-		pipi = pipi->next;
-	}
-	printf("done\n");
-}*/
 
 int 	check_nodes(t_pipi *pipi)
 {
@@ -31,10 +19,13 @@ int 	check_nodes(t_pipi *pipi)
 
 	temp = pipi;
 	res = 0;
+	if (!temp)
+	    res = 1;
 	while (temp)
 	{
-		if (!temp->cmd)
-			res = 1;
+	    printf("%s temp->cmd\n", temp->cmd);
+		if (!temp->cmd || !(*temp->cmd))
+			return ((res = 1));
 		temp = temp->next;
 	}
 	return (res);
@@ -44,9 +35,11 @@ int		fill_pipes(t_all *all, t_pipi *pipi)
 {
 	int	i;
 	int	pp[2];
+	int res;
 
 	i = 0;
-	while (i++ < all->pipe)
+	res = check_nodes(pipi);
+	while (i++ < all->pipe && !res)
 	{
 		pipe(pp);
 		if (pipi->fd1 == 1)
@@ -57,7 +50,7 @@ int		fill_pipes(t_all *all, t_pipi *pipi)
 		close(pp[1]);
 		pipi = pipi->next;
 	}
-	return (check_nodes(pipi));
+	return (res);
 }
 
 int		do_pipe(t_all *all, t_pipi *pipi)
@@ -68,8 +61,8 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 	int		temp_fd;
 
 	i = 0;
-	if (!fill_pipes(all, pipi))
-		return ((all->err = E_SYNTAX));
+	if (fill_pipes(all, pipi))
+		return ((all->err = E_PIPE));
 	temp = pipi;
 	temp_fd = -2;
 	while (i++ <= all->pipe)
@@ -85,7 +78,10 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 				close(temp_fd);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
 			if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
-				printf(">%s<\terrr 0\n%s\n", pipi->cmd, strerror(errno));
+			{
+				ft_putstrn_fd(strerror(errno), all->fd1);
+				exit(errno);
+			}
 		}
 		else
 		{

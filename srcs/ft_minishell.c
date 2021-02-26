@@ -9,13 +9,19 @@ int				check_for_any_grbg(char *line)
 	i = 0;
 	count = 0;
 	set = " /|><\\";
+	while(line[i] == ' ')
+		i++;
+	if ((i == (int)ft_strlen(line)) && i != 0)
+		return (0);
 	while(line[i])
 	{
 		if (ft_strchr(set, line[i]))
 			count++;
+		if (line[i] == '\t')
+			return (1);
 		i++;
 	}
-	if (count == (int)ft_strlen(line))
+	if ((count == (int)ft_strlen(line)) && count != 0)
 		return (1);
 	return (0);
 }

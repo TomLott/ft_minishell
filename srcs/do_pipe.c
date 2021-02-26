@@ -94,6 +94,7 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 		dup2(all->fd1_def, 1);
 		dup2(all->fd0_def, 0);
 	}
+	printf("bum\n");
 	close(temp_fd);
 	i = 0;
 	pipi = temp;

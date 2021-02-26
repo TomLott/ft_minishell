@@ -31,6 +31,7 @@ int	manage_cmds(t_all *all)
 	else if (all->cmd == EXIT)
 	{
 		all->err = E_EXIT;
+		all->exit_code = ms_exit(all);
 		do_error(all);
 		return (0);
 	}

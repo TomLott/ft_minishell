@@ -44,7 +44,8 @@ typedef enum
     E_NO_LINE,
 	E_PIPE,
 	E_READ,
-    E_SYNTAX
+    E_SYNTAX,
+    E_EXIT_ARG
 }   t_err;
 
 typedef struct		s_envlst
@@ -102,6 +103,7 @@ typedef struct		s_all
 	int				fd1_def;
 	int				fd0_def;
 	char			*exec;
+	int				exit_code;
 }					t_all;
 
 
@@ -150,6 +152,7 @@ int                 ms_cd(t_all *all);
 int					ms_def(t_all *all);
 int					ms_echo(t_all *all);
 int					ms_env(t_all *all);
+int					ms_exit(t_all *all);
 int					ms_export(t_all *all);
 int					ms_pwd(void);
 int					ms_self(t_all *all);

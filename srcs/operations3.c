@@ -12,6 +12,42 @@
 
 #include "minishell.h"
 
+int	stup_atoi(char *num)
+{
+	int		i;
+	int		res;
+	int 	len;
+	int		sign;
+
+	res = 0;
+	sign = 1;
+	i = 0;
+	len = ft_strlen(num);
+	if ((num[i] == '-' || num[i] == '+') && ++i)
+		(num[i - 1] == '-') ? (sign = -1) : 1;
+	while (num[i] >= '0' && num[i] <= '9')
+		res = res * 10 + (num[i++] - 48);
+	if (i == len)
+		return (sign * res);
+	else
+		return (255);
+}
+
+int ms_exit(t_all *all)
+{
+	int code;
+	int i;
+
+	code = -1;
+	i = 0;
+	if (all->args.args)
+		code = stup_atoi(all->args.args[0]);
+	else
+		code = 0;
+	return (code);
+}
+
+
 int	ms_echo(t_all *all)
 {
 	if (all->arg)

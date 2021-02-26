@@ -31,17 +31,27 @@ void	print_error(t_all *all)
 		ft_putstrn_fd("no such file or directory", all->fd1);
 	else if (all->err == E_PIPE)
 		ft_putstrn_fd("syntax error near `|'", all->fd1);
+	else if (all->err == E_EXIT_ARG)
+		ft_putstrn_fd("exit\nexit: too many arguments", all->fd1);
 }
 
 void	do_error(t_all *all)
 {
+	int count;
+
+	count = 0;
 	if (!all)
 		exit(all->err);
-	if (all->err == E_EXIT)
+	if (all->args.args)
+		while (all->args.args[count])
+			count++;
+	if (all->err == E_EXIT && count < 2)
 	{
 		ft_putstrn_fd("exit", all->fd1);
-		exit(0);
+		exit(all->exit_code);
 	}
+	else if (all->err == E_EXIT)
+		all->err = E_EXIT_ARG;
 	else
 		print_error(all);
 }

@@ -44,12 +44,8 @@ int			func_do_trick(char **args, t_all *all)
 {
 	int		i;
 	char	*res[2];
-	int 	j;
 
 	i = -1;
-	j = -1;
-	while (args[++j])
-		printf("%s do_tric\n", args[j]);
 	res[0] = ft_strdup("");
 	while (args[++i])
 	{

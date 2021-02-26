@@ -112,7 +112,7 @@ int					convert_dol_question(t_all *all, char *line, int *i);
 char				**copy_env(char **env);
 void				do_error(t_all *all);
 void				do_malloc(t_all *all, void **p, t_cmd type);
-void				do_pipe(t_all *all, t_pipi *pp);
+int					do_pipe(t_all *all, t_pipi *pp);
 void				env_add_back(t_all *all, char *env);
 char				*extract_env(char **env, char *key);
 int					file_exists(char *file_path);

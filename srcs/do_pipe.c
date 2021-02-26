@@ -24,7 +24,23 @@ void	do_all_work(t_pipi *pipi, t_all *all)
 	printf("done\n");
 }*/
 
-void	fill_pipes(t_all *all, t_pipi *pipi)
+int 	check_nodes(t_pipi *pipi)
+{
+	t_pipi	*temp;
+	int 	res;
+
+	temp = pipi;
+	res = 0;
+	while (temp)
+	{
+		if (!temp->cmd)
+			res = 1;
+		temp = temp->next;
+	}
+	return (res);
+}
+
+int		fill_pipes(t_all *all, t_pipi *pipi)
 {
 	int	i;
 	int	pp[2];
@@ -41,9 +57,10 @@ void	fill_pipes(t_all *all, t_pipi *pipi)
 		close(pp[1]);
 		pipi = pipi->next;
 	}
+	return (check_nodes(pipi));
 }
 
-void	do_pipe(t_all *all, t_pipi *pipi)
+int		do_pipe(t_all *all, t_pipi *pipi)
 {
 	int		i;
 	int		f;
@@ -51,7 +68,8 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 	int		temp_fd;
 
 	i = 0;
-	fill_pipes(all, pipi);
+	if (!fill_pipes(all, pipi))
+		return ((all->err = E_SYNTAX));
 	temp = pipi;
 	temp_fd = -2;
 	while (i++ <= all->pipe)
@@ -84,6 +102,7 @@ void	do_pipe(t_all *all, t_pipi *pipi)
 	close(temp_fd);
 	i = 0;
 	pipi = temp;
+	return (0);
 	/*while (i++ < all->pipe)
 	{
 		close(temp->fd1);

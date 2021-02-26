@@ -147,7 +147,8 @@ int				hook_command(char *com, t_all *all)
 	if (j < 2)
 		all->last_rv = manage_cmds(all);
 	else
-		do_pipe(all, pp);
+		if (!do_pipe(all, pp))
+			return (all->err);
 	dup2(all->fd1_def, 1);
 	dup2(all->fd0_def, 0);
 	free_pipi(&pp);

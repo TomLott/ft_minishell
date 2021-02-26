@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 13:17:41 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/26 20:24:42 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 			printf("%s cmd here\n", pipi->cmd);
 			dup2(pipi->fd1, 1);
 			dup2(pipi->fd0, 0);
-			if (temp_fd != -2)
-				close(temp_fd);
+			//if (temp_fd != -2)
+			//	close(temp_fd);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
 			if (execve(ft_strjoin("/bin/", pipi->cmd), pipi->args, all->env) < 0)
 			{
+				printf("heheheh\n");
 				ft_putstrn_fd(strerror(errno), all->fd1);
 				exit(errno);
 			}

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 19:11:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 10:29:56 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/26 20:23:25 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	manage_cmds(t_all *all)
 	else if (all->cmd == EXIT)
 	{
 		all->err = E_EXIT;
-		all->exit_code = ms_exit(all);
+		ex_code = ms_exit(all);
 		do_error(all);
 		return (0);
 	}

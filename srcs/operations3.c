@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:47:59 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 12:55:38 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/26 20:23:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int ms_exit(t_all *all)
 	i = 0;
 	if (all->args.args)
 		code = stup_atoi(all->args.args[0]);
+	if (ex_code)
+		code = ex_code;
 	else
 		code = 0;
 	return (code);

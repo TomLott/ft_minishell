@@ -3,6 +3,7 @@
 *.swp
 .DS_Store
 a.out
+minishell
 CMakeLists.txt
 cmake-b*
 .DS_Store

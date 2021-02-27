@@ -66,9 +66,6 @@ int		manage_execve_p(t_all *all, char *bin, char **args)
 		}
 		else
 		{
-			printf("bin is %s\n", bin);
-			printf("arg is %s\n", args[1]);
-
 			if (0 > execve(bin, args, all->env))
 			{
 				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
@@ -92,7 +89,6 @@ int     pipe_no_path(t_all *all, char **args, char *ex_name)
 int		pipe_path(t_all *all, char *path, char *ex_name, t_pipi *pipe)
 {
 	char	**dirs;
-	//char	**args;
 	char	*tmp;
 	int		i;
 
@@ -118,33 +114,33 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 	int		i;
 	int		f;
 	t_pipi	*temp;
-	int		temp_fd;
 
 	i = 0;
 	if (fill_pipes(all, pipi))
 		return ((all->err = E_PIPE));
 	temp = pipi;
-	temp_fd = -2;
 	while (i++ <= all->pipe)
 	{
-		printf("fd0: %d\tfd1: %d\n", pipi->fd0, pipi->fd1);
+		//printf("fd0: %d\tfd1: %d\n", pipi->fd0, pipi->fd1);
 		f = fork();
 		if (!f)
 		{
-		//	printf("%s cmd here\n", pipi->cmd);
 			dup2(pipi->fd1, 1);
 			dup2(pipi->fd0, 0);
-			//if (temp_fd != -2)
-			//	close(temp_fd);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
 			if (!pipe_path(all, extract_env(all->env, "PATH"), pipi->cmd, pipi))
-				ft_putstrn_fd(strerror(errno), all->fd1);
+			{
+				if (ft_strcmp(pipi->cmd, "exit") && errno == 2)
+					errno = 0;
+				else
+					ft_putstrn_fd(strerror(errno), all->fd1);
+			}
 			exit(errno);
 		}
 		else
 		{
 			close(pipi->fd1);
-			wait(&ex_code);
+			wait(0);
 		}
 		close(pipi->fd0);
 		//close(pipi->fd1);
@@ -153,14 +149,7 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 		dup2(all->fd1_def, 1);
 		dup2(all->fd0_def, 0);
 	}
-	close(temp_fd);
 	i = 0;
 	pipi = temp;
 	return (0);
-	/*while (i++ < all->pipe)
-	{
-		close(temp->fd1);
-		close(temp->fd0);
-		temp = temp->next;
-	}*/
 }

@@ -46,6 +46,8 @@ int ms_exit(t_all *all)
 
 	code = 0;
 	i = 0;
+	/*if (ex_code == 131 || ex_code == 130)
+		return (ex_code);*/
 	if (all->args.args)
 	{
 		code = stup_atoi(all->args.args[0]);

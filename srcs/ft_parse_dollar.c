@@ -24,8 +24,10 @@ int			ft_parse_dollar(t_all *all, char *line, int *i)
 
 	fl = 0;
 	line[(*i)++] = '\0';
+	printf("before conv dol\n");
 	if (!(k = 0) && line[*i] == '\?')
 		return (convert_dol_question(all, line, i));
+	printf("after conv dol\n");
 	if (line[(*i)] == '{' && ++(*i))
 		fl = 1;
 	j = (*i);

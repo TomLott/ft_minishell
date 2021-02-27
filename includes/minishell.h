@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 20:36:11 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 19:56:10 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct		s_pipi
 	char			**args;
 	int				fd0;
 	int				fd1;
+	int				exists;
 	struct s_pipi	*next;
 }					t_pipi;
 

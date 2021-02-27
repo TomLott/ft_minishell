@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:47:59 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 20:23:04 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 10:25:25 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ int	stup_atoi(char *num)
 	if (i == len)
 		return (sign * res);
 	else
+	{
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(num, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstrn_fd("numeric argument required", 2);
 		return (255);
+	}
 }
 
 int ms_exit(t_all *all)
@@ -38,14 +44,15 @@ int ms_exit(t_all *all)
 	int code;
 	int i;
 
-	code = -1;
+	code = 0;
 	i = 0;
 	if (all->args.args)
+	{
 		code = stup_atoi(all->args.args[0]);
+		return (code);
+	}
 	if (ex_code)
 		code = ex_code;
-	else
-		code = 0;
 	return (code);
 }
 
@@ -69,8 +76,8 @@ int	ms_self(t_all *all)
 	if (!id)
 	{
 		args = 0x0;
-		args = arr_append(args, "minishell");
-		tmp = ft_strjoin(all->exec, "/minishell");
+		args = arr_append(args, ft_strdup("minishell"));
+		tmp = ft_strjoin(all->exec, ft_strdup("/minishell"));
 		if (0 > execve(tmp, args, all->env))
 		{
 			ft_putstrn_fd(strerror(errno), STDERR_FILENO);

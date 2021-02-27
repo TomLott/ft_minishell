@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:54:27 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 10:20:59 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/27 10:25:50 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	do_error(t_all *all)
 	if (all->err == E_EXIT && count < 2)
 	{
 		ft_putstrn_fd("exit", all->fd1);
-		exit(all->exit_code);
+		exit(ex_code);
 	}
 	else if (all->err == E_EXIT)
 		all->err = E_EXIT_ARG;

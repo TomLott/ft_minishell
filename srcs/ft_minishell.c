@@ -186,7 +186,7 @@ int				hook_command(char *com, t_all *all)
 		pipi_add_back(&pp, pipi_new(all));
 	}
 	if (j < 2)
-		all->last_rv = manage_cmds(all);
+		ex_code = manage_cmds(all);
 	else
 		if ((all->err = do_pipe(all, pp)))
 			return (all->err);

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:54 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/25 14:17:29 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 11:12:18 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ void        myint(int sig)
 	{
 		write(1, "\b\b  \b\b", 6);
 		write(1, "\n", 1);
+		ex_code = 130;
 		if (g_f[1] == 0)
 			ft_print_capt(1, 1);
 	}
 	if (sig == SIGQUIT)
 	{
-		if (g_f[2] == 1)
+		if (g_f[2] == 1 && (ex_code = 131))
 			ft_putstrn_fd("Quit: 3", 1);
 		else
 		{

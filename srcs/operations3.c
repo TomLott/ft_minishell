@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:47:59 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/27 10:25:25 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 11:12:40 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	stup_atoi(char *num)
 		(num[i - 1] == '-') ? (sign = -1) : 1;
 	while (num[i] >= '0' && num[i] <= '9')
 		res = res * 10 + (num[i++] - 48);
-	if (i == len)
+	if (i == len && i != 0)
 		return (sign * res);
 	else
 	{
@@ -87,7 +87,7 @@ int	ms_self(t_all *all)
 	}
 	else
 	{
-		wait(&(all->last_rv));
+		wait(&ex_code);
 		return (1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:59:19 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/26 21:59:17 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 10:42:04 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,23 +131,20 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 		f = fork();
 		if (!f)
 		{
-			printf("%s cmd here\n", pipi->cmd);
+		//	printf("%s cmd here\n", pipi->cmd);
 			dup2(pipi->fd1, 1);
 			dup2(pipi->fd0, 0);
 			//if (temp_fd != -2)
 			//	close(temp_fd);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
 			if (!pipe_path(all, extract_env(all->env, "PATH"), pipi->cmd, pipi))
-			{
-				printf("heheheh\n");
 				ft_putstrn_fd(strerror(errno), all->fd1);
-			}
 			exit(errno);
 		}
 		else
 		{
 			close(pipi->fd1);
-			wait(&all->last_rv);
+			wait(&ex_code);
 		}
 		close(pipi->fd0);
 		//close(pipi->fd1);
@@ -156,7 +153,6 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 		dup2(all->fd1_def, 1);
 		dup2(all->fd0_def, 0);
 	}
-	printf("bum\n");
 	close(temp_fd);
 	i = 0;
 	pipi = temp;

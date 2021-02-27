@@ -6,7 +6,7 @@
 /*   By: itollett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 17:08:51 by itollett          #+#    #+#             */
-/*   Updated: 2021/02/25 18:44:47 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 11:07:02 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void        refresh_all(t_all **all, t_args *args)
 
 void        ft_print_capt(int fd, int fl)
 {
-	//printf("f0 %d\tf1 %d\n", g_f[0], g_f[1]);
 	ft_putstr_fd("minishell:", fd);
 	if (fl == 0)
 		g_f[1] = 0;

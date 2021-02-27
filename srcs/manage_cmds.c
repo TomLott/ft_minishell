@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 19:11:06 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/27 10:25:34 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/27 11:10:39 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	manage_cmds(t_all *all)
 {
-    if (all->err != E_DEF)
-        return (-1);
 	if (all->cmd == ENV)
 		return (ms_env(all));
 	else if (all->cmd == SELF)

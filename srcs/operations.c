@@ -76,7 +76,7 @@ int	ms_def(t_all *all)
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		return (127);
 	}
-	return (0);
+	return (g_ex_code);
 }
 
 int	ms_export(t_all *all)

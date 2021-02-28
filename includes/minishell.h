@@ -80,7 +80,7 @@ typedef struct		s_redir
 	struct s_redir	*next;
 }					t_redir;
 
-int					g_f[3];
+int					g_f[4];
 int					g_ex_code;
 
 typedef struct		s_all

@@ -98,7 +98,8 @@ int				get_data(t_all *all, int *flag)
 	else
 		g_f[1] = 1;
 	*flag = i;
-	process_tilda(all);
+	g_f[3] = (all->line) ? 1 : 0;
+ 	process_tilda(all);
 	ft_parse_commands(all);
 	if (all->line)
 		free(all->line);
@@ -121,10 +122,11 @@ int				main(int argc, char **argv, char **env)
 	all->exec = extract_env(all->env, "PWD");
 	while (1)
 	{
-		signal(SIGINT, myint);
 		signal(SIGQUIT, myint);
+		signal(SIGINT, myint);
 		g_f[1] = 0;
 		g_f[2] = 0;
+		g_f[3] = 0;
 		get_data(all, &flag);
 		if (all->err != E_DEF)
 			do_error(all);

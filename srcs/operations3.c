@@ -55,6 +55,7 @@ int		ms_exit(t_all *all)
 
 	code = 0;
 	i = 0;
+	printf("ex code is %d\n", g_ex_code);
 	if (g_ex_code == 131 || g_ex_code == 130)
 		return (g_ex_code);
 	if (all->args.args)

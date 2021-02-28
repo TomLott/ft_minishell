@@ -31,7 +31,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 		pid = fork();
 		if (pid != 0)
 		{
-			wait(&g_ex_code);
+			wait(0x0);
 			return (1);
 		}
 		else

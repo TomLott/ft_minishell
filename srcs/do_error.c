@@ -31,7 +31,7 @@ void	print_error(t_all *all)
 		ft_putstrn_fd("no such file or directory", all->fd1);
 	else if (all->err == E_PIPE && (g_ex_code = 258))
 		ft_putstrn_fd("syntax error near `|'", all->fd1);
-	else if (all->err == E_EXIT_ARG)
+	else if (all->err == E_EXIT_ARG && (g_ex_code = 1))
 		ft_putstrn_fd("exit\nexit: too many arguments", all->fd1);
 }
 
@@ -50,6 +50,8 @@ void	do_error(t_all *all)
 		ft_putstrn_fd("exit", all->fd1);
 		exit(g_ex_code);
 	}
+	else if (g_ex_code == 255)
+		g_ex_code = 1;
 	else if (all->err == E_EXIT)
 		all->err = E_EXIT_ARG;
 	else

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_minishell.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 13:59:45 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/28 13:59:46 by jmogo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int				hook_continue(t_all *all, t_pipi *pp, int j)
 {
 	if (j < 2)
-		ex_code = manage_cmds(all);
+		g_ex_code = manage_cmds(all);
 	else
 	{
 		if ((all->err = do_pipe(all, pp)))

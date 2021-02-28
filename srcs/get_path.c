@@ -31,7 +31,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 		pid = fork();
 		if (pid != 0)
 		{
-			wait(&ex_code);
+			wait(&g_ex_code);
 			return (1);
 		}
 		else
@@ -41,7 +41,7 @@ int		manage_execve(t_all *all, char *bin, char **args)
 				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
 				exit(errno);
 			}
-			return ((ex_code = errno));
+			return ((g_ex_code = errno));
 		}
 	}
 	return (0);

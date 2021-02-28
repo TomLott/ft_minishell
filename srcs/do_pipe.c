@@ -22,7 +22,7 @@ int			manage_execve_p(t_all *all, char *bin, char **args, t_pipi *pipi)
 		pid = fork();
 		if (pid != 0)
 		{
-			wait(&ex_code);
+			wait(&g_ex_code);
 			return (1);
 		}
 		else
@@ -30,9 +30,9 @@ int			manage_execve_p(t_all *all, char *bin, char **args, t_pipi *pipi)
 			if (0 > execve(bin, args, all->env))
 			{
 				ft_putstrn_fd(strerror(errno), STDERR_FILENO);
-				exit(ex_code);
+				exit(g_ex_code);
 			}
-			exit(ex_code);
+			exit(g_ex_code);
 		}
 	}
 	return (0);
@@ -65,7 +65,7 @@ int			pipe_path(t_all *all, char *path, char *ex_name, t_pipi *pipe)
 		if (manage_execve_p(all, tmp, pipe->args, pipe))
 			return (1);
 	}
-	ex_code = 127;
+	g_ex_code = 127;
 	free_double_char(&dirs);
 	free(path);
 	return (0);
@@ -79,7 +79,7 @@ void		ft_purge(t_all *all, t_pipi *pipi)
 	if (!(pipe_path(all, extract_env(all->env, "PATH"), pipi->cmd, pipi)))
 	{
 		if (ft_strcmp(pipi->cmd, "exit") && errno == 2)
-			ex_code = 0;
+			g_ex_code = 0;
 		else
 		{
 			if (!pipi->exists)
@@ -87,9 +87,9 @@ void		ft_purge(t_all *all, t_pipi *pipi)
 				": command not found"), 2);
 		}
 	}
-	if (ex_code == 256)
-		ex_code = 1;
-	exit(ex_code);
+	if (g_ex_code == 256)
+		g_ex_code = 1;
+	exit(g_ex_code);
 }
 
 int			do_pipe(t_all *all, t_pipi *pipi)
@@ -109,13 +109,13 @@ int			do_pipe(t_all *all, t_pipi *pipi)
 		else
 		{
 			close(temp->fd1);
-			wait(&ex_code);
+			wait(&g_ex_code);
 		}
 		close(temp->fd0);
 		temp = temp->next;
 		dup2(all->fd1_def, 1);
 		dup2(all->fd0_def, 0);
 	}
-	ex_code /= 256;
+	g_ex_code /= 256;
 	return (0);
 }

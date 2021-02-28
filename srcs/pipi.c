@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 12:34:35 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/24 14:30:24 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/28 13:57:41 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ t_pipi	*pipi_new(t_all *all)
 	ans->fd0 = all->fd0;
 	ans->fd1 = all->fd1;
 	ans->next = 0x0;
-	ft_lstadd_front(&pnts, ft_lstnew(ans));
+	ft_lstadd_front(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }

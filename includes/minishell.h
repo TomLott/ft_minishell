@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/28 13:55:43 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/28 14:04:53 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ typedef enum
 	E_DEF,
 	E_EXIT,
 	E_FD,
-    E_MALLOC,
-    E_NO_LINE,
+	E_MALLOC,
+	E_NO_LINE,
 	E_PIPE,
 	E_READ,
-    E_SYNTAX,
-    E_EXIT_ARG
-}   t_err;
+	E_SYNTAX,
+	E_EXIT_ARG
+}	t_err;
 
 typedef struct		s_envlst
 {
@@ -55,13 +55,13 @@ typedef struct		s_envlst
 	struct s_envlst	*next;
 }					t_envlst;
 
-typedef struct      s_args
+typedef struct		s_args
 {
-    t_cmd           cmd;
-    int             redir;
-    char			**args;
-    void            *next;
-}                   t_args;
+	t_cmd			cmd;
+	int				redir;
+	char			**args;
+	void			*next;
+}					t_args;
 
 typedef struct		s_pipi
 {
@@ -81,8 +81,7 @@ typedef struct		s_redir
 }					t_redir;
 
 int					g_f[3];
-int					ex_code;
-
+int					g_ex_code;
 
 typedef struct		s_all
 {
@@ -91,16 +90,16 @@ typedef struct		s_all
 	char			*line;
 	t_cmd			cmd;
 	char			*arg;
-    int				redir;
-    int				cmd_len;
-    int				pipe;
+	int				redir;
+	int				cmd_len;
+	int				pipe;
 	t_list			*grbg;
-	t_err           err;
+	t_err			err;
 	t_args			args;
 	t_redir			*l_red;
 	int				last_rv;
-	int             dollar;
-	char            *def_cmd;
+	int				dollar;
+	char			*def_cmd;
 	int				fd1;
 	int				fd0;
 	int				fd1_def;
@@ -108,7 +107,6 @@ typedef struct		s_all
 	char			*exec;
 	int				exit_code;
 }					t_all;
-
 
 char				**arr_append(char **arr, char *to_add);
 int					arr_len(char **arr);
@@ -138,7 +136,7 @@ int					ft_check_redir(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
 int					ft_fd(t_all *all);
 char				*ft_not_line(char c);
-int                 ft_parse_argument(char *line, t_all *all, t_args *args);
+int					ft_parse_argument(char *line, t_all *all, t_args *args);
 int					ft_parse_dollar(t_all *all, char *line, int *i);
 int					ft_parse_line(char *line);
 void				ft_print_capt(int fd, int fl);
@@ -146,7 +144,7 @@ char				*ft_realloc_r(char *str, char c);
 char				*ft_quotes_deleting(char *str, t_all *all);
 int					func_do_trick(char **args, t_all *all);
 void				get_command(char *s, t_all *all);
-int                 get_flag(char *line, int *i, char c);
+int					get_flag(char *line, int *i, char c);
 int					get_key_value(char *str, char **key, char **value);
 int					get_next_line(int fd, char **line);
 int					get_path(t_all *all, char *path, char *ex_name);
@@ -158,7 +156,7 @@ int					is_export(t_all *all);
 char				*line_cleaner(char *line, t_all *all, char *temp);
 int					manage_cmds(t_all *all);
 int					manage_execve(t_all *all, char *bin, char **args);
-int                 ms_cd(t_all *all);
+int					ms_cd(t_all *all);
 int					ms_def(t_all *all);
 int					ms_echo(t_all *all);
 int					ms_env(t_all *all);

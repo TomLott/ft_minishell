@@ -17,9 +17,9 @@ int				convert_dol_question(t_all *all, char *line, int *i)
 	char	*temp[4];
 
 	*i += 1;
-	printf("ex code is %d\n", ex_code);
+	printf("ex code is %d\n", g_ex_code);
 	temp[0] = ft_strdup(line);
-	temp[1] = ft_itoa(ex_code);
+	temp[1] = ft_itoa(g_ex_code);
 	temp[2] = ft_strdup(line + *i);
 	temp[3] = ft_strjoin(temp[0], temp[1]);
 	free(temp[0]);

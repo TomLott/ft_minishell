@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_line.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 13:59:55 by jmogo             #+#    #+#             */
+/*   Updated: 2021/02/28 13:59:57 by jmogo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char			*ft_realloc_r(char *str, char c)
@@ -36,7 +48,7 @@ char			*ft_redir_make(char *line, char c)
 		ft_not_line(c);
 	size = ft_strlen(line);
 	temp = malloc(size + 3);
-	ft_lstadd_front(&pnts, ft_lstnew(temp));
+	ft_lstadd_front(&g_pnts, ft_lstnew(temp));
 	ft_strcpy(temp, line);
 	if (temp[size - 1] != -5)
 	{

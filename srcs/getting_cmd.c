@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:48:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/28 13:52:42 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/28 13:57:56 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_redir		*ft_lstnew_r(void *content, int redir)
 	ans->redir = redir;
 	ans->next = 0x0;
 	ans->cont = content;
-	ft_lstadd_front(&pnts, ft_lstnew(ans));
+	ft_lstadd_front(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }
 

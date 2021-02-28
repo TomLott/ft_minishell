@@ -55,15 +55,15 @@ int	ms_exit(t_all *all)
 
 	code = 0;
 	i = 0;
-	if (ex_code == 131 || ex_code == 130)
-		return (ex_code);
+	if (g_ex_code == 131 || g_ex_code == 130)
+		return (g_ex_code);
 	if (all->args.args)
 	{
 		code = stup_atoi(all->args.args[0]);
 		return (code);
 	}
-	if (ex_code)
-		code = ex_code;
+	if (g_ex_code)
+		code = g_ex_code;
 	return (code);
 }
 
@@ -97,7 +97,7 @@ int	ms_self(t_all *all)
 	}
 	else
 	{
-		wait(&ex_code);
+		wait(&g_ex_code);
 		return (1);
 	}
 }

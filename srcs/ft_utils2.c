@@ -93,13 +93,13 @@ void		myint(int sig)
 	{
 		write(1, "\b\b  \b\b", 6);
 		write(1, "\n", 1);
-		ex_code = 130;
+		g_ex_code = 130;
 		if (g_f[1] == 0)
 			ft_print_capt(1, 1);
 	}
 	if (sig == SIGQUIT)
 	{
-		if (g_f[2] == 1 && (ex_code = 131))
+		if (g_f[2] == 1 && (g_ex_code = 131))
 			ft_putstrn_fd("Quit: 3", 1);
 		else
 		{

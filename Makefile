@@ -6,7 +6,7 @@
 #    By: jmogo <jmogo@student.21-school.ru>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 14:15:15 by jmogo             #+#    #+#              #
-#    Updated: 2021/02/28 16:46:46 by jmogo            ###   ########.fr        #
+#    Updated: 2021/02/28 16:51:15 by jmogo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS	=	clean_line.c \
 			do_malloc.c \
 			do_pipe.c \
 			do_pipe2.c \
+			echo.c \
 			env_operations.c \
 			env_operations2.c \
 			free_arr.c \

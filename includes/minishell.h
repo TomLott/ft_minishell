@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 12:21:22 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/27 19:56:10 by itollett         ###   ########.fr       */
+/*   Updated: 2021/02/28 13:55:43 by jmogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int					ft_dollar(t_all *all, char *line);
 char				*ft_com_parser(char *line, t_all *all, char *temp);
 int					ft_change_pipes(t_all *all, char *line);
 int					ft_change_redir(t_all *all, char **line);
+int					ft_check_redir(char *line, t_all *all);
 void				ft_init_env(char **env, t_all *all);
 int					ft_fd(t_all *all);
 char				*ft_not_line(char c);
@@ -143,6 +144,7 @@ int					ft_parse_line(char *line);
 void				ft_print_capt(int fd, int fl);
 char				*ft_realloc_r(char *str, char c);
 char				*ft_quotes_deleting(char *str, t_all *all);
+int					func_do_trick(char **args, t_all *all);
 void				get_command(char *s, t_all *all);
 int                 get_flag(char *line, int *i, char c);
 int					get_key_value(char *str, char **key, char **value);

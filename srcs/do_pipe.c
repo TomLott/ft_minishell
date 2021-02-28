@@ -124,14 +124,13 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 	temp = pipi;
 	while (i++ <= all->pipe)
 	{
-		//printf("fd0: %d\tfd1: %d\n", pipi->fd0, pipi->fd1);
 		f = fork();
 		if (!f)
 		{
 			dup2(pipi->fd1, 1);
 			dup2(pipi->fd0, 0);
 			pipi->args = arr_append(pipi->args, pipi->cmd);
-			if (!pipe_path(all, extract_env(all->env, "PATH"), pipi->cmd, pipi))
+			if (!(pipe_path(all, extract_env(all->env, "PATH"), pipi->cmd, pipi)))
 			{
 				if (ft_strcmp(pipi->cmd, "exit") && errno == 2)
 					ex_code = 0;
@@ -139,30 +138,22 @@ int		do_pipe(t_all *all, t_pipi *pipi)
 					if (!pipi->exists)
 						ft_putstrn_fd(ft_strjoin(pipi->cmd, ": command not found"), 2);
 			}
-			printf("i1errno %d\n", ex_code);
-	/*		if (pipi->exists)
-			{
-				printf("%d errno\n", errno);
-				ex_code = errno;
-			}*/
+			if (ex_code == 256)
+				ex_code = 1;
 			exit(ex_code);
 		}
 		else
 		{
 			close(pipi->fd1);
 			wait(&ex_code);
-		printf("7errno %d\n", ex_code);
 		}
-		printf("2errno %d\n", ex_code);
 		close(pipi->fd0);
 		//close(pipi->fd1);
-		//temp_fd = pipi->fd1;
 		pipi = pipi->next;
 		dup2(all->fd1_def, 1);
 		dup2(all->fd0_def, 0);
 	}
-	printf("3errno %d\n", ex_code);
-	i = 0;
+	ex_code /= 256;
 	pipi = temp;
 	return (0);
 }

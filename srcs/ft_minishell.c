@@ -9,6 +9,8 @@ int				check_for_any_grbg(char *line)
 	i = 0;
 	count = 0;
 	set = " /|><\\";
+	if (line[0] == '|')
+		return (1);
 	while(line[i] == ' ')
 		i++;
 	if ((i == (int)ft_strlen(line)) && i != 0)
@@ -71,14 +73,10 @@ int				ft_do_right_r(t_all *all, t_redir *red, int temp)
 
 int				ft_do_left_r(t_all *all, t_redir *red, int temp)
 {
-	printf("ft_do_left_r\n");
 	if (temp != 0)
 		close(temp);
 	if (!(all->fd0 = open(red->cont, O_RDONLY, 0755)))
-	{
-		printf("fd0 error\n");
 		return (-1);
-	}
 	return (all->fd0);
 }
 
@@ -113,10 +111,7 @@ int				ft_fd(t_all *all)
 		dup2(all->fd1, 1);
 	}
 	else
-	{
-	    printf("ft_fd\n");
 		return ((all->err = E_FD));
-	}
 	return (0);
 }
 
@@ -168,8 +163,6 @@ int				hook_command(char *com, t_all *all)
 		return ((all->err = E_SYNTAX));
 	pp = 0x0;
 	temp = ft_split(com, -10);
-	if (temp && *temp && !**temp)
-	    printf("shit\n");
 	while (temp[++j])
 	{
 		point = temp[j];

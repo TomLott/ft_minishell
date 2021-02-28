@@ -88,8 +88,6 @@ static int		check_flag_r(char *c, int flag, int *i)
 	return (flag);
 }
 
-//char            *purge(char *temp, char *line)
-
 char			*line_cleaner(char *line, t_all *all)
 {
 	int		i;

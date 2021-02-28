@@ -54,6 +54,8 @@ int         ft_change_pipes(t_all *all, char *line)
 		}
 		i++;
 	}
+	if (line[0] && line[i - 1] == -10)
+		return ((all->err = E_SYNTAX));
 	return (0);
 }
 

@@ -26,7 +26,7 @@ int				ft_do_left_r(t_all *all, t_redir *red, int temp)
 	return (all->fd0);
 }
 
-int 			ft_fd_cont(t_all *all)
+int				ft_fd_cont(t_all *all)
 {
 	if (all->fd0 >= 0 && all->fd1 >= 1)
 	{

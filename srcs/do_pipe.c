@@ -112,7 +112,6 @@ int			do_pipe(t_all *all, t_pipi *pipi)
 			wait(&ex_code);
 		}
 		close(temp->fd0);
-		//close(temp->fd1);
 		temp = temp->next;
 		dup2(all->fd1_def, 1);
 		dup2(all->fd0_def, 0);

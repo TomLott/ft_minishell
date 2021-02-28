@@ -49,21 +49,21 @@ void		free_args(t_args *args)
 	}
 }
 
-void        refresh_all(t_all **all, t_args *args)
+void		refresh_all(t_all **all, t_args *args)
 {
 	(void)args;
-    (*all)->cmd = DEF;
-    if ((*all)->arg)
-    	free_and_null(&((*all)->arg));
-    (*all)->redir = 0;
-    (*all)->cmd_len = 0;
+	(*all)->cmd = DEF;
+	if ((*all)->arg)
+		free_and_null(&((*all)->arg));
+	(*all)->redir = 0;
+	(*all)->cmd_len = 0;
 	(*all)->l_red = NULL;
 	if ((*all)->def_cmd)
 		free_and_null(&((*all)->def_cmd));
 	free_args(&((*all)->args));
 }
 
-void        ft_print_capt(int fd, int fl)
+void		ft_print_capt(int fd, int fl)
 {
 	ft_putstr_fd("minishell:", fd);
 	if (fl == 0)

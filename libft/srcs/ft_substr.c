@@ -34,6 +34,6 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 		ans[s_len] = s[start + s_len];
 		s_len++;
 	}
-	ft_lstadd_back(&pnts, ft_lstnew(ans));
+	ft_lstadd_back(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }

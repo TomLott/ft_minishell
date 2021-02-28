@@ -21,7 +21,7 @@ char		*ft_not_line(char c)
 	temp[1] = c;
 	temp[2] = -5;
 	temp[3] = '\0';
-	ft_lstadd_front(&pnts, ft_lstnew(temp));
+	ft_lstadd_front(&g_pnts, ft_lstnew(temp));
 	return (temp);
 }
 

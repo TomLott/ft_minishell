@@ -12,7 +12,20 @@
 
 #include "minishell.h"
 
-void	free_redir(t_redir **red)
+char		*ft_not_line(char c)
+{
+	char	*temp;
+
+	temp = malloc(4);
+	temp[0] = -5;
+	temp[1] = c;
+	temp[2] = -5;
+	temp[3] = '\0';
+	ft_lstadd_front(&pnts, ft_lstnew(temp));
+	return (temp);
+}
+
+void		free_redir(t_redir **red)
 {
 	t_redir	*tmp;
 	t_redir	*prev;
@@ -31,7 +44,7 @@ void	free_redir(t_redir **red)
 		free(prev);
 }
 
-int		print_empty_export(char **env)
+int			print_empty_export(char **env)
 {
 	int	i;
 
@@ -44,7 +57,7 @@ int		print_empty_export(char **env)
 	return (0);
 }
 
-int		file_exists(char *file_path)
+int			file_exists(char *file_path)
 {
 	struct stat	buffer;
 

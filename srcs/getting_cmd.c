@@ -81,7 +81,7 @@ int			ft_parse_argument(char *line, t_all *all, t_args *args)
 	if (!line)
 		return (0);
 	temp = line;
-	line = line_cleaner(all->arg, all);
+	line = line_cleaner(all->arg, all, ft_strdup(""));
 	if (all->err != E_DEF)
         return (1);
     free(temp);

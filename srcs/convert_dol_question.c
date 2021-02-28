@@ -32,3 +32,57 @@ int	convert_dol_question(t_all *all, char *line, int *i)
 	all->line = temp[0];
 	return (0);
 }
+
+int				check_for_any_grbg(char *line)
+{
+	int		i;
+	int		count;
+	char	*set;
+
+	i = 0;
+	count = 0;
+	set = " /|><\\";
+	if (line[0] == '|')
+		return (1);
+	while(line[i] == ' ')
+		i++;
+	if ((i == (int)ft_strlen(line)) && i != 0)
+		return (0);
+	while(line[i])
+	{
+		if (ft_strchr(set, line[i]))
+			count++;
+		if (line[i] == '\t')
+			return (1);
+		i++;
+	}
+	if ((count == (int)ft_strlen(line)) && count != 0)
+		return (1);
+	return (0);
+}
+
+int				ft_parse_line(char *line)
+{
+	int i;
+	int flag;
+
+	i = 0;
+	flag = 0;
+	if (check_for_any_grbg(line))
+		return (-1);
+	while (line[i])
+	{
+		if (line[i] == '\\' && line[i + 1] && (i += 2))
+			continue ;
+		if (line[i] == '\'' && (flag = 1))
+			flag = get_flag(line, &i, '\'');
+		else if (line[i] && line[i] == '\"' && (flag = 1))
+			flag = get_flag(line, &i, '\"');
+		if (line[i] == '\0' && flag == 1)
+			return (-1);
+		if (line[i] == ';')
+			line[i] = -1;
+		i++;
+	}
+	return (1);
+}

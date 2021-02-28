@@ -27,19 +27,6 @@ char			*ft_realloc_r(char *str, char c)
 	return (temp);
 }
 
-static char		*ft_not_line(char c)
-{
-	char	*temp;
-
-	temp = malloc(4);
-	temp[0] = -5;
-	temp[1] = c;
-	temp[2] = -5;
-	temp[3] = '\0';
-	ft_lstadd_front(&pnts, ft_lstnew(temp));
-	return (temp);
-}
-
 char			*ft_redir_make(char *line, char c)
 {
 	int		size;
@@ -88,34 +75,36 @@ static int		check_flag_r(char *c, int flag, int *i)
 	return (flag);
 }
 
-char			*line_cleaner(char *line, t_all *all)
+void			wrap_temp(t_all *all, char **temp, char *line, int *i)
 {
-	int		i;
-	int		flag;
-	char	*temp;
+	*temp = ft_realloc_r(*temp, line[*i]);
+	line[*i] ? (*i)++ : (all->err = E_SYNTAX);
+}
 
-	i = 0;
-	temp = ft_strdup("");
-	while (line[i])
+char			*line_cleaner(char *line, t_all *all, char *temp)
+{
+	int		i[2];
+
+	i[0] = 0;
+	while (line[i[0]] && !(i[1] = 0))
 	{
-		flag = 0;
-		if (line[i] == -1 || line[i] == -2 || line[i] == -3)
-			temp = ft_redir_make(temp, line[i++]);
-		else if (line[i] == '\\' && ++i)
-		{
-            temp = ft_realloc_r(temp, line[i]);
-            line[i] ? i++ : (all->err = E_SYNTAX);
-        }
-		else if (line[i] == '\"' && (flag = 1))
-			while (line[++i] && line[i] != '\"')
-				temp = ft_realloc_r(temp, line[i]);
-		else if (line[i] == '\'' && (flag = 2))
-			while (line[++i] && line[i] != '\'')
-				temp = ft_realloc_r(temp, line[i]);
+		if (line[i[0]] == -1 || line[i[0]] == -2 || line[i[0]] == -3)
+			temp = ft_redir_make(temp, line[i[0]++]);
+		else if (line[i[0]] == '\\' && ++i[0])
+			wrap_temp(all, &temp, line, &i[0]);
+		else if (line[i[0]] == '\"' && (i[1] = 1))
+			while (line[++i[0]] && line[i[0]] != '\"')
+				temp = ft_realloc_r(temp, line[i[0]]);
+		else if (line[i[0]] == '\'' && (i[1] = 2))
+			while (line[++i[0]] && line[i[0]] != '\'')
+				temp = ft_realloc_r(temp, line[i[0]]);
 		else
-			temp = ft_realloc_r(temp, line[i++]);
-		if ((flag = check_flag_r(line, flag, &i)) && (all->err = E_SYNTAX))
+			temp = ft_realloc_r(temp, line[i[0]++]);
+		if ((i[1] = check_flag_r(line, i[1], &i[0])))
+		{
+			(all->err = E_SYNTAX);
 			return ("Error:quotes");
+		}
 	}
 	return (temp);
 }

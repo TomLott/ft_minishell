@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	if_not(char *num)
+int		if_not(char *num)
 {
 	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(num, 2);
@@ -21,7 +21,7 @@ int	if_not(char *num)
 	return (255);
 }
 
-int	stup_atoi(char *num)
+int		stup_atoi(char *num)
 {
 	int					i;
 	unsigned long long	res;
@@ -48,7 +48,7 @@ int	stup_atoi(char *num)
 	return (fl != 1 && i == len && i != 0) ? (sign * res) : if_not(num);
 }
 
-int	ms_exit(t_all *all)
+int		ms_exit(t_all *all)
 {
 	int code;
 	int i;
@@ -67,16 +67,7 @@ int	ms_exit(t_all *all)
 	return (code);
 }
 
-int	ms_echo(t_all *all)
-{
-	if (all->arg)
-		ft_putstrn_fd(all->arg, all->fd1);
-	else
-		ft_putstrn_fd("", all->fd1);
-	return (0);
-}
-
-int	ms_self(t_all *all)
+int		ms_self(t_all *all)
 {
 	int		id;
 	char	**args;

@@ -1,5 +1,0 @@
-pwd | exit
-pwd | exit | cat
-exit | pwd
-exit | pwd | exit | cat -e
-exit | pwd | exit | cat -e | haha

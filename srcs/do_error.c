@@ -21,15 +21,15 @@ void	free_env(t_envlst **env)
 
 void	print_error(t_all *all)
 {
-	if (all->err == E_SYNTAX)
+	if (all->err == E_SYNTAX && (ex_code = 258))
 		ft_putstrn_fd("syntax error", all->fd1);
-	else if (all->err == E_READ)
+	else if (all->err == E_READ && (ex_code = 1))
 		ft_putstrn_fd("read error", all->fd1);
 	else if (all->err == E_MALLOC)
 		ft_putstrn_fd("malloc error", all->fd1);
-	else if (all->err == E_FD)
+	else if (all->err == E_FD && (ex_code = 1))
 		ft_putstrn_fd("no such file or directory", all->fd1);
-	else if (all->err == E_PIPE)
+	else if (all->err == E_PIPE && (ex_code = 258))
 		ft_putstrn_fd("syntax error near `|'", all->fd1);
 	else if (all->err == E_EXIT_ARG)
 		ft_putstrn_fd("exit\nexit: too many arguments", all->fd1);

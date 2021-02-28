@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	convert_dol_question(t_all *all, char *line, int *i)
+int				convert_dol_question(t_all *all, char *line, int *i)
 {
 	char	*temp[4];
 
@@ -44,11 +44,11 @@ int				check_for_any_grbg(char *line)
 	set = " /|><\\";
 	if (line[0] == '|')
 		return (1);
-	while(line[i] == ' ')
+	while (line[i] == ' ')
 		i++;
 	if ((i == (int)ft_strlen(line)) && i != 0)
 		return (0);
-	while(line[i])
+	while (line[i])
 	{
 		if (ft_strchr(set, line[i]))
 			count++;

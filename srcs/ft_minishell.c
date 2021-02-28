@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 13:59:45 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/28 13:59:46 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/02/28 18:01:58 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int				get_data(t_all *all, int *flag)
 		g_f[1] = 1;
 	*flag = i;
 	g_f[3] = (all->line) ? 1 : 0;
- 	process_tilda(all);
+	process_tilda(all);
 	ft_parse_commands(all);
 	if (all->line)
 		free(all->line);

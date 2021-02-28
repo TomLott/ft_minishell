@@ -91,7 +91,8 @@ void		myint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\b\b  \b\b", 6);
+		if (!g_f[3])
+			write(1, "\b\b  \b\b", 6);
 		write(1, "\n", 1);
 		g_ex_code = (g_f[3]) ? 130 : 1;
 		if (g_f[1] == 0)

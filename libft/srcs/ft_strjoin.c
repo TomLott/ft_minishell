@@ -18,8 +18,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char			*tmp;
 	unsigned int	len;
 
-	ft_lstadd_front(&pnts, ft_lstnew((char *)s1));
-	ft_lstadd_front(&pnts, ft_lstnew((char *)s2));
+	ft_lstadd_front(&g_pnts, ft_lstnew((char *)s1));
+	ft_lstadd_front(&g_pnts, ft_lstnew((char *)s2));
 	if (s1 == 0x0 || s2 == 0x0)
 		return (0x0);
 	len = ft_strlen(s1) + ft_strlen(s2);
@@ -31,6 +31,6 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		*(tmp++) = *(s1 - 1);
 	while (*(s2++))
 		*(tmp++) = *(s2 - 1);
-	ft_lstadd_front(&pnts, ft_lstnew(ans));
+	ft_lstadd_front(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }

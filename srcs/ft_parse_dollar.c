@@ -32,7 +32,7 @@ int			ft_parse_dollar(t_all *all, char *line, int *i)
 	while (ft_allowed_chars(line[(*i)]))
 		(*i)++;
 	if (fl == 1 && line[(*i)] != '}')
-		return (1); /**error*/
+		return (1);
 	if ((*i) - j == 0)
 		(*i)--;
 	line[(*i)] = '\0';
@@ -56,7 +56,7 @@ int			ft_dollar(t_all *all, char *line)
 		if (line[i] == '\'' && (flag = 1))
 			flag = get_flag(line, &i, '\'');
 		if ((line[i] && line[i] == '\0') || flag == 1)
-			return (1); /** syntax error*/
+			return (1);
 		if (line[i] == '$')
 			ft_parse_dollar(all, line, &i);
 		if (line[i])

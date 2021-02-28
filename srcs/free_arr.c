@@ -18,6 +18,20 @@ void	free_arr(void **arr, int size)
 
 	i = 0;
 	while (i++ < size)
-		if (arr[i -1])
+		if (arr[i - 1])
 			free(arr[i - 1]);
+}
+
+void	free_double_char(char ***arr)
+{
+	int		i;
+
+	i = 0;
+	while ((*arr) && (*arr)[i++])
+	{
+		free((*arr)[i - 1]);
+		(*arr)[i - 1] = 0x0;
+	}
+	free((*arr));
+	(*arr) = 0x0;
 }

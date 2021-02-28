@@ -25,6 +25,6 @@ char	*ft_strdup(const char *s)
 	{
 		*(ans + len) = *(s + len);
 	}
-	ft_lstadd_front(&pnts, ft_lstnew(ans));
+	ft_lstadd_front(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }

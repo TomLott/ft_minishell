@@ -12,14 +12,14 @@ char			*ft_realloc_r(char *str, char c)
 		temp = malloc(2);
 		temp[0] = c;
 		temp[1] = '\0';
-		ft_lstadd_front(&pnts, ft_lstnew(temp));
+		ft_lstadd_front(&g_pnts, ft_lstnew(temp));
 		return (temp);
 	}
 	size = ft_strlen(str);
 	if (str[size - 1] == -5 && c == -5)
 		return (str);
 	temp = malloc(size + 2);
-	ft_lstadd_front(&pnts, ft_lstnew(temp));
+	ft_lstadd_front(&g_pnts, ft_lstnew(temp));
 	ft_strcpy(temp, str);
 	temp[size] = c;
 	temp[size + 1] = '\0';

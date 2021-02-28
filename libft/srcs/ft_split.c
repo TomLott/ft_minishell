@@ -25,7 +25,7 @@ static char			*get_word(char *s, char c)
 	*(ans + len) = '\0';
 	while (len--)
 		*(ans + len) = *(s + len);
-	ft_lstadd_back(&pnts, ft_lstnew(ans));
+	ft_lstadd_back(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }
 
@@ -89,6 +89,6 @@ char				**ft_split(const char *s, char c)
 		return (0x0);
 	if (!fill_arr(ans, (char *)s, c))
 		return (0x0);
-	ft_lstadd_back(&pnts, ft_lstnew(ans));
+	ft_lstadd_back(&g_pnts, ft_lstnew(ans));
 	return (ans);
 }

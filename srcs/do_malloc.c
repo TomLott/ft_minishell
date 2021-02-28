@@ -18,7 +18,6 @@ void	ft_addnewptr(t_all *all, void *p)
 
 	if (!(toadd = malloc(sizeof(t_list))))
 		do_error(all);
-	printf("lst is %p\n", toadd);
 	toadd->next = 0x0;
 	toadd->content = p;
 	if (!(all->grbg))

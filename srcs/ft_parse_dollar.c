@@ -6,7 +6,7 @@
 /*   By: jmogo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:21 by jmogo             #+#    #+#             */
-/*   Updated: 2021/02/28 14:00:23 by jmogo            ###   ########.fr       */
+/*   Updated: 2021/03/18 13:20:38 by itollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 int			ft_parse_dollar_sec(char **str, char *line, int *i, t_all *all)
 {
 	char	*for_join;
-	char	*for_free;
 
 	for_join = ft_strdup(line + (*i));
-	for_free = all->line;
 	if (all->line && str[1])
 		all->line = ft_strjoin(all->line, str[1]);
-	free(for_free);
-	for_free = all->line;
 	all->line = ft_strjoin(all->line, for_join);
 	return (0);
 }
@@ -48,11 +44,14 @@ int			ft_parse_dollar(t_all *all, char *line, int *i)
 	if ((*i) - j == 0)
 		(*i)--;
 	line[(*i)] = '\0';
-	str[0] = (char *)malloc(sizeof(char) * ((*i)++ - j + 1));
+	str[0] = (char *)malloc(sizeof(char) * ((*i) - j + 1));
+	if (line[*i + 1])
+		(*i)++;
 	while (line[j])
 		str[0][k++] = line[j++];
 	str[0][k] = '\0';
 	str[1] = extract_env(all->env, str[0]);
+
 	return (ft_parse_dollar_sec(str, line, i, all));
 }
 
@@ -74,5 +73,6 @@ int			ft_dollar(t_all *all, char *line)
 		if (line[i])
 			i++;
 	}
+	line[i] = '\0';
 	return (0);
 }
